@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'Screens/home_screen.dart';
 import 'Screens/login_screen.dart';
 import 'Screens/splash.dart';
 
@@ -21,8 +22,8 @@ class MyApp extends StatelessWidget {
         // useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home:   SplashScreen(),
-      // home:   LoginScreen(),
+      // home:   SplashScreen(),
+      home:   HomeScreen(),
     );
   }
 }
