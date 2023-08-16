@@ -39,13 +39,8 @@ class GodownPageState extends State<GodownPage>{
         style: TextStyle(color: Colors.black),),
       ),
       body: Column(
-        // mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Padding(
-            // padding: EdgeInsets.only(
-            //     top: MediaQuery.of(context).size.height*0.01,//means phone screen ni adjust kre
-            //     right:12,
-            //     left: 12),
             padding: EdgeInsets.only(
               right: deviceWidth*0.02,left: deviceWidth*0.02,bottom: deviceHeight*0.01
             ),
@@ -57,10 +52,6 @@ class GodownPageState extends State<GodownPage>{
                     borderRadius: BorderRadius.circular(2),
                     borderSide: BorderSide.none
                 ),
-                // focusedBorder:  OutlineInputBorder(
-                //     borderRadius: BorderRadius.all(Radius.circular(2)),
-                //     borderSide: BorderSide(color: Colors.black)
-                // ),
                 hintStyle: TextStyle(
                     fontFamily: ConstFont.popinsRegular,
                     //fontWeight: FontWeight.w300,
@@ -89,10 +80,10 @@ class GodownPageState extends State<GodownPage>{
                             mainAxisSize: MainAxisSize.max,
                             children: [
                                 Image(image: AssetImage(productImage[index].toString()),
+                                  fit: BoxFit.cover,
+                                  width:50,
+                                  height: 50,
                                 ),
-                              SizedBox(
-                                width: 10,
-                              ),
                               Expanded(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -108,62 +99,62 @@ class GodownPageState extends State<GodownPage>{
                                                 fontSize: 14,
                                                 fontFamily: ConstFont.popinsRegular,
                                                 color: Colors.black,
-                                              //fontWeight: FontWeight.bold
                                             ),),
                                         ),
-                                           Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                            children: [
-                                              Container(
-                                                height:25,
-                                                width:62,
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(2),
-                                                  // color: Color(0xff6AB04C)
-                                                ),
-                                                child: Center(
-                                                  child: ElevatedButton(
-                                                    style: ElevatedButton.styleFrom(primary: Color(0xff6AB04C)),
-                                                    onPressed: () {},
-                                                    child: Text("Add",
-                                                    style: TextStyle(
-                                                        fontFamily: ConstFont.popinsRegular,
-                                                      color: Colors.white
-                                                    ),),
+                                           Padding(
+                                             padding: EdgeInsets.only(left: deviceHeight*0.01,right: deviceHeight*0.01),
+                                             child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsets.only(left: deviceWidth*0.01,right: deviceWidth*0.01),
+                                                  child: Container(
+                                                    height:25,
+                                                    width:62,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(2),
+                                                    ),
+                                                    child: Center(
+                                                      child: ElevatedButton(
+                                                        style: ElevatedButton.styleFrom(primary: Color(0xff6AB04C)),
+                                                        onPressed: () {},
+                                                        child: Text("Add",
+                                                        style: TextStyle(
+                                                            fontFamily: ConstFont.popinsRegular,
+                                                          color: Colors.white
+                                                        ),),
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                              SizedBox(
-                                                width: 2,
-                                              ),
-                                              Container(
-                                                height: 25,
-                                                width: 60,
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(2),
-                                                  // color: Color(0xffF86C6B)
-                                                ),
-                                                child: Center(
-                                                  child: ElevatedButton(
-                                                    style: ElevatedButton.styleFrom(primary: Color(0xffF86C6B)),
-                                                    onPressed: (){},
-                                                    child: Text("Out",
-                                                    style: TextStyle(
-                                                        fontFamily: ConstFont.popinsRegular,
-                                                      color: Colors.white
-                                                    ),),
+                                                Padding(
+                                                  padding: EdgeInsets.only(left: deviceWidth*0.01,right: deviceWidth*0.01),
+                                                  child: Container(
+                                                    height: 25,
+                                                    width: 60,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(2),
+                                                    ),
+                                                    child: Center(
+                                                      child: ElevatedButton(
+                                                        style: ElevatedButton.styleFrom(primary: Color(0xffF86C6B)),
+                                                        onPressed: (){},
+                                                        child: Text("Out",
+                                                        style: TextStyle(
+                                                            fontFamily: ConstFont.popinsRegular,
+                                                          color: Colors.white
+                                                        ),),
+                                                      ),
+                                                    ),
                                                   ),
-                                                ),
-                                              )
-                                            ],
+                                                )
+                                              ],
                                           ),
+                                           ),
                                       ],
                                     ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
                                     Padding(
-                                       padding: EdgeInsets.only(left: deviceHeight*0.01),
+                                       padding: EdgeInsets.only(left: deviceHeight*0.01,top: deviceHeight*0.01,right: deviceHeight*0.01),
                                        child: Row(
                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
@@ -202,7 +193,6 @@ class GodownPageState extends State<GodownPage>{
           )
         ],
       ),
-
     );
   }
 }
