@@ -13,10 +13,7 @@ class GodownPage extends StatefulWidget{
 }
 class GodownPageState extends State<GodownPage>{
   List<String> productName=["Onion Normal","Paprica","Savoy Cabbage","Sweet Potatoes"];
-  List<String> productImage=["assets/Images/onion.png",
-                              "assets/Images/paprica.png",
-                              "assets/Images/cabbage.png",
-                                "assets/Images/sweet.png"];
+  List<String> productImage=[ConstImage.onion,ConstImage.paprica,ConstImage.cabbage,ConstImage.sweet];
   List<String> productstockin=["Stock In\n300 Kg","Stock In\n100 Kg","Stock In\n90 Pic","Stock In\n150 Kg"];
   List<String> productstockout=["Stock Out\n100 Kg","Stock Out\n50 Kg","Stock Out\n85 Pic","Stock Out\n60 Kg"];
   List<String> productstotalstock=["Total Stock\n200 Kg","Total Stock\n50 Kg","Total Stock\n5 Pic","Total Stock\n90 Kg"];
@@ -81,8 +78,8 @@ class GodownPageState extends State<GodownPage>{
                             children: [
                                 Image(image: AssetImage(productImage[index].toString()),
                                   fit: BoxFit.cover,
-                                  width:50,
-                                  height: 50,
+                                  width:60,
+                                  height: 60,
                                 ),
                               Expanded(
                                 child: Column(
