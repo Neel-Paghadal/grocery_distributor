@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'Screens/home_screen.dart';
+import 'Screens/godown_stock.dart';
 import 'Screens/login_screen.dart';
 import 'Screens/splash.dart';
 
@@ -17,11 +18,13 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // new intaildvbdg
+        // new intail
         // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         // useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
+      //home:   SplashScreen(),
+      // home:   LoginScreen(),
       // home:   SplashScreen(),
       home:   HomeScreen(),
     );
