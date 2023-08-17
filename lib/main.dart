@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'Screens/godown_stock.dart';
 import 'Screens/login_screen.dart';
 import 'Screens/splash.dart';
+import 'Screens/user_list.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +24,8 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       //home:   SplashScreen(),
-      home: GodownPage(),
+      //home: GodownPage(),
+      home: UserPage(),
       // home:   LoginScreen(),
     );
   }

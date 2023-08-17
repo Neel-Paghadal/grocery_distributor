@@ -5,5 +5,6 @@ class ConstImage {
   static const String paprica = 'assets/Images/paprica.png';
   static const String cabbage = 'assets/Images/cabbage.png';
   static const String sweet = 'assets/Images/sweet.png';
+  static const String mask='assets/Images/Maskgroup.png';
 
 }

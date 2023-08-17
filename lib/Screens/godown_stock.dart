@@ -51,7 +51,6 @@ class GodownPageState extends State<GodownPage>{
                 ),
                 hintStyle: TextStyle(
                     fontFamily: ConstFont.popinsRegular,
-                    //fontWeight: FontWeight.w300,
                     fontSize: 15),
                 hintText: "Search Product Name",
               ),
