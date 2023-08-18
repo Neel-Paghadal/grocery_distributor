@@ -28,7 +28,7 @@ class GodownPageState extends State<GodownPage>{
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: Image.asset("assets/Icons/drwar.png"),
+        leading: Image.asset("assets/Icons/drwar.png",),
         actions: [
           Image.asset("assets/Icons/notification.png")
         ],

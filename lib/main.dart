@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'Screens/dash_board.dart';
 import 'Screens/home_screen.dart';
 import 'Screens/godown_stock.dart';
 import 'Screens/login_screen.dart';
@@ -23,10 +24,11 @@ class MyApp extends StatelessWidget {
         // useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home:   SplashScreen(),
+      //home:   SplashScreen(),
       // home:   LoginScreen(),
       // home:   SplashScreen(),
-      // home:   HomeScreen(),
+       //home:   HomeScreen(),
+      home: DashbordPage(),
     );
   }
 }

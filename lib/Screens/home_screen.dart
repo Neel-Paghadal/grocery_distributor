@@ -12,6 +12,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<String>productImage=['assets/Images/FrenchBeans.png'];
   int? selectedValueIndex = 1;
 
   @override
@@ -277,14 +278,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.only(left: deviceWidth*0.02,right: deviceWidth*0.02),
                           child: ListTile(
                             tileColor: ConstColour.cardBgColor,
                             leading: Container(
                               height: deviceHeight * 0.1,
                               width: deviceWidth * 0.2,
                               decoration: BoxDecoration(
-                                color: ConstColour.primaryColor,
+                                //color: Color(0xff99CE022B),
+                                //color: ConstColour.primaryColor,
                                 borderRadius: BorderRadius.circular(11)
                               ),
                               child: Padding(
