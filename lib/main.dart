@@ -23,10 +23,10 @@ class MyApp extends StatelessWidget {
         // useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      //home:   SplashScreen(),
+      home:   SplashScreen(),
       // home:   LoginScreen(),
       // home:   SplashScreen(),
-      home:   HomeScreen(),
+      // home:   HomeScreen(),
     );
   }
 }
