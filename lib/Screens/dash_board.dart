@@ -58,6 +58,9 @@ class _DashbordPageState extends State<DashbordPage> {
                                  children: [
                                    Container(
                                      child: Image(image: AssetImage(productImage[index].toString()),
+                                       // fit: BoxFit.cover,
+                                       // height: 40,
+                                       // width: 40,
                                      ),
                                    ),
                                    SizedBox(
@@ -84,7 +87,10 @@ class _DashbordPageState extends State<DashbordPage> {
                                              Row(
                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                children: [
-                                                 Text("1 Kg")
+                                                 Padding(
+                                                   padding:  EdgeInsets.only(left: deviceHeight*0.01),
+                                                   child: Text("1 Kg"),
+                                                 )
                                                ],
                                              ),
                                            ],
@@ -120,46 +126,55 @@ class _DashbordPageState extends State<DashbordPage> {
                                                        color: Colors.black
                                                    ),),
                                                ),
-                                               Row(
-                                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                 children: [
-                                                   Container(
-                                                     height:25,
-                                                     width:100,
-                                                     decoration: BoxDecoration(
-                                                       borderRadius: BorderRadius.circular(2),
-                                                     ),
-                                                     child: Center(
-                                                       child: ElevatedButton(
-                                                         style: ElevatedButton.styleFrom(primary: Color(0xff6AB04C)),
-                                                         onPressed: () {},
-                                                         child: Text("Accept",
-                                                           style: TextStyle(
-                                                               fontFamily: ConstFont.popinsRegular,
-                                                               color: Colors.white
-                                                           ),),
+                                               Padding(
+                                                 padding: EdgeInsets.only(left: deviceWidth*0.01,right: deviceWidth*0.01),
+                                                 child: Row(
+                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                   children: [
+                                                     Padding(
+                                                       padding: EdgeInsets.only(left: deviceWidth*0.01,right: deviceWidth*0.01),
+                                                       child: Container(
+                                                         height:25,
+                                                         width:100,
+                                                         decoration: BoxDecoration(
+                                                           borderRadius: BorderRadius.circular(2),
+                                                         ),
+                                                         child: Center(
+                                                           child: ElevatedButton(
+                                                             style: ElevatedButton.styleFrom(primary: Color(0xff6AB04C)),
+                                                             onPressed: () {},
+                                                             child: Text("Accept",
+                                                               style: TextStyle(
+                                                                   fontFamily: ConstFont.popinsRegular,
+                                                                   color: Colors.white
+                                                               ),),
+                                                           ),
+                                                         ),
                                                        ),
                                                      ),
-                                                   ),
-                                                   Container(
-                                                     height: 25,
-                                                     width: 100,
-                                                     decoration: BoxDecoration(
-                                                       borderRadius: BorderRadius.circular(2),
-                                                     ),
-                                                     child: Center(
-                                                       child: ElevatedButton(
-                                                         style: ElevatedButton.styleFrom(primary: Color(0xffF86C6B)),
-                                                         onPressed: (){},
-                                                         child: Text("Reject",
-                                                           style: TextStyle(
-                                                               fontFamily: ConstFont.popinsRegular,
-                                                               color: Colors.white
-                                                           ),),
+                                                     Padding(
+                                                       padding: EdgeInsets.only(left: deviceWidth*0.01,right: deviceWidth*0.01),
+                                                       child: Container(
+                                                         height: 25,
+                                                         width: 100,
+                                                         decoration: BoxDecoration(
+                                                           borderRadius: BorderRadius.circular(2),
+                                                         ),
+                                                         child: Center(
+                                                           child: ElevatedButton(
+                                                             style: ElevatedButton.styleFrom(primary: Color(0xffF86C6B)),
+                                                             onPressed: (){},
+                                                             child: Text("Reject",
+                                                               style: TextStyle(
+                                                                   fontFamily: ConstFont.popinsRegular,
+                                                                   color: Colors.white
+                                                               ),),
+                                                           ),
+                                                         ),
                                                        ),
-                                                     ),
-                                                   )
-                                                 ],
+                                                     )
+                                                   ],
+                                                 ),
                                                ),
                                              ],
                                            ),
