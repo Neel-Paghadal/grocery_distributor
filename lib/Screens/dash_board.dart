@@ -141,9 +141,6 @@ class _DashbordPageState extends State<DashbordPage> {
                                                        ),
                                                      ),
                                                    ),
-                                                   SizedBox(
-                                                     width: 2,
-                                                   ),
                                                    Container(
                                                      height: 25,
                                                      width: 100,
