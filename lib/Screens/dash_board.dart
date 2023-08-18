@@ -11,11 +11,10 @@ class DashbordPage extends StatefulWidget {
 }
 
 class _DashbordPageState extends State<DashbordPage> {
- // List<String>productImage=['assets/Images/FrenchBeans.png'];
-  List<String> productImage=["assets/Images/beetroot.png","assets/Images/peas.png"];
-  List<String> productName=["Beet Root","Peas"];
-  List<String> Addresss=["236, Tulsi Arcade, Sudama Chowk, Surat.","236, Tulsi Arcade, Sudama Chowk, Surat."];
-  List<String> Price=['₹ 100.00','₹ 59.00'];
+  List<String> productImage=["assets/Images/frenchbeans.png","assets/Images/beetroot.png","assets/Images/peas.png","assets/Images/watermelon.png",];
+  List<String> productName=["French Beans","Beet Root","Peas","Watermelon",];
+  List<String> Addresss=["236, Tulsi Arcade, Sudama Chowk, Surat.","236, Tulsi Arcade, Sudama Chowk, Surat.","236, Tulsi Arcade, Sudama Chowk, Surat.","236, Tulsi Arcade, Sudama Chowk, Surat."];
+  List<String> Price=['₹ 100.00','₹ 59.00','₹ 24.00','₹ 150.00',];
 
 
   @override
@@ -39,7 +38,7 @@ class _DashbordPageState extends State<DashbordPage> {
        children: [
          Expanded(
              child: ListView.builder(
-                 itemCount: 2,
+                 itemCount: 4,
                  itemBuilder: (context,index){
                    return Padding(
                      padding: EdgeInsets.only(left: deviceWidth*0.02,right: deviceWidth*0.02),
@@ -58,9 +57,9 @@ class _DashbordPageState extends State<DashbordPage> {
                                  children: [
                                    Container(
                                      child: Image(image: AssetImage(productImage[index].toString()),
-                                       // fit: BoxFit.cover,
-                                       // height: 40,
-                                       // width: 40,
+                                        fit: BoxFit.cover,
+                                        height: 70,
+                                        width: 70,
                                      ),
                                    ),
                                    SizedBox(
@@ -127,15 +126,15 @@ class _DashbordPageState extends State<DashbordPage> {
                                                    ),),
                                                ),
                                                Padding(
-                                                 padding: EdgeInsets.only(left: deviceWidth*0.01,right: deviceWidth*0.01),
+                                                 padding: EdgeInsets.only(left: deviceWidth*0.01),
                                                  child: Row(
-                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                    children: [
                                                      Padding(
-                                                       padding: EdgeInsets.only(left: deviceWidth*0.01,right: deviceWidth*0.01),
+                                                       padding: EdgeInsets.only(left: deviceWidth*0.01),
                                                        child: Container(
                                                          height:25,
-                                                         width:100,
+                                                         width:90,
                                                          decoration: BoxDecoration(
                                                            borderRadius: BorderRadius.circular(2),
                                                          ),
@@ -153,7 +152,7 @@ class _DashbordPageState extends State<DashbordPage> {
                                                        ),
                                                      ),
                                                      Padding(
-                                                       padding: EdgeInsets.only(left: deviceWidth*0.01,right: deviceWidth*0.01),
+                                                       padding: EdgeInsets.only(left: deviceWidth*0.01),
                                                        child: Container(
                                                          height: 25,
                                                          width: 100,
