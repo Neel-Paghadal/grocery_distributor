@@ -12,11 +12,6 @@ class lowstockPage extends StatefulWidget {
 }
 
 class _lowstockPageState extends State<lowstockPage> {
-  List<String> productName=["Savoy Cabbage"];
-  List<String> productImage=[ConstImage.cabbage];
-  List<String> productstockin=["Stock In\n90 Pic"];
-  List<String> productstockout=["Stock Out\n85 Pic"];
-  List<String> productstotalstock=["Total Stock\n5 Pic"];
 
   @override
   Widget build(BuildContext context) {
