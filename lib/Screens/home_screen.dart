@@ -12,13 +12,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // List<String>productImage=['assets/Images/FrenchBeans.png'];
-  List<String> productImage=["assets/Images/frenchbeans.png","assets/Images/beetroot.png","assets/Images/peas.png","assets/Images/watermelon.png",];
-  List<String> productName=["French Beans","Beet Root","Peas","Watermelon",];
-  List<String> Addresss=["236, Tulsi Arcade, Sudama Chowk, Surat.","236, Tulsi Arcade, Sudama Chowk, Surat.","236, Tulsi Arcade, Sudama Chowk, Surat.","236, Tulsi Arcade, Sudama Chowk, Surat."];
-  List<String> Price=['₹ 100.00','₹ 59.00','₹ 24.00','₹ 150.00',];
-
+  List<String> productImage=["assets/Images/frenchbeans.png","assets/Images/beetroot.png","assets/Images/Bitmap.png","assets/Images/peas.png","assets/Images/watermelon.png",];
+  List<String> productName=["French Beans","Beet Root","Banana","Peas","Watermelon",];
+  List<String> Addresss=["236, Tulsi Arcade, Sudama Chowk, Surat.","236, Tulsi Arcade, Sudama Chowk, Surat.","236, Tulsi Arcade, Sudama Chowk, Surat.","236, Tulsi Arcade, Sudama Chowk, Surat.","236, Tulsi Arcade, Sudama Chowk, Surat."];
+  List<String> Price=['₹ 100.00','₹ 59.00','₹ 100.00','₹ 24.00','₹ 150.00',];
+  List<String> Kg=["1 Kg","2 Kg","6 Pic","500 Gm","5 Kg"];
   int? selectedValueIndex = 1;
+
+  final GlobalKey<ScaffoldState> _globalKey=GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -26,15 +27,39 @@ class _HomeScreenState extends State<HomeScreen> {
     var deviceWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      key: _globalKey,
       backgroundColor: ConstColour.bgColor,
-      appBar: PreferredSize(
-          preferredSize: Size(deviceWidth, deviceHeight),
-          child: DetailsAppbar(
-            title: "Dashboard",
-            onTap: () {
-              Get.back();
-            },
-          )),
+      // appBar: PreferredSize(
+      //     preferredSize: Size(deviceWidth, deviceHeight),
+      //     child: DetailsAppbar(
+      //       title: "Dashboard",
+      //       onTap: () {
+      //         Scaffold.of(context).openDrawer();
+      //         //_globalKey.currentState?.openDrawer();
+      //         Get.back();
+      //       },
+      //     )),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Text("Dashboard",
+          style: TextStyle(color: Colors.black),),
+        centerTitle: true,
+        elevation: 0,
+        iconTheme: IconThemeData(
+          color: Colors.black, // Change this color to your desired color
+        ),
+        // leading: IconButton(
+        //   icon: Icon(Icons.menu,
+        //     color: Colors.black,),
+        //   onPressed: (){
+        //     //Scaffold.of(context).openDrawer();
+        //   },
+        //   tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+        // ),
+        actions: [
+          IconButton(onPressed: (){}, icon: Image.asset("assets/Icons/notification.png"))
+        ],
+      ),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: deviceWidth * 0.02),
@@ -279,11 +304,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     ListView.builder(
                       controller: ScrollController(),
-                      itemCount: 4,
+                      itemCount: 5,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return Padding(
-                          padding: EdgeInsets.only(left: deviceWidth*0.02,right: deviceWidth*0.02),
+                          padding: EdgeInsets.only(left: deviceWidth*0.01,right: deviceWidth*0.01),
                           child: Card(
                             color: Color(0xffF3F4F4),
                             // tileColor: ConstColour.cardBgColor,
@@ -308,13 +333,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         crossAxisAlignment: CrossAxisAlignment.center,
-                                        mainAxisSize: MainAxisSize.max,
+                                        //mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Container(
-                                            child: Image(image: AssetImage(productImage[index].toString()),
+                                            // decoration: BoxDecoration(
+                                            //     color: Color(0xff99CE022B),
+                                            //     //color: ConstColour.primaryColor,
+                                            //     borderRadius: BorderRadius.circular(11)
+                                            // ),
+                                            child: Image(image: AssetImage(productImage[index].toString(),),
                                               fit: BoxFit.cover,
-                                              height: 70,
-                                              width: 70,
+                                              // height: 70,
+                                               width: 70,
                                             ),
                                           ),
                                           Column(
@@ -322,7 +352,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
                                                   Padding(
                                                     padding:  EdgeInsets.only(left: deviceHeight*0.01),
@@ -339,13 +369,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     children: [
                                                       Padding(
                                                         padding:  EdgeInsets.only(left: deviceHeight*0.01),
-                                                        child: Text("1 Kg"),
+                                                        child: Text(Kg[index].toString(),
+                                                          style: TextStyle(
+                                                            fontSize: 10,
+                                                            fontFamily: ConstFont.popinsRegular,
+                                                            color: Colors.black,
+                                                          ),),
                                                       )
                                                     ],
                                                   ),
                                                 ],
                                               ),
-                                              Padding(padding: EdgeInsets.only(left: deviceHeight*0.01,top: deviceHeight*0.01,right: deviceHeight*0.01),
+                                              Padding(padding: EdgeInsets.only(left: deviceHeight*0.01),
                                                 child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
@@ -377,7 +412,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                         children: [
                                                           Padding(
-                                                            padding: EdgeInsets.only(left: deviceWidth*0.01),
+                                                            padding: EdgeInsets.only(left: deviceWidth*0.02),
                                                             child: Container(
                                                               height:25,
                                                               width:90,
@@ -401,7 +436,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             padding: EdgeInsets.only(left: deviceWidth*0.01),
                                                             child: Container(
                                                               height: 25,
-                                                              width: 100,
+                                                              width: 80,
                                                               decoration: BoxDecoration(
                                                                 borderRadius: BorderRadius.circular(2),
                                                               ),
@@ -425,7 +460,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 ),
                                               )
                                             ],
-
                                           )
                                         ],
                                       )
@@ -440,6 +474,180 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               )
             ],
+          ),
+        ),
+      ),
+      drawer : Drawer(
+        child: Container(
+          color: Colors.white, //<-- SEE HERE
+          child: Padding(
+            padding: EdgeInsets.only(left: deviceWidth*0.01,right: deviceWidth*0.01,top: deviceHeight*0.03),
+            child: Column(
+              children: [
+                Container(
+                  width: 254,
+                  height: 75,
+                  margin: EdgeInsets.only(left: deviceWidth*0.01,right: deviceWidth*0.01),
+                  color: Color(0xffF3F4F4),
+                  child: Row(
+                    children: [
+                      Expanded(
+                          child: Column(
+                            children: [
+                              ListTile(
+                                leading: Image.asset("assets/Images/drawerdp.png",height: 60,width: 80),
+                                title: Text("Vidya Vox",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black
+                                ),),
+                                subtitle: Text("236, Tulsi Arcade, Sudama Chowk, Surat.",
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: Colors.black
+                                ),),
+                              ),
+                            ],
+                          ))
+                    ],
+                  ),
+                ),
+                ListTile(
+                  leading: Image.asset("assets/Icons/order.png"),
+                  onTap: (){},
+                  title: Text("Live Orders",
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontFamily: ConstFont.popinsRegular,
+                      color: Colors.black,
+                    ),),
+                ),
+                ListTile(
+                  leading: Image.asset("assets/Icons/user.png"),
+                  onTap: (){},
+                  title: Text("User List",
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontFamily: ConstFont.popinsRegular,
+                      color: Colors.black,
+                    ),),
+                ),
+                ListTile(
+                  leading: Image.asset("assets/Icons/godowan.png"),
+                  onTap: (){},
+                  title: Text("Godown Stock",
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontFamily: ConstFont.popinsRegular,
+                      color: Colors.black,
+                    ),),
+                ),
+                ListTile(
+                  leading: Image.asset("assets/Icons/product.png"),
+                  onTap: (){},
+                  title: Text("Product Info",
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontFamily: ConstFont.popinsRegular,
+                      color: Colors.black,
+                    ),),
+                ),
+                ListTile(
+                  leading: Image.asset("assets/Icons/low.png"),
+                  onTap: (){},
+                  title: Text("Low Stock",
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontFamily: ConstFont.popinsRegular,
+                      color: Colors.black,
+                    ),),
+                ),
+                ListTile(
+                  leading: Image.asset("assets/Icons/ads.png"),
+                  onTap: (){},
+                  title: Text("Ads",
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontFamily: ConstFont.popinsRegular,
+                      color: Colors.black,
+                    ),),
+                ),
+              ],
+            ),
+            // child: Card(
+            //   color: Color(0xffF3F4F4),
+            //   child: Padding(
+            //     padding: const EdgeInsets.all(8.0),
+            //     child: Column(
+            //       //mainAxisAlignment: MainAxisAlignment.center,
+            //       crossAxisAlignment: CrossAxisAlignment.start,
+            //       children: [
+            //         Column(
+            //           children: [
+            //             Container(
+            //               width: 343,
+            //               height: 181,
+            //               margin: EdgeInsets.only(left: 16,right: 16,bottom: 10),
+            //               color: Color(0xffF3F4F4),
+            //               child: Row(
+            //                 children: [
+            //                   Expanded(
+            //                       child: Column(
+            //                         children: [
+            //                           ListTile(
+            //                             leading: Image.asset("assets/Images/drawerdp.png",height: 61,width: 49),
+            //                             trailing:
+            //                             Column(
+            //                               children: [
+            //                                 Text("Nilesh Vasoya",style: TextStyle(
+            //                                   fontFamily: ConstFont.popinsRegular,
+            //                                   fontSize: 15,
+            //                                   color: Colors.black,
+            //                                 ),),
+            //                                 Text("+91 95263 36522",
+            //                                   style: TextStyle(
+            //                                       fontFamily: ConstFont.popinsRegular,
+            //                                       fontSize: 12),),
+            //                               ],
+            //                             ),
+            //                           ),
+            //                         ],
+            //                       ))
+            //                 ],
+            //               ),
+            //             ),
+            //           ],
+            //         ),
+            //         // Row(
+            //         //   mainAxisAlignment: MainAxisAlignment.start,
+            //         //   crossAxisAlignment: CrossAxisAlignment.center,
+            //         //   children: [
+            //         //     Container(
+            //         //       child: Image.asset("assets/Images/drawerdp.png",
+            //         //         fit: BoxFit.cover,),
+            //         //     ),
+            //         //     Column(
+            //         //       mainAxisAlignment: MainAxisAlignment.start,
+            //         //       crossAxisAlignment: CrossAxisAlignment.start,
+            //         //       children: [
+            //         //         Row(
+            //         //           children: [
+            //         //             Text("Vidya Vox",
+            //         //               style: TextStyle(
+            //         //                   fontSize: 14,
+            //         //                   fontFamily: ConstFont.popinsRegular,
+            //         //                   color: Colors.black
+            //         //               ),),
+            //         //           ],
+            //         //         )
+            //         //       ],
+            //         //     )
+            //         //   ],
+            //         // )
+            //       ],
+            //     ),
+            //   ),
+            // ),
           ),
         ),
       ),

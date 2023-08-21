@@ -11,17 +11,19 @@ class DashbordPage extends StatefulWidget {
 }
 
 class _DashbordPageState extends State<DashbordPage> {
-  List<String> productImage=["assets/Images/frenchbeans.png","assets/Images/beetroot.png","assets/Images/peas.png","assets/Images/watermelon.png",];
-  List<String> productName=["French Beans","Beet Root","Peas","Watermelon",];
-  List<String> Addresss=["236, Tulsi Arcade, Sudama Chowk, Surat.","236, Tulsi Arcade, Sudama Chowk, Surat.","236, Tulsi Arcade, Sudama Chowk, Surat.","236, Tulsi Arcade, Sudama Chowk, Surat."];
-  List<String> Price=['₹ 100.00','₹ 59.00','₹ 24.00','₹ 150.00',];
+  List<String> productImage=["assets/Images/frenchbeans.png","assets/Images/beetroot.png","assets/Images/Bitmap.png","assets/Images/peas.png","assets/Images/watermelon.png",];
+  List<String> productName=["French Beans","Beet Root","Banana","Peas","Watermelon",];
+  List<String> Addresss=["236, Tulsi Arcade, Sudama Chowk, Surat.","236, Tulsi Arcade, Sudama Chowk, Surat.","236, Tulsi Arcade, Sudama Chowk, Surat.","236, Tulsi Arcade, Sudama Chowk, Surat.","236, Tulsi Arcade, Sudama Chowk, Surat."];
+  List<String> Price=['₹ 100.00','₹ 59.00','₹ 100.00','₹ 24.00','₹ 150.00',];
+  List<String> Kg=["1 Kg","2 Kg","6 Pic","500 Gm","5 Kg"];
 
-
+  final GlobalKey<ScaffoldState> _globalKey=GlobalKey();
   @override
   Widget build(BuildContext context) {
     var deviceHeight = MediaQuery.of(context).size.height;
     var deviceWidth = MediaQuery.of(context).size.width;
    return Scaffold(
+     key: _globalKey,
      backgroundColor: Colors.white,
      appBar: AppBar(
        backgroundColor: Colors.white,
@@ -29,7 +31,10 @@ class _DashbordPageState extends State<DashbordPage> {
       style: TextStyle(color: Colors.black),),
        centerTitle: true,
       elevation: 0,
-      leading: IconButton(onPressed: () {}, icon: Image.asset("assets/Icons/drwar.png"),),
+      leading: IconButton(onPressed: () =>
+          Scaffold.of(context).openDrawer()
+        //_globalKey.currentState?.openDrawer();
+      , icon: Image.asset("assets/Icons/drwar.png"),),
        actions: [
          IconButton(onPressed: (){}, icon: Image.asset("assets/Icons/notification.png"))
        ],
@@ -38,7 +43,7 @@ class _DashbordPageState extends State<DashbordPage> {
        children: [
          Expanded(
              child: ListView.builder(
-                 itemCount: 4,
+                 itemCount: 5,
                  itemBuilder: (context,index){
                    return Padding(
                      padding: EdgeInsets.only(left: deviceWidth*0.02,right: deviceWidth*0.02),
@@ -58,7 +63,7 @@ class _DashbordPageState extends State<DashbordPage> {
                                    Container(
                                      child: Image(image: AssetImage(productImage[index].toString()),
                                         fit: BoxFit.cover,
-                                        height: 70,
+                                        //height: 70,
                                         width: 70,
                                      ),
                                    ),
@@ -88,7 +93,12 @@ class _DashbordPageState extends State<DashbordPage> {
                                                children: [
                                                  Padding(
                                                    padding:  EdgeInsets.only(left: deviceHeight*0.01),
-                                                   child: Text("1 Kg"),
+                                                   child: Text(Kg[index].toString(),
+                                                   style: TextStyle(
+                                                     fontSize: 10,
+                                                     fontFamily: ConstFont.popinsRegular,
+                                                     color: Colors.black,
+                                                   ),),
                                                  )
                                                ],
                                              ),
@@ -128,7 +138,7 @@ class _DashbordPageState extends State<DashbordPage> {
                                                Padding(
                                                  padding: EdgeInsets.only(left: deviceWidth*0.01),
                                                  child: Row(
-                                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                   //mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                    children: [
                                                      Padding(
                                                        padding: EdgeInsets.only(left: deviceWidth*0.01),
