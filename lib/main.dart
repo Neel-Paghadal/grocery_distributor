@@ -5,6 +5,7 @@ import 'Screens/dash_board.dart';
 import 'Screens/home_screen.dart';
 import 'Screens/godown_stock.dart';
 import 'Screens/login_screen.dart';
+import 'Screens/low_stock.dart';
 import 'Screens/splash.dart';
 
 void main() {
@@ -27,8 +28,9 @@ class MyApp extends StatelessWidget {
      // home:   SplashScreen(),
       // home:   LoginScreen(),
       // home:   SplashScreen(),
-       home:   HomeScreen(),
+      // home:   HomeScreen(),
       //home: DashbordPage(),
+      home: lowstockPage(),
     );
   }
 }
