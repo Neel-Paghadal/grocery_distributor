@@ -379,12 +379,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   child: Row(
                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
+                                                      Image.asset("assets/Icons/location.png"),
                                                       Text(Addresss[index].toString(),
                                                         style: TextStyle(
-                                                            fontSize: 12,
+                                                            letterSpacing: 1.0,
+                                                            fontSize: 11,
                                                             fontFamily: ConstFont.popinsRegular,
                                                             color: Colors.black
                                                         ),),
+
                                                     ],
                                                   ),
                                                 ),
