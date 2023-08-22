@@ -311,19 +311,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           padding: EdgeInsets.only(left: deviceWidth*0.00,right: deviceWidth*0.00),
                           child: Card(
                             color: Color(0xffF3F4F4),
-                            // tileColor: ConstColour.cardBgColor,
-                            // leading: Container(
-                            //   // height: deviceHeight * 0.1,
-                            //   // width: deviceWidth * 0.2,
-                            //   height: 70,
-                            //   width: 70,
-                            //   // decoration: BoxDecoration(
-                            //   //   //color: Color(0xff99CE022B),
-                            //   //   //color: ConstColour.primaryColor,
-                            //   //   borderRadius: BorderRadius.circular(11)
-                            //   // ),
-                            //   // child: Padding(
-                            //   //   padding: const EdgeInsets.all(4.0),
                                 child: Padding(
                                   padding: EdgeInsets.only(left: deviceWidth*0.01,bottom: deviceHeight*0.01,right: deviceWidth*0.01,top: deviceHeight*0.01),
                                   child: Column(
@@ -336,11 +323,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                         //mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Container(
-                                            // decoration: BoxDecoration(
-                                            //     color: Color(0xff99CE022B),
-                                            //     //color: ConstColour.primaryColor,
-                                            //     borderRadius: BorderRadius.circular(11)
-                                            // ),
                                             child: Image(image: AssetImage(productImage[index].toString(),),
                                               fit: BoxFit.cover,
                                               // height: 70,
@@ -362,7 +344,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           fontSize: 14,
                                                           fontFamily: ConstFont.popinsRegular,
                                                           color: Colors.black,
-                                                          //fontWeight: FontWeight.bold
+                                                          fontWeight: FontWeight.w500
                                                         ),),
                                                     ),
                                                     Row(
@@ -373,7 +355,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           child: Text(Kg[index].toString(),
                                                             style: TextStyle(
                                                               fontSize: 10,
-                                                              fontWeight: FontWeight.bold,
+                                                              //fontWeight: FontWeight.bold,
                                                               fontFamily: ConstFont.popinsRegular,
                                                               color: Colors.black,
                                                             ),),
@@ -404,6 +386,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         child: Text(Price[index].toString(),
                                                           style: TextStyle(
                                                               fontSize: 12,
+                                                              fontWeight: FontWeight.w500,
                                                               fontFamily: ConstFont.popinsRegular,
                                                               color: Colors.black
                                                           ),),
@@ -419,7 +402,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 height:25,
                                                                 width:90,
                                                                 decoration: BoxDecoration(
-                                                                  borderRadius: BorderRadius.circular(2),
+                                                                  borderRadius: BorderRadius.circular(1),
                                                                 ),
                                                                 child: Center(
                                                                   child: ElevatedButton(
@@ -440,7 +423,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 height: 25,
                                                                 width: 80,
                                                                 decoration: BoxDecoration(
-                                                                  borderRadius: BorderRadius.circular(2),
+                                                                  borderRadius: BorderRadius.circular(1),
                                                                 ),
                                                                 child: Center(
                                                                   child: ElevatedButton(
