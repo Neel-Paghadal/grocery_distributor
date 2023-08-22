@@ -28,9 +28,9 @@ class MyApp extends StatelessWidget {
      // home:   SplashScreen(),
       // home:   LoginScreen(),
       // home:   SplashScreen(),
-      // home:   HomeScreen(),
+       home:   HomeScreen(),
       //home: DashbordPage(),
-      home: lowstockPage(),
+      //home: lowstockPage(),
     );
   }
 }
