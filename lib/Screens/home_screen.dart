@@ -4,6 +4,8 @@ import 'package:grocery_distributor/Common/appBar.dart';
 import 'package:grocery_distributor/ConstFile/constColor.dart';
 import 'package:grocery_distributor/ConstFile/constFonts.dart';
 
+import 'live_order.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -27,6 +29,15 @@ class _HomeScreenState extends State<HomeScreen> {
     var deviceWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        elevation: 0,
+        items: [
+          BottomNavigationBarItem(label:"",icon: Image.asset("assets/Icons/home.png"),backgroundColor: Colors.white,),
+          BottomNavigationBarItem(label:" ",icon: Image.asset("assets/Icons/document.png")),
+          BottomNavigationBarItem(label:" ",icon: Image.asset("assets/Icons/walet.png")),
+          BottomNavigationBarItem(label:" ",icon: Image.asset("assets/Icons/question.png")),
+        ],
+      ),
       key: _globalKey,
       backgroundColor: ConstColour.bgColor,
       // appBar: PreferredSize(
@@ -407,7 +418,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 child: Center(
                                                                   child: ElevatedButton(
                                                                     style: ElevatedButton.styleFrom(primary: Color(0xff6AB04C)),
-                                                                    onPressed: () {},
+                                                                    onPressed: () {
+                                                                      Get.to(() => LiveorderPage());
+                                                                    },
                                                                     child: Text("Accept",
                                                                       style: TextStyle(
                                                                           fontFamily: ConstFont.popinsRegular,

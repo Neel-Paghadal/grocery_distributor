@@ -8,6 +8,7 @@ import 'package:grocery_distributor/ConstFile/constFonts.dart';
 import 'package:grocery_distributor/ConstFile/constImage.dart';
 import 'package:grocery_distributor/Controllers/login_controller.dart';
 import 'package:grocery_distributor/Screens/godown_stock.dart';
+import 'package:grocery_distributor/Screens/home_screen.dart';
 import 'package:grocery_distributor/api_services/all_services.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -35,7 +36,8 @@ class LoginScreen extends StatelessWidget {
           onPressed: () {
             userId = loginController.emailController.text;
             password = loginController.passController.text;
-            Get.to(() => GodownPage());
+            //Get.to(() => GodownPage());
+            Get.to(() => HomeScreen());
             // Services().DistributorLogin(userId, password,context);
 
           },

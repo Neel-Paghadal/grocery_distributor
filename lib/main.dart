@@ -4,8 +4,10 @@ import 'package:get/get.dart';
 import 'Screens/dash_board.dart';
 import 'Screens/home_screen.dart';
 import 'Screens/godown_stock.dart';
+import 'Screens/live_order.dart';
 import 'Screens/login_screen.dart';
 import 'Screens/low_stock.dart';
+import 'Screens/order_details.dart';
 import 'Screens/splash.dart';
 
 void main() {
@@ -25,12 +27,14 @@ class MyApp extends StatelessWidget {
         // useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-     // home:   SplashScreen(),
+      home:   SplashScreen(),
       // home:   LoginScreen(),
       // home:   SplashScreen(),
-       home:   HomeScreen(),
+       //home:   HomeScreen(),
+      //home: LiveorderPage(),
       //home: DashbordPage(),
       //home: lowstockPage(),
+      //home: OrderdetailsPage(),
     );
   }
 }
