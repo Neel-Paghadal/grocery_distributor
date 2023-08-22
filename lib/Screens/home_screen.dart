@@ -123,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(6),
                                   color: Color(0xff81ECEC)),
-                              height: deviceHeight * 0.06,
+                              height: deviceHeight * 0.08,
                               child: Padding(
                                 padding:
                                     EdgeInsets.only(left: deviceWidth * 0.04),
@@ -156,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(6),
                                   color: Color(0xffFEA47F)),
-                              height: deviceHeight * 0.06,
+                              height: deviceHeight * 0.08,
                               child: Padding(
                                 padding:
                                     EdgeInsets.only(left: deviceWidth * 0.04),
@@ -377,7 +377,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 ),
                                                 Padding(padding: EdgeInsets.only(left: deviceHeight*0.01),
                                                   child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
                                                       Image.asset("assets/Icons/location.png"),
                                                       Text(Addresss[index].toString(),

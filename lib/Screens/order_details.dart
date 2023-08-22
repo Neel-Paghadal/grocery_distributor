@@ -276,13 +276,13 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
                                         ),
                                         Padding(padding: EdgeInsets.only(left: deviceHeight*0.01),
                                           child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Image.asset("assets/Icons/location.png"),
                                               Text(Addresss[index].toString(),
                                                 style: TextStyle(
                                                     letterSpacing: 1.0,
-                                                    fontSize: 11,
+                                                    fontSize: 10,
                                                     fontFamily: ConstFont.popinsRegular,
                                                     color: Colors.black
                                                 ),),
