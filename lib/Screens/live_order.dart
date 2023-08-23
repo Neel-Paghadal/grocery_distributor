@@ -98,26 +98,23 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                 ),),
-                                Row(
-                                  children: [
-                                    IconButton(onPressed: () async {
-                                      _getDateFromUser();
-                                    },
-                                        icon: Icon(
-                                            Icons.calendar_month_rounded)),
-                                    Text(
-                                        DateFormat.yMd().format(_selectedDate)),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: deviceWidth * 0.02),
-                                      child: IconButton(onPressed: ()  {
+                                  Row(
+                                    children: [
+                                      IconButton(onPressed: () async {
                                         _getDateFromUser();
                                       },
                                           icon: Icon(
                                               Icons.calendar_month_rounded)),
-                                    ),
-                                  ],
-                                )
+                                      Text(
+                                          DateFormat.yMd().format(_selectedDate)),
+                                       IconButton(onPressed: ()  {
+                                          _getDateFromUser();
+                                        },
+                                            icon: Icon(
+                                                Icons.calendar_month_rounded)),
+                                      Text(DateFormat.yMd().format(_selectedDate))
+                                    ],
+                                  ),
                               ],
                             ),
                           ))

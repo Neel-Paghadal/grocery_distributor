@@ -78,15 +78,12 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
                                           Icons.calendar_month_rounded)),
                                   Text(
                                       DateFormat.yMd().format(_selectedDate)),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        left: deviceWidth * 0.02),
-                                    child: IconButton(onPressed: ()  {
+                                    IconButton(onPressed: ()  {
                                       _getDateFromUser();
                                     },
                                         icon: Icon(
                                             Icons.calendar_month_rounded)),
-                                  ),
+                                  Text(DateFormat.yMd().format(_selectedDate))
                                 ],
                               )
                             ],
