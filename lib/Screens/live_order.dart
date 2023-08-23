@@ -21,6 +21,7 @@ class _LiveorderPageState extends State<LiveorderPage> {
   List<String> Price=['₹ 100.00','₹ 59.00','₹ 100.00','₹ 24.00','₹ 150.00',];
   List<String> Kg=["1 Kg","2 Kg","6 Pic","500 Gm","5 Kg"];
   int? selectedValueIndex = 1;
+  DateTime _selectedDate=DateTime.now();
   @override
   Widget build(BuildContext context) {
     var deviceHeight = MediaQuery.of(context).size.height;
@@ -58,8 +59,22 @@ class _LiveorderPageState extends State<LiveorderPage> {
                         child: Column(
                           children: [
                             ListTile(
-                              title: Text("Data Range"),
+                              title: Text("Date Range"),
                             ),
+                            Padding(
+                              padding:  EdgeInsets.only(top: deviceWidth*0.01),
+                              child: Row(
+                                children: [
+                                  Column(
+                                    children: [
+                                      IconButton(onPressed: (){},
+                                          icon: Icon(Icons.calendar_month_rounded)),
+                                      Text("start Date",style: TextStyle(color: Colors.black),),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            )
                           ],
                         ))
                   ],
