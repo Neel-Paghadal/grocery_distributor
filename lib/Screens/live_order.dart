@@ -48,26 +48,11 @@ class _LiveorderPageState extends State<LiveorderPage> {
   int? selectedValueIndex = 1;
   DateTime _selectedDate = DateTime.now();
 
-  // String _selectDate="Start Date";
-  //
-  // Future<void> _openDatePicker(BuildContext context)async{
-  //   final DateTime? d= await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: new DateTime(2022), lastDate: DateTime(2023));
-  //     if(d!=null){
-  //       setState(() {
-  //         _selectDate=d.toLocal().toString();
-  //       });
-  //     }
-  // }
+
   @override
   Widget build(BuildContext context) {
-    var deviceHeight = MediaQuery
-        .of(context)
-        .size
-        .height;
-    var deviceWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
+    var deviceHeight = MediaQuery.of(context).size.height;
+    var deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -324,14 +309,11 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                     ),
                                     Expanded(
                                       child: Column(
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .start,
-                                        crossAxisAlignment: CrossAxisAlignment
-                                            .start,
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Row(
-                                            mainAxisAlignment: MainAxisAlignment
-                                                .spaceBetween,
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Padding(
                                                 padding: EdgeInsets.only(
@@ -340,11 +322,9 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                                   productName[index].toString(),
                                                   style: TextStyle(
                                                       fontSize: 14,
-                                                      fontFamily: ConstFont
-                                                          .popinsRegular,
+                                                      fontFamily: ConstFont.popinsRegular,
                                                       color: Colors.black,
-                                                      fontWeight: FontWeight
-                                                          .w500
+                                                      fontWeight: FontWeight.w500
                                                   ),),
                                               ),
                                               Row(
@@ -352,18 +332,13 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                                     .spaceAround,
                                                 children: [
                                                   Padding(
-                                                    padding: EdgeInsets.only(
-                                                        left: deviceHeight *
-                                                            0.01,
-                                                        right: deviceHeight *
-                                                            0.01),
+                                                    padding: EdgeInsets.only(left: deviceHeight * 0.01, right: deviceHeight * 0.01),
                                                     child: Text(
                                                       Kg[index].toString(),
                                                       style: TextStyle(
                                                         fontSize: 10,
                                                         //fontWeight: FontWeight.bold,
-                                                        fontFamily: ConstFont
-                                                            .popinsRegular,
+                                                        fontFamily: ConstFont.popinsRegular,
                                                         color: Colors.black,
                                                       ),),
                                                   )
@@ -382,8 +357,7 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                                   style: TextStyle(
                                                       letterSpacing: 1.0,
                                                       fontSize: 10,
-                                                      fontFamily: ConstFont
-                                                          .popinsRegular,
+                                                      fontFamily: ConstFont.popinsRegular,
                                                       color: Colors.black
                                                   ),),
                                               ],
@@ -392,8 +366,7 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                           Padding(padding: EdgeInsets.only(
                                               left: deviceWidth * 0.01),
                                             child: Row(
-                                              mainAxisAlignment: MainAxisAlignment
-                                                  .spaceBetween,
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Padding(
                                                   padding: EdgeInsets.only(
@@ -402,10 +375,8 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                                     Price[index].toString(),
                                                     style: TextStyle(
                                                         fontSize: 12,
-                                                        fontWeight: FontWeight
-                                                            .w500,
-                                                        fontFamily: ConstFont
-                                                            .popinsRegular,
+                                                        fontWeight: FontWeight.w500,
+                                                        fontFamily: ConstFont.popinsRegular,
                                                         color: Colors.black
                                                     ),),
                                                 ),
@@ -416,23 +387,16 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                                     //mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                     children: [
                                                       Padding(
-                                                        padding: EdgeInsets
-                                                            .only(
-                                                            left: deviceWidth *
-                                                                0.01),
+                                                        padding: EdgeInsets.only(left: deviceWidth * 0.01),
                                                         child: Container(
                                                           height: 25,
                                                           width: 90,
                                                           decoration: BoxDecoration(
-                                                            borderRadius: BorderRadius
-                                                                .circular(1),
+                                                            borderRadius: BorderRadius.circular(1),
                                                           ),
                                                           child: Center(
                                                             child: ElevatedButton(
-                                                              style: ElevatedButton
-                                                                  .styleFrom(
-                                                                  primary: Color(
-                                                                      0xff6AB04C)),
+                                                              style: ElevatedButton.styleFrom(primary: Color(0xff6AB04C)),
                                                               onPressed: () {
                                                                 Get.to(() =>
                                                                     OrderdetailsPage());
@@ -442,43 +406,30 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                                               child: Text(
                                                                 "Accept",
                                                                 style: TextStyle(
-                                                                    fontFamily: ConstFont
-                                                                        .popinsRegular,
-                                                                    color: Colors
-                                                                        .white
+                                                                    fontFamily: ConstFont.popinsRegular,
+                                                                    color: Colors.white
                                                                 ),),
                                                             ),
                                                           ),
                                                         ),
                                                       ),
                                                       Padding(
-                                                        padding: EdgeInsets
-                                                            .only(
-                                                            left: deviceWidth *
-                                                                0.01,
-                                                            right: deviceWidth *
-                                                                0.01),
+                                                        padding: EdgeInsets.only(left: deviceWidth * 0.01, right: deviceWidth * 0.01),
                                                         child: Container(
                                                           height: 25,
                                                           width: 80,
                                                           decoration: BoxDecoration(
-                                                            borderRadius: BorderRadius
-                                                                .circular(1),
+                                                            borderRadius: BorderRadius.circular(1),
                                                           ),
                                                           child: Center(
                                                             child: ElevatedButton(
-                                                              style: ElevatedButton
-                                                                  .styleFrom(
-                                                                  primary: Color(
-                                                                      0xffF86C6B)),
+                                                              style: ElevatedButton.styleFrom(primary: Color(0xffF86C6B)),
                                                               onPressed: () {},
                                                               child: Text(
                                                                 "Reject",
                                                                 style: TextStyle(
-                                                                    fontFamily: ConstFont
-                                                                        .popinsRegular,
-                                                                    color: Colors
-                                                                        .white
+                                                                    fontFamily: ConstFont.popinsRegular,
+                                                                    color: Colors.white
                                                                 ),),
                                                             ),
                                                           ),
