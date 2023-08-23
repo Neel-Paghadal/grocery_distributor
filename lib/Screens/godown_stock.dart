@@ -2,9 +2,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../ConstFile/constFonts.dart';
 import '../ConstFile/constImage.dart';
+import 'low_stock.dart';
 
 class GodownPage extends StatefulWidget{
   const GodownPage({Key? key,}):super(key: key);
@@ -114,7 +117,9 @@ class GodownPageState extends State<GodownPage>{
                                                         child: Center(
                                                           child: ElevatedButton(
                                                             style: ElevatedButton.styleFrom(primary: Color(0xff6AB04C)),
-                                                            onPressed: () {},
+                                                            onPressed: () {
+                                                              Get.to(()=>lowstockPage());
+                                                            },
                                                             child: Text("Add",
                                                               style: TextStyle(
                                                                   fontFamily: ConstFont.popinsRegular,

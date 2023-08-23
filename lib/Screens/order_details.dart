@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:grocery_distributor/Screens/godown_stock.dart';
+import 'package:intl/intl.dart';
 
 import '../ConstFile/constColor.dart';
 import '../ConstFile/constFonts.dart';
@@ -18,6 +22,7 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
   List<String> Price=['₹ 100.00','₹ 59.00','₹ 100.00','₹ 24.00','₹ 150.00',];
   List<String> Kg=["1 Kg","2 Kg","6 Pic","500 Gm","5 Kg"];
   int? selectedValueIndex = 1;
+  DateTime _selectedDate = DateTime.now();
   @override
   Widget build(BuildContext context) {
     var deviceHeight = MediaQuery.of(context).size.height;
@@ -52,12 +57,40 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
                 child: Row(
                   children: [
                     Expanded(
-                        child: Column(
-                          children: [
-                            ListTile(
-                              title: Text("Data Range"),
-                            ),
-                          ],
+                        child: Padding(
+                          padding: EdgeInsets.only(left: deviceWidth * 0.03,
+                              top: deviceWidth * 0.02,
+                              bottom: deviceWidth * 0.02),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            // mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text("Date Range", style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),),
+                              Row(
+                                children: [
+                                  IconButton(onPressed: () async {
+                                    _getDateFromUser();
+                                  },
+                                      icon: Icon(
+                                          Icons.calendar_month_rounded)),
+                                  Text(
+                                      DateFormat.yMd().format(_selectedDate)),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        left: deviceWidth * 0.02),
+                                    child: IconButton(onPressed: ()  {
+                                      _getDateFromUser();
+                                    },
+                                        icon: Icon(
+                                            Icons.calendar_month_rounded)),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
                         ))
                   ],
                 ),
@@ -320,6 +353,7 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
                                                           child: ElevatedButton(
                                                             style: ElevatedButton.styleFrom(primary: Color(0xff6AB04C)),
                                                             onPressed: () {
+                                                              Get.to(()=>GodownPage());
                                                               // selectedValueIndex = 1;
                                                               // print(selectedValueIndex);
                                                             },
@@ -376,5 +410,17 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
         ),
       ),
     );
+  }
+  _getDateFromUser() async {
+    DateTime? _pickerDate = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2023),
+        lastDate: DateTime(2025));
+    if (_pickerDate != null) {
+      setState(() {
+        _selectedDate = _pickerDate;
+      });
+    }
   }
 }
