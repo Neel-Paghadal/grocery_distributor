@@ -229,9 +229,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontFamily: ConstFont.popinsRegular),
                             ),
                           ),
-                          // SizedBox(
-                          //   width: 5,
-                          // ),
                           Padding(
                             padding:  EdgeInsets.only(left: deviceWidth*0.01),
                             child: ElevatedButton(
@@ -264,9 +261,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                           ),
-                          // SizedBox(
-                          //   width: 5,
-                          // ),
                           Padding(
                             padding:  EdgeInsets.only(left: deviceWidth*0.01),
                             child: ElevatedButton(
