@@ -79,11 +79,8 @@ class _LiveorderPageState extends State<LiveorderPage> {
                       color: Color(0xffF3F4F4),
                       borderRadius: BorderRadius.circular(5)
                   ),
-                  // width: 254,
-                  // height: 75,
                   margin: EdgeInsets.only(
                       left: deviceWidth * 0.02, right: deviceWidth * 0.02),
-                  //color: Color(0xffF3F4F4),
                   child: Row(
                     children: [
                       Expanded(
@@ -93,7 +90,6 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                 bottom: deviceWidth * 0.02),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              // mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text("Date Range", style: TextStyle(
                                   fontSize: 14,
@@ -386,7 +382,6 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                                   padding: EdgeInsets.only(
                                                     left: deviceWidth * 0.01,),
                                                   child: Row(
-                                                    //mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                     children: [
                                                       Padding(
                                                         padding: EdgeInsets.only(left: deviceWidth * 0.01),
@@ -402,8 +397,6 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                                               onPressed: () {
                                                                 Get.to(() =>
                                                                     OrderdetailsPage());
-                                                                // selectedValueIndex = 1;
-                                                                // print(selectedValueIndex);
                                                               },
                                                               child: Text(
                                                                 "Accept",

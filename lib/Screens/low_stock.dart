@@ -54,7 +54,6 @@ class _lowstockPageState extends State<lowstockPage> {
             padding: EdgeInsets.only(left: deviceWidth*0.02,right: deviceWidth*0.02),
             child: Card(
               color: Color(0xffFFE4E3),
-              //color: Color(0xfFF767533),
               child: Padding(
                 padding: EdgeInsets.only(left: deviceWidth*0.01,bottom: deviceHeight*0.01,right: deviceWidth*0.01,top: deviceHeight*0.01),
                 child: Column(
