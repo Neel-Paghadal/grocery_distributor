@@ -133,38 +133,35 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                           ),
-
-                          Padding(
-                            padding:  EdgeInsets.only(bottom: deviceWidth*0.01),
-                            child: Expanded(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(6),
-                                    color: Color(0xffFEA47F)),
-                                height: deviceHeight * 0.08,
-                                child: Padding(
-                                  padding:
-                                      EdgeInsets.only(left: deviceWidth * 0.04),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "2",
-                                        style: TextStyle(
-                                            fontFamily: ConstFont.popinsRegular,
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 16),
-                                      ),
-                                      Text(
-                                        "Low Stock",
-                                        style: TextStyle(
-                                            fontFamily: ConstFont.popinsRegular,
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 12),
-                                      ),
-                                    ],
-                                  ),
+                          SizedBox(width: 10),
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6),
+                                  color: Color(0xffFEA47F)),
+                              height: deviceHeight * 0.08,
+                              child: Padding(
+                                padding:
+                                    EdgeInsets.only(left: deviceWidth * 0.04),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "2",
+                                      style: TextStyle(
+                                          fontFamily: ConstFont.popinsRegular,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 16),
+                                    ),
+                                    Text(
+                                      "Low Stock",
+                                      style: TextStyle(
+                                          fontFamily: ConstFont.popinsRegular,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 12),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -232,68 +229,74 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontFamily: ConstFont.popinsRegular),
                             ),
                           ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                    side: BorderSide.none,
-                                    borderRadius: BorderRadius.circular(3)),
-                                backgroundColor: selectedValueIndex == 0
-                                    ? ConstColour.primaryColor
-                                    : ConstColour.cardBgColor,
-                                minimumSize: Size(
-                                    deviceWidth * 0.18, deviceHeight * 0.03),
-                                maximumSize: Size(
-                                    deviceWidth * 0.20, deviceHeight * 0.03),
-                                elevation: 0.5),
-                            onPressed: () {
-                              setState(() {
-                                selectedValueIndex = 0;
-                                print(selectedValueIndex);
-                              });
-                            },
-                            child: Text(
-                              "24-48 Hr",
-                              style: TextStyle(
-                                  fontSize: 9,
-                                  color: selectedValueIndex == 0
-                                      ? Colors.black
-                                      : Colors.black,
-                                  fontFamily: ConstFont.popinsRegular),
+                          // SizedBox(
+                          //   width: 5,
+                          // ),
+                          Padding(
+                            padding:  EdgeInsets.only(left: deviceWidth*0.01),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                      side: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(3)),
+                                  backgroundColor: selectedValueIndex == 0
+                                      ? ConstColour.primaryColor
+                                      : ConstColour.cardBgColor,
+                                  minimumSize: Size(
+                                      deviceWidth * 0.18, deviceHeight * 0.03),
+                                  maximumSize: Size(
+                                      deviceWidth * 0.20, deviceHeight * 0.03),
+                                  elevation: 0.5),
+                              onPressed: () {
+                                setState(() {
+                                  selectedValueIndex = 0;
+                                  print(selectedValueIndex);
+                                });
+                              },
+                              child: Text(
+                                "24-48 Hr",
+                                style: TextStyle(
+                                    fontSize: 9,
+                                    color: selectedValueIndex == 0
+                                        ? Colors.black
+                                        : Colors.black,
+                                    fontFamily: ConstFont.popinsRegular),
+                              ),
                             ),
                           ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                    side: BorderSide.none,
-                                    borderRadius: BorderRadius.circular(3)),
-                                backgroundColor: selectedValueIndex == 2
-                                    ? ConstColour.primaryColor
-                                    : ConstColour.cardBgColor,
-                                minimumSize: Size(
-                                    deviceWidth * 0.18, deviceHeight * 0.03),
-                                maximumSize: Size(
-                                    deviceWidth * 0.20, deviceHeight * 0.03),
-                                elevation: 0.5),
-                            onPressed: () {
-                              setState(() {
-                                selectedValueIndex = 2;
-                                print(selectedValueIndex);
-                              });
-                            },
-                            child: Text(
-                              "Daily",
-                              style: TextStyle(
-                                  fontSize: 9,
-                                  color: selectedValueIndex == 2
-                                      ? Colors.black
-                                      : Colors.black,
-                                  fontFamily: ConstFont.popinsRegular),
+                          // SizedBox(
+                          //   width: 5,
+                          // ),
+                          Padding(
+                            padding:  EdgeInsets.only(left: deviceWidth*0.01),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                      side: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(3)),
+                                  backgroundColor: selectedValueIndex == 2
+                                      ? ConstColour.primaryColor
+                                      : ConstColour.cardBgColor,
+                                  minimumSize: Size(
+                                      deviceWidth * 0.18, deviceHeight * 0.03),
+                                  maximumSize: Size(
+                                      deviceWidth * 0.20, deviceHeight * 0.03),
+                                  elevation: 0.5),
+                              onPressed: () {
+                                setState(() {
+                                  selectedValueIndex = 2;
+                                  print(selectedValueIndex);
+                                });
+                              },
+                              child: Text(
+                                "Daily",
+                                style: TextStyle(
+                                    fontSize: 9,
+                                    color: selectedValueIndex == 2
+                                        ? Colors.black
+                                        : Colors.black,
+                                    fontFamily: ConstFont.popinsRegular),
+                              ),
                             ),
                           )
                         ],
