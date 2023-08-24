@@ -41,16 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       key: _globalKey,
       backgroundColor: ConstColour.bgColor,
-      // appBar: PreferredSize(
-      //     preferredSize: Size(deviceWidth, deviceHeight),
-      //     child: DetailsAppbar(
-      //       title: "Dashboard",
-      //       onTap: () {
-      //         Scaffold.of(context).openDrawer();
-      //         //_globalKey.currentState?.openDrawer();
-      //         Get.back();
-      //       },
-      //     )),
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text("Dashboard",
@@ -60,14 +50,6 @@ class _HomeScreenState extends State<HomeScreen> {
         iconTheme: IconThemeData(
           color: Colors.black, // Change this color to your desired color
         ),
-        // leading: IconButton(
-        //   icon: Icon(Icons.menu,
-        //     color: Colors.black,),
-        //   onPressed: (){
-        //     //Scaffold.of(context).openDrawer();
-        //   },
-        //   tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-        // ),
         actions: [
           IconButton(onPressed: (){}, icon: Image.asset("assets/Icons/notification.png"))
         ],
@@ -151,35 +133,38 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                           ),
-                          SizedBox(width: 10),
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6),
-                                  color: Color(0xffFEA47F)),
-                              height: deviceHeight * 0.08,
-                              child: Padding(
-                                padding:
-                                    EdgeInsets.only(left: deviceWidth * 0.04),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "2",
-                                      style: TextStyle(
-                                          fontFamily: ConstFont.popinsRegular,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 16),
-                                    ),
-                                    Text(
-                                      "Low Stock",
-                                      style: TextStyle(
-                                          fontFamily: ConstFont.popinsRegular,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 12),
-                                    ),
-                                  ],
+
+                          Padding(
+                            padding:  EdgeInsets.only(bottom: deviceWidth*0.01),
+                            child: Expanded(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(6),
+                                    color: Color(0xffFEA47F)),
+                                height: deviceHeight * 0.08,
+                                child: Padding(
+                                  padding:
+                                      EdgeInsets.only(left: deviceWidth * 0.04),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "2",
+                                        style: TextStyle(
+                                            fontFamily: ConstFont.popinsRegular,
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 16),
+                                      ),
+                                      Text(
+                                        "Low Stock",
+                                        style: TextStyle(
+                                            fontFamily: ConstFont.popinsRegular,
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
