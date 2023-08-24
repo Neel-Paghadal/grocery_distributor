@@ -45,6 +45,7 @@ class _LiveorderPageState extends State<LiveorderPage> {
     '₹ 150.00',
   ];
   List<String> Kg = ["1 Kg", "2 Kg", "6 Pic", "500 Gm", "5 Kg"];
+  List<int> color=[0xffE4EECB,0xffF0D0D8,0xffF3EDCD,0xffEEE9D8,0xffF5DBD2];
   int? selectedValueIndex = 1;
   DateTime _selectedDate = DateTime.now();
 
@@ -297,11 +298,15 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                   //mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Container(
-                                      child: Image(image: AssetImage(
-                                        productImage[index].toString(),),
+                                      decoration: BoxDecoration(
+                                        color: Color(color[index].toInt()),
+                                      ),
+                                      height: 60,
+                                      width: 72,
+                                      child: Image(image: AssetImage(productImage[index].toString(),),
                                         fit: BoxFit.cover,
-                                        // height: 70,
-                                        width: 70,
+                                        height: 45,
+                                        width: 65,
                                       ),
                                     ),
                                     Expanded(

@@ -19,6 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<String> Addresss=["236, Tulsi Arcade, Sudama Chowk, Surat.","236, Tulsi Arcade, Sudama Chowk, Surat.","236, Tulsi Arcade, Sudama Chowk, Surat.","236, Tulsi Arcade, Sudama Chowk, Surat.","236, Tulsi Arcade, Sudama Chowk, Surat."];
   List<String> Price=['₹ 100.00','₹ 59.00','₹ 100.00','₹ 24.00','₹ 150.00',];
   List<String> Kg=["1 Kg","2 Kg","6 Pic","500 Gm","5 Kg"];
+  List<int> color=[0xffE4EECB,0xffF0D0D8,0xffF3EDCD,0xffEEE9D8,0xffF5DBD2];
   int? selectedValueIndex = 1;
 
   final GlobalKey<ScaffoldState> _globalKey=GlobalKey();
@@ -334,10 +335,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                         //mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Container(
+                                            decoration: BoxDecoration(
+                                              color: Color(color[index].toInt()),
+                                            ),
+                                            height: 60,
+                                            width: 72,
                                             child: Image(image: AssetImage(productImage[index].toString(),),
                                               fit: BoxFit.cover,
-                                              // height: 70,
-                                               width: 70,
+                                              height: 45,
+                                              width: 65,
                                             ),
                                           ),
                                           Expanded(
@@ -520,7 +526,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 ListTile(
                   leading: Image.asset("assets/Icons/order.png"),
-                  onTap: (){},
+                  onTap: (){
+                    Get.to(LiveorderPage());
+                  },
                   title: Text("Live Orders",
                     style: TextStyle(
                       fontSize: 15,
