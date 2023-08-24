@@ -1,3 +1,4 @@
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grocery_distributor/Common/appBar.dart';
@@ -229,6 +230,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontFamily: ConstFont.popinsRegular),
                             ),
                           ),
+
                           Padding(
                             padding:  EdgeInsets.only(left: deviceWidth*0.01),
                             child: ElevatedButton(
