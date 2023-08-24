@@ -61,11 +61,11 @@ class _DashbordPageState extends State<DashbordPage> {
                                  mainAxisSize: MainAxisSize.max,
                                  children: [
                                    Container(
+                                     //height: 70,
+                                     width: 70,
                                      child: Image(image: AssetImage(productImage[index].toString()),
                                         fit: BoxFit.cover,
-                                        //height: 70,
-                                        width: 70,
-                                     ),
+                                       ),
                                    ),
                                    SizedBox(
                                      width: 10,
