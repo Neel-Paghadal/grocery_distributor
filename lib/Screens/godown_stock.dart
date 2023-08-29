@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:grocery_distributor/Screens/order_details.dart';
+import 'package:grocery_distributor/Screens/user_list.dart';
 
 import '../ConstFile/constFonts.dart';
 import '../ConstFile/constImage.dart';
@@ -29,7 +31,9 @@ class GodownPageState extends State<GodownPage>{
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: Image.asset("assets/Icons/drwar.png"),
+        leading: IconButton(onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => UserPage()));
+        }, icon: Icon(Icons.arrow_back_ios,color: Colors.black,),),
         actions: [
           Image.asset("assets/Icons/notification.png")
         ],

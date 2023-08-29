@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 
 import '../ConstFile/constColor.dart';
 import '../ConstFile/constFonts.dart';
+import 'home_screen.dart';
 
 class LiveorderPage extends StatefulWidget {
   const LiveorderPage({Key? key}) : super(key: key);
@@ -57,7 +58,9 @@ class _LiveorderPageState extends State<LiveorderPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: Image.asset("assets/Icons/drwar.png"),
+        leading: IconButton(onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen()));
+        }, icon: Icon(Icons.arrow_back_ios,color: Colors.black,),),
         actions: [
           Image.asset("assets/Icons/notification.png")
         ],
@@ -65,8 +68,7 @@ class _LiveorderPageState extends State<LiveorderPage> {
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text("Live Order",
-          style: TextStyle(color: Colors.black),),
-      ),
+          style: TextStyle(color: Colors.black),),),
       body: SafeArea(
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,

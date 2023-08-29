@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:grocery_distributor/Screens/godown_stock.dart';
+import 'package:grocery_distributor/Screens/user_list.dart';
 import 'package:intl/intl.dart';
 
 import '../ConstFile/constColor.dart';
 import '../ConstFile/constFonts.dart';
+import 'live_order.dart';
 
 class OrderdetailsPage extends StatefulWidget {
   const OrderdetailsPage({Key? key}) : super(key: key);
@@ -31,7 +33,10 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: Image.asset("assets/Icons/drwar.png"),
+        // leading: Image.asset("assets/Icons/drwar.png"),
+        leading: IconButton(onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => LiveorderPage()));
+        }, icon: Icon(Icons.arrow_back_ios,color: Colors.black,),),
         actions: [
           Image.asset("assets/Icons/notification.png")
         ],
@@ -353,7 +358,7 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
                                                           child: ElevatedButton(
                                                             style: ElevatedButton.styleFrom(primary: Color(0xff6AB04C)),
                                                             onPressed: () {
-                                                              Get.to(()=>GodownPage());
+                                                              Get.to(()=>UserPage());
                                                               // selectedValueIndex = 1;
                                                               // print(selectedValueIndex);
                                                             },

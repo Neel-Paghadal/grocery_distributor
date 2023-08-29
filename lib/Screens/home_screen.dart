@@ -4,6 +4,9 @@ import 'package:get/get.dart';
 import 'package:grocery_distributor/Common/appBar.dart';
 import 'package:grocery_distributor/ConstFile/constColor.dart';
 import 'package:grocery_distributor/ConstFile/constFonts.dart';
+import 'package:grocery_distributor/Screens/godown_stock.dart';
+import 'package:grocery_distributor/Screens/low_stock.dart';
+import 'package:grocery_distributor/Screens/user_list.dart';
 
 import 'live_order.dart';
 
@@ -522,7 +525,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 ListTile(
                   leading: Image.asset("assets/Icons/user.png"),
-                  onTap: (){},
+                  onTap: (){
+                    Get.to(UserPage());
+                  },
                   title: Text("User List",
                     style: TextStyle(
                       fontSize: 15,
@@ -532,7 +537,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 ListTile(
                   leading: Image.asset("assets/Icons/godowan.png"),
-                  onTap: (){},
+                  onTap: (){
+                    Get.to(GodownPage());
+                  },
                   title: Text("Godown Stock",
                     style: TextStyle(
                       fontSize: 15,
@@ -552,7 +559,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 ListTile(
                   leading: Image.asset("assets/Icons/low.png"),
-                  onTap: (){},
+                  onTap: (){
+                    Get.to(lowstockPage());
+                  },
                   title: Text("Low Stock",
                     style: TextStyle(
                       fontSize: 15,

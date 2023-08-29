@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../ConstFile/constFonts.dart';
 import '../ConstFile/constImage.dart';
+import 'godown_stock.dart';
 
 class lowstockPage extends StatefulWidget {
   const lowstockPage({Key? key}) : super(key: key);
@@ -20,7 +21,9 @@ class _lowstockPageState extends State<lowstockPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: Image.asset("assets/Icons/drwar.png"),
+        leading:IconButton(onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => GodownPage()));
+        }, icon: Icon(Icons.arrow_back_ios,color: Colors.black,),),
         actions: [
           Image.asset("assets/Icons/notification.png")
         ],
