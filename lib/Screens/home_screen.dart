@@ -25,10 +25,14 @@ class _HomeScreenState extends State<HomeScreen> {
   List<String> Kg=["1 Kg","2 Kg","6 Pic","500 Gm","5 Kg"];
   List<int> color=[0xffE4EECB,0xffF0D0D8,0xffF3EDCD,0xffEEE9D8,0xffF5DBD2];
   int? selectedValueIndex = 1;
-  List<String> SelectedValueIndex=["1","2","3","4","5"];
+  List<int> SelectedValueIndex=[1,2,3,4,5];
   final GlobalKey<ScaffoldState> _globalKey=GlobalKey();
+  final formkey=GlobalKey<FormState>();
 
-
+  moveTohome (BuildContext context)async{
+    if(formkey.currentState!.validate()) { //formkey use kri means k jo validate hase to bija page par jase baki erroe show thase
+    }
+  }
   @override
   Widget build(BuildContext context) {
     var deviceHeight = MediaQuery.of(context).size.height;
@@ -417,22 +421,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                   child: Center(
                                                                     child: ElevatedButton(
                                                                       style: ElevatedButton.styleFrom(primary: Color(0xff6AB04C),
-                                                                        backgroundColor:SelectedValueIndex.isEmpty
+                                                                        backgroundColor:selectedValueIndex==1
                                                                             ? Color(0xff6AB04C)
                                                                             : Color(0xff6AB04C),),
                                                                       onPressed: () {
                                                                         setState(() {
-                                                                          SelectedValueIndex.toString();
-                                                                          print(SelectedValueIndex);
+                                                                          selectedValueIndex.toString();
+                                                                          print(selectedValueIndex);
                                                                         });
                                                                         // SelectedValueIndex.toString();
                                                                         // print(SelectedValueIndex);
-                                                                        Get.to(() => LiveorderPage());
+                                                                       // Get.to(() => LiveorderPage());
                                                                       },
                                                                       child: Text("Accept",
                                                                         style: TextStyle(
                                                                             fontFamily: ConstFont.popinsRegular,
-                                                                            color: SelectedValueIndex.isEmpty
+                                                                            color: selectedValueIndex==1
                                                                                 ? Colors.black
                                                                                 : Colors.black,
                                                                             //color: Colors.white
@@ -458,25 +462,28 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                             final result=await showDialog(context: context, builder: (BuildContext context){
                                                                               return AlertDialog(
                                                                                 backgroundColor: Colors.grey.shade100,
-                                                                                title: TextFormField(
-                                                                                  decoration: InputDecoration(
-                                                                                    fillColor: Color(0xffF3F4F4),
-                                                                                    filled: true,
-                                                                                    enabledBorder: OutlineInputBorder(
-                                                                                        borderRadius: BorderRadius.circular(2),
-                                                                                        borderSide: BorderSide.none
+                                                                                title: Form(
+                                                                                  key: formkey,
+                                                                                  child: TextFormField(
+                                                                                    decoration: InputDecoration(
+                                                                                      fillColor: Color(0xffF3F4F4),
+                                                                                      filled: true,
+                                                                                      enabledBorder: OutlineInputBorder(
+                                                                                          borderRadius: BorderRadius.circular(2),
+                                                                                          borderSide: BorderSide.none
+                                                                                      ),
+                                                                                      hintStyle: TextStyle(
+                                                                                          fontFamily: ConstFont.popinsRegular,
+                                                                                          fontSize: 15),
+                                                                                      hintText: "Reason for Reject ",
                                                                                     ),
-                                                                                    hintStyle: TextStyle(
-                                                                                        fontFamily: ConstFont.popinsRegular,
-                                                                                        fontSize: 15),
-                                                                                    hintText: "Reason for Reject ",
+                                                                                    validator: (value){
+                                                                                      if(value!.isEmpty){
+                                                                                        return "Propar Reason";
+                                                                                      }
+                                                                                      return null;
+                                                                                    },
                                                                                   ),
-                                                                                  // validator: (value){
-                                                                                  //   if(value!.isEmpty){
-                                                                                  //     return "Propar Reason";
-                                                                                  //   }
-                                                                                  //   return null;
-                                                                                  // },
                                                                                 ),
                                                                                 content:  Row(
                                                                                    mainAxisAlignment: MainAxisAlignment.center,
