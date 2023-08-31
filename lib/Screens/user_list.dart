@@ -57,7 +57,8 @@ class _UserPageState extends State<UserPage>{
                     style: TextStyle(
                         fontFamily: ConstFont.popinsRegular,
                         color: Colors.black,
-                        fontSize: 12),),
+                        fontSize: 12),
+                      overflow: TextOverflow.ellipsis),
                 ),
               ),
             );

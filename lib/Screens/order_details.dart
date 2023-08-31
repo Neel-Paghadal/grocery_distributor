@@ -324,7 +324,8 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
                                                     fontSize: 10,
                                                     fontFamily: ConstFont.popinsRegular,
                                                     color: Colors.black
-                                                ),),
+                                                ),
+                                                  overflow: TextOverflow.ellipsis),
                                             ],
                                           ),
                                         ),
@@ -383,11 +384,46 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
                                                           child: ElevatedButton(
                                                             style: ElevatedButton.styleFrom(primary: Color(0xffF86C6B)),
                                                             onPressed: (){},
-                                                            child: Text("Reject",
-                                                              style: TextStyle(
-                                                                  fontFamily: ConstFont.popinsRegular,
-                                                                  color: Colors.white
-                                                              ),),
+                                                            child: InkWell(
+                                                              onTap: ()async{
+                                                                final result=await showDialog(context: context, builder: (BuildContext context){
+                                                                  return AlertDialog(
+                                                                    backgroundColor: Colors.grey.shade100,
+                                                                    title: TextFormField(
+                                                                      decoration: InputDecoration(
+                                                                        fillColor: Color(0xffF3F4F4),
+                                                                        filled: true,
+                                                                        enabledBorder: OutlineInputBorder(
+                                                                            borderRadius: BorderRadius.circular(2),
+                                                                            borderSide: BorderSide.none
+                                                                        ),
+                                                                        hintStyle: TextStyle(
+                                                                            fontFamily: ConstFont.popinsRegular,
+                                                                            fontSize: 15),
+                                                                        hintText: "Reason for Reject ",
+                                                                      ),
+                                                                    ),
+                                                                    content:  Row(
+                                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                                      children: [
+                                                                        ElevatedButton(onPressed: (){
+                                                                          Navigator.pop(context,false);
+                                                                        },
+                                                                          style: ElevatedButton.styleFrom(
+                                                                              backgroundColor: Colors.grey
+                                                                          ),
+                                                                          child: Text("Submit"),),
+                                                                      ],
+                                                                    ),
+                                                                  );
+                                                                });
+                                                              },
+                                                              child: Text("Reject",
+                                                                style: TextStyle(
+                                                                    fontFamily: ConstFont.popinsRegular,
+                                                                    color: Colors.white
+                                                                ),),
+                                                            ),
                                                           ),
                                                         ),
                                                       ),

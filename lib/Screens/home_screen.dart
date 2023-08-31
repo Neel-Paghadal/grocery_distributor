@@ -25,8 +25,9 @@ class _HomeScreenState extends State<HomeScreen> {
   List<String> Kg=["1 Kg","2 Kg","6 Pic","500 Gm","5 Kg"];
   List<int> color=[0xffE4EECB,0xffF0D0D8,0xffF3EDCD,0xffEEE9D8,0xffF5DBD2];
   int? selectedValueIndex = 1;
-
+  List<String> SelectedValueIndex=["1","2","3","4","5"];
   final GlobalKey<ScaffoldState> _globalKey=GlobalKey();
+
 
   @override
   Widget build(BuildContext context) {
@@ -308,160 +309,215 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: EdgeInsets.only(left: deviceWidth*0.00,right: deviceWidth*0.00),
-                          child: Card(
-                            color: Color(0xffF3F4F4),
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: deviceWidth*0.01,bottom: deviceHeight*0.01,right: deviceWidth*0.01,top: deviceHeight*0.01),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        //mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              color: Color(color[index].toInt()),
+                            child: Card(
+                              color: Color(0xffF3F4F4),
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: deviceWidth*0.01,bottom: deviceHeight*0.01,right: deviceWidth*0.01,top: deviceHeight*0.01),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          //mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                color: Color(color[index].toInt()),
+                                              ),
+                                              height: 60,
+                                              width: 72,
+                                              child: Image(image: AssetImage(productImage[index].toString(),),
+                                                fit: BoxFit.cover,
+                                                height: 45,
+                                                width: 65,
+                                              ),
                                             ),
-                                            height: 60,
-                                            width: 72,
-                                            child: Image(image: AssetImage(productImage[index].toString(),),
-                                              fit: BoxFit.cover,
-                                              height: 45,
-                                              width: 65,
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    Padding(
-                                                      padding:  EdgeInsets.only(left: deviceHeight*0.01),
-                                                      child: Text(productName[index].toString(),
-                                                        style: TextStyle(
-                                                          fontSize: 14,
-                                                          fontFamily: ConstFont.popinsRegular,
-                                                          color: Colors.black,
-                                                          fontWeight: FontWeight.w500
-                                                        ),),
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                      children: [
-                                                        Padding(
-                                                          padding:  EdgeInsets.only(left: deviceHeight*0.01,right: deviceHeight*0.01),
-                                                          child: Text(Kg[index].toString(),
-                                                            style: TextStyle(
-                                                              fontSize: 10,
-                                                              //fontWeight: FontWeight.bold,
-                                                              fontFamily: ConstFont.popinsRegular,
-                                                              color: Colors.black,
-                                                            ),),
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                                Padding(padding: EdgeInsets.only(left: deviceHeight*0.01),
-                                                  child: Row(
-                                                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                      Image.asset("assets/Icons/location.png"),
-                                                      Text(Addresss[index].toString(),
-                                                        style: TextStyle(
-                                                            letterSpacing: 1.0,
-                                                            fontSize: 11,
-                                                            fontFamily: ConstFont.popinsRegular,
-                                                            color: Colors.black
-                                                        ),),
-
-                                                    ],
-                                                  ),
-                                                ),
-                                                Padding(padding: EdgeInsets.only(left: deviceWidth*0.01),
-                                                  child: Row(
+                                            Expanded(
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Row(
                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
                                                       Padding(
-                                                        padding:  EdgeInsets.only(left: deviceWidth*0.01),
-                                                        child: Text(Price[index].toString(),
+                                                        padding:  EdgeInsets.only(left: deviceHeight*0.01),
+                                                        child: Text(productName[index].toString(),
                                                           style: TextStyle(
-                                                              fontSize: 12,
-                                                              fontWeight: FontWeight.w500,
-                                                              fontFamily: ConstFont.popinsRegular,
-                                                              color: Colors.black
+                                                            fontSize: 14,
+                                                            fontFamily: ConstFont.popinsRegular,
+                                                            color: Colors.black,
+                                                            fontWeight: FontWeight.w500
                                                           ),),
                                                       ),
-                                                      Padding(
-                                                        padding: EdgeInsets.only(left: deviceWidth*0.01,),
-                                                        child: Row(
-                                                          //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                          children: [
-                                                            Padding(
-                                                              padding: EdgeInsets.only(left: deviceWidth*0.01),
-                                                              child: Container(
-                                                                height:25,
-                                                                width:90,
-                                                                decoration: BoxDecoration(
-                                                                  borderRadius: BorderRadius.circular(1),
-                                                                ),
-                                                                child: Center(
-                                                                  child: ElevatedButton(
-                                                                    style: ElevatedButton.styleFrom(primary: Color(0xff6AB04C)),
-                                                                    onPressed: () {
-                                                                      Get.to(() => LiveorderPage());
-                                                                    },
-                                                                    child: Text("Accept",
-                                                                      style: TextStyle(
-                                                                          fontFamily: ConstFont.popinsRegular,
-                                                                          color: Colors.white
-                                                                      ),),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Padding(
-                                                              padding: EdgeInsets.only(left: deviceWidth*0.01,right: deviceWidth*0.01),
-                                                              child: Container(
-                                                                height: 25,
-                                                                width: 80,
-                                                                decoration: BoxDecoration(
-                                                                  borderRadius: BorderRadius.circular(1),
-                                                                ),
-                                                                child: Center(
-                                                                  child: ElevatedButton(
-                                                                    style: ElevatedButton.styleFrom(primary: Color(0xffF86C6B)),
-                                                                    onPressed: (){},
-                                                                    child: Text("Reject",
-                                                                      style: TextStyle(
-                                                                          fontFamily: ConstFont.popinsRegular,
-                                                                          color: Colors.white
-                                                                      ),),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            )
-                                                          ],
-                                                        ),
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                        children: [
+                                                          Padding(
+                                                            padding:  EdgeInsets.only(left: deviceHeight*0.01,right: deviceHeight*0.01),
+                                                            child: Text(Kg[index].toString(),
+                                                              style: TextStyle(
+                                                                fontSize: 10,
+                                                                //fontWeight: FontWeight.bold,
+                                                                fontFamily: ConstFont.popinsRegular,
+                                                                color: Colors.black,
+                                                              ),),
+                                                          )
+                                                        ],
                                                       ),
                                                     ],
                                                   ),
-                                                )
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ),
+                                                  Padding(padding: EdgeInsets.only(left: deviceHeight*0.01),
+                                                    child: Row(
+                                                     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      children: [
+                                                        Image.asset("assets/Icons/location.png"),
+                                                        Text(Addresss[index].toString(),
+                                                          style: TextStyle(
+                                                              letterSpacing: 1.0,
+                                                              fontSize: 11,
+                                                              fontFamily: ConstFont.popinsRegular,
+                                                              color: Colors.black
+                                                          ),
+                                                        overflow: TextOverflow.ellipsis),
+
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Padding(padding: EdgeInsets.only(left: deviceWidth*0.01),
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      children: [
+                                                        Padding(
+                                                          padding:  EdgeInsets.only(left: deviceWidth*0.01),
+                                                          child: Text(Price[index].toString(),
+                                                            style: TextStyle(
+                                                                fontSize: 12,
+                                                                fontWeight: FontWeight.w500,
+                                                                fontFamily: ConstFont.popinsRegular,
+
+                                                                color: Colors.black
+                                                            ),),
+                                                        ),
+                                                        Padding(
+                                                          padding: EdgeInsets.only(left: deviceWidth*0.01,),
+                                                          child: Row(
+                                                            //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                            children: [
+                                                              Padding(
+                                                                padding: EdgeInsets.only(left: deviceWidth*0.01),
+                                                                child: Container(
+                                                                  height:25,
+                                                                  width:90,
+                                                                  decoration: BoxDecoration(
+                                                                    borderRadius: BorderRadius.circular(1),
+                                                                  ),
+                                                                  child: Center(
+                                                                    child: ElevatedButton(
+                                                                      style: ElevatedButton.styleFrom(primary: Color(0xff6AB04C),
+                                                                        backgroundColor:SelectedValueIndex.isEmpty
+                                                                            ? Color(0xff6AB04C)
+                                                                            : Color(0xff6AB04C),),
+                                                                      onPressed: () {
+                                                                        setState(() {
+                                                                          SelectedValueIndex.toString();
+                                                                          print(SelectedValueIndex);
+                                                                        });
+                                                                        // SelectedValueIndex.toString();
+                                                                        // print(SelectedValueIndex);
+                                                                        Get.to(() => LiveorderPage());
+                                                                      },
+                                                                      child: Text("Accept",
+                                                                        style: TextStyle(
+                                                                            fontFamily: ConstFont.popinsRegular,
+                                                                            color: SelectedValueIndex.isEmpty
+                                                                                ? Colors.black
+                                                                                : Colors.black,
+                                                                            //color: Colors.white
+                                                                        ),),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Padding(
+                                                                padding: EdgeInsets.only(left: deviceWidth*0.01,right: deviceWidth*0.01),
+                                                                child: Container(
+                                                                  height: 25,
+                                                                  width: 80,
+                                                                  decoration: BoxDecoration(
+                                                                    borderRadius: BorderRadius.circular(1),
+                                                                  ),
+                                                                    child: Center(
+                                                                      child: ElevatedButton(
+                                                                        style: ElevatedButton.styleFrom(primary: Color(0xffF86C6B)),
+                                                                         onPressed: (){},
+                                                                        child: InkWell(
+                                                                          onTap: ()async{
+                                                                            final result=await showDialog(context: context, builder: (BuildContext context){
+                                                                              return AlertDialog(
+                                                                                backgroundColor: Colors.grey.shade100,
+                                                                                title: TextFormField(
+                                                                                  decoration: InputDecoration(
+                                                                                    fillColor: Color(0xffF3F4F4),
+                                                                                    filled: true,
+                                                                                    enabledBorder: OutlineInputBorder(
+                                                                                        borderRadius: BorderRadius.circular(2),
+                                                                                        borderSide: BorderSide.none
+                                                                                    ),
+                                                                                    hintStyle: TextStyle(
+                                                                                        fontFamily: ConstFont.popinsRegular,
+                                                                                        fontSize: 15),
+                                                                                    hintText: "Reason for Reject ",
+                                                                                  ),
+                                                                                  // validator: (value){
+                                                                                  //   if(value!.isEmpty){
+                                                                                  //     return "Propar Reason";
+                                                                                  //   }
+                                                                                  //   return null;
+                                                                                  // },
+                                                                                ),
+                                                                                content:  Row(
+                                                                                   mainAxisAlignment: MainAxisAlignment.center,
+                                                                                  children: [
+                                                                                    ElevatedButton(onPressed: (){
+                                                                                      Navigator.pop(context,false);
+                                                                                    },
+                                                                                      style: ElevatedButton.styleFrom(
+                                                                                          backgroundColor: Colors.grey
+                                                                                      ),
+                                                                                      child: Text("Submit"),),
+                                                                                  ],
+                                                                                ),
+                                                                              );
+                                                                            });
+                                                                          },
+                                                                          child: Text("Reject",
+                                                                            style: TextStyle(
+                                                                                fontFamily: ConstFont.popinsRegular,
+                                                                                color: Colors.white
+                                                                            ),),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ),
                         );
                       },
                     ),

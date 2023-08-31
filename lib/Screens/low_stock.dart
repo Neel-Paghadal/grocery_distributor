@@ -88,7 +88,8 @@ class _lowstockPageState extends State<lowstockPage> {
                                         fontSize: 14,
                                         fontFamily: ConstFont.popinsRegular,
                                         color: Colors.black,
-                                      ),),
+                                      ),
+                                        overflow: TextOverflow.ellipsis),
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(left: deviceHeight*0.01,right: deviceHeight*0.01),
