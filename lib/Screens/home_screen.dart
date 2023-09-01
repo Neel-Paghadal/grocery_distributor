@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<String> Kg=["1 Kg","2 Kg","6 Pic","500 Gm","5 Kg"];
   List<int> color=[0xffE4EECB,0xffF0D0D8,0xffF3EDCD,0xffEEE9D8,0xffF5DBD2];
   int? selectedValueIndex = 1;
-  List<int> SelectedValueIndex=[1,2,3,4,5];
+  List<int> SelectedValueIndex=[1,2,3,4,5] ;
   final GlobalKey<ScaffoldState> _globalKey=GlobalKey();
   final formkey=GlobalKey<FormState>();
 
@@ -420,23 +420,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                   ),
                                                                   child: Center(
                                                                     child: ElevatedButton(
-                                                                      style: ElevatedButton.styleFrom(primary: Color(0xff6AB04C),
-                                                                        backgroundColor:selectedValueIndex==1
-                                                                            ? Color(0xff6AB04C)
-                                                                            : Color(0xff6AB04C),),
+                                                                      style: ElevatedButton.styleFrom(primary: Color(0xff6AB04C),),
+                                                                        // backgroundColor:SelectedValueIndex==1
+                                                                        //     ? Color(0xff6AB04C)
+                                                                        //     : Color(0xff6AB04C),),
                                                                       onPressed: () {
                                                                         setState(() {
-                                                                          selectedValueIndex.toString();
-                                                                          print(selectedValueIndex);
+                                                                          SelectedValueIndex.toString();
+                                                                          print(SelectedValueIndex);
                                                                         });
                                                                         // SelectedValueIndex.toString();
                                                                         // print(SelectedValueIndex);
-                                                                       // Get.to(() => LiveorderPage());
+                                                                        Get.to(() => LiveorderPage());
                                                                       },
                                                                       child: Text("Accept",
                                                                         style: TextStyle(
                                                                             fontFamily: ConstFont.popinsRegular,
-                                                                            color: selectedValueIndex==1
+                                                                            color: SelectedValueIndex==1
                                                                                 ? Colors.black
                                                                                 : Colors.black,
                                                                             //color: Colors.white
@@ -449,7 +449,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 padding: EdgeInsets.only(left: deviceWidth*0.01,right: deviceWidth*0.01),
                                                                 child: Container(
                                                                   height: 25,
-                                                                  width: 80,
+                                                                  width: 75,
                                                                   decoration: BoxDecoration(
                                                                     borderRadius: BorderRadius.circular(1),
                                                                   ),

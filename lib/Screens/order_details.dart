@@ -47,378 +47,325 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
           style: TextStyle(color: Colors.black),),
       ),
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: deviceWidth * 0.02),
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                    color: Color(0xffF3F4F4),
-                    borderRadius: BorderRadius.circular(5)
-                ),
-                margin: EdgeInsets.only(left: deviceWidth*0.02,right: deviceWidth*0.02),
-                //color: Color(0xffF3F4F4),
-                child: Row(
-                  children: [
-                    Expanded(
-                        child: Padding(
-                          padding: EdgeInsets.only(left: deviceWidth * 0.03,
-                              top: deviceWidth * 0.02,
-                              bottom: deviceWidth * 0.02),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            // mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text("Date Range", style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                              ),),
-                              Row(
-                                children: [
-                                  IconButton(onPressed: () async {
-                                    _getDateFromUser();
-                                  },
-                                      icon: Icon(
-                                          Icons.calendar_month_rounded)),
-                                  Text(
-                                      DateFormat.yMd().format(_selectedDate)),
-                                    IconButton(onPressed: ()  {
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: deviceWidth * 0.02),
+            child: Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                      color: Color(0xffF3F4F4),
+                      borderRadius: BorderRadius.circular(5)
+                  ),
+                  margin: EdgeInsets.only(left: deviceWidth*0.02,right: deviceWidth*0.02),
+                  //color: Color(0xffF3F4F4),
+                  child: Row(
+                    children: [
+                      Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.only(left: deviceWidth * 0.03,
+                                top: deviceWidth * 0.02,
+                                bottom: deviceWidth * 0.02),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              // mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text("Date Range", style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                ),),
+                                Row(
+                                  children: [
+                                    IconButton(onPressed: () async {
                                       _getDateFromUser();
                                     },
                                         icon: Icon(
                                             Icons.calendar_month_rounded)),
-                                  Text(DateFormat.yMd().format(_selectedDate))
-                                ],
-                              )
-                            ],
-                          ),
-                        ))
-                  ],
+                                    Text(
+                                        DateFormat.yMd().format(_selectedDate)),
+                                      IconButton(onPressed: ()  {
+                                        _getDateFromUser();
+                                      },
+                                          icon: Icon(
+                                              Icons.calendar_month_rounded)),
+                                    Text(DateFormat.yMd().format(_selectedDate))
+                                  ],
+                                )
+                              ],
+                            ),
+                          ))
+                    ],
+                  ),
                 ),
-              ),
-              Padding(
-                padding:  EdgeInsets.only(top: deviceHeight*0.01,left: deviceWidth*0.02),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Time Filter",
-                      style: TextStyle(
-                          fontFamily: ConstFont.popinsRegular,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                    left: deviceWidth * 0.02, right: deviceWidth * 0.03),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              side: BorderSide.none,
-                              borderRadius: BorderRadius.circular(3)),
-                          backgroundColor: selectedValueIndex == 1
-                              ? ConstColour.primaryColor
-                              : ConstColour.cardBgColor,
-                          minimumSize: Size(
-                              deviceWidth * 0.18, deviceHeight * 0.03),
-                          maximumSize: Size(
-                              deviceWidth * 0.20, deviceHeight * 0.03),
-                          elevation: 0.5),
-                      onPressed: () {
-                        setState(() {
-                          selectedValueIndex = 1;
-                          print(selectedValueIndex);
-                        });
-                      },
-                      child: Text(
-                        "All",
+                Padding(
+                  padding:  EdgeInsets.only(top: deviceHeight*0.01,left: deviceWidth*0.02),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Time Filter",
                         style: TextStyle(
-                            fontSize: 9,
-                            color: selectedValueIndex == 1
-                                ? Colors.black
-                                : Colors.black,
-                            fontFamily: ConstFont.popinsRegular),
-                      ),
-                    ),
-                    Padding(
-                      padding:  EdgeInsets.only(left: deviceWidth*0.01),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                side: BorderSide.none,
-                                borderRadius: BorderRadius.circular(3)),
-                            backgroundColor: selectedValueIndex == 0
-                                ? ConstColour.primaryColor
-                                : ConstColour.cardBgColor,
-                            minimumSize: Size(
-                                deviceWidth * 0.18, deviceHeight * 0.03),
-                            maximumSize: Size(
-                                deviceWidth * 0.20, deviceHeight * 0.03),
-                            elevation: 0.5),
-                        onPressed: () {
-                          setState(() {
-                            selectedValueIndex = 0;
-                            print(selectedValueIndex);
-                          });
-                        },
-                        child: Text(
-                          "5-10 Min",
-                          style: TextStyle(
-                              fontSize: 9,
-                              color: selectedValueIndex == 0
-                                  ? Colors.black
-                                  : Colors.black,
-                              fontFamily: ConstFont.popinsRegular),
+                            fontFamily: ConstFont.popinsRegular,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding:  EdgeInsets.only(left: deviceWidth*0.01),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                side: BorderSide.none,
-                                borderRadius: BorderRadius.circular(3)),
-                            backgroundColor: selectedValueIndex == 2
-                                ? ConstColour.primaryColor
-                                : ConstColour.cardBgColor,
-                            minimumSize: Size(
-                                deviceWidth * 0.18, deviceHeight * 0.03),
-                            maximumSize: Size(
-                                deviceWidth * 0.20, deviceHeight * 0.03),
-                            elevation: 0.5),
-                        onPressed: () {
-                          setState(() {
-                            selectedValueIndex = 2;
-                            print(selectedValueIndex);
-                          });
-                        },
-                        child: Text(
-                          "24-48 Hr",
-                          style: TextStyle(
-                              fontSize: 9,
-                              color: selectedValueIndex == 2
-                                  ? Colors.black
-                                  : Colors.black,
-                              fontFamily: ConstFont.popinsRegular),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding:  EdgeInsets.only(left: deviceWidth*0.01),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                side: BorderSide.none,
-                                borderRadius: BorderRadius.circular(3)),
-                            backgroundColor: selectedValueIndex == 3
-                                ? ConstColour.primaryColor
-                                : ConstColour.cardBgColor,
-                            minimumSize: Size(
-                                deviceWidth * 0.18, deviceHeight * 0.03),
-                            maximumSize: Size(
-                                deviceWidth * 0.20, deviceHeight * 0.03),
-                            elevation: 0.5),
-                        onPressed: () {
-                          setState(() {
-                            selectedValueIndex = 3;
-                            print(selectedValueIndex);
-                          });
-                        },
-                        child: Text(
-                          "Daily",
-                          style: TextStyle(
-                              fontSize: 9,
-                              color: selectedValueIndex == 3
-                                  ? Colors.black
-                                  : Colors.black,
-                              fontFamily: ConstFont.popinsRegular),
-                        ),
-                      ),
-                    )
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              ListView.builder(
-                controller: ScrollController(),
-                itemCount: 5,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.only(left: deviceWidth*0.00,right: deviceWidth*0.00),
-                    child: Card(
-                        color: Color(0xffF3F4F4),
-                        child: Padding(
-                          padding: EdgeInsets.only(left: deviceWidth*0.01,bottom: deviceHeight*0.01,right: deviceWidth*0.01,top: deviceHeight*0.01),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                //mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        color: Color(color[index].toInt()),
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: deviceWidth * 0.02, right: deviceWidth * 0.03),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                side: BorderSide.none,
+                                borderRadius: BorderRadius.circular(3)),
+                            backgroundColor: selectedValueIndex == 1
+                                ? ConstColour.primaryColor
+                                : ConstColour.cardBgColor,
+                            minimumSize: Size(
+                                deviceWidth * 0.18, deviceHeight * 0.03),
+                            maximumSize: Size(
+                                deviceWidth * 0.20, deviceHeight * 0.03),
+                            elevation: 0.5),
+                        onPressed: () {
+                          setState(() {
+                            selectedValueIndex = 1;
+                            print(selectedValueIndex);
+                          });
+                        },
+                        child: Text(
+                          "All",
+                          style: TextStyle(
+                              fontSize: 9,
+                              color: selectedValueIndex == 1
+                                  ? Colors.black
+                                  : Colors.black,
+                              fontFamily: ConstFont.popinsRegular),
+                        ),
+                      ),
+                      Padding(
+                        padding:  EdgeInsets.only(left: deviceWidth*0.01),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  side: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(3)),
+                              backgroundColor: selectedValueIndex == 0
+                                  ? ConstColour.primaryColor
+                                  : ConstColour.cardBgColor,
+                              minimumSize: Size(
+                                  deviceWidth * 0.18, deviceHeight * 0.03),
+                              maximumSize: Size(
+                                  deviceWidth * 0.20, deviceHeight * 0.03),
+                              elevation: 0.5),
+                          onPressed: () {
+                            setState(() {
+                              selectedValueIndex = 0;
+                              print(selectedValueIndex);
+                            });
+                          },
+                          child: Text(
+                            "5-10 Min",
+                            style: TextStyle(
+                                fontSize: 9,
+                                color: selectedValueIndex == 0
+                                    ? Colors.black
+                                    : Colors.black,
+                                fontFamily: ConstFont.popinsRegular),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding:  EdgeInsets.only(left: deviceWidth*0.01),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  side: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(3)),
+                              backgroundColor: selectedValueIndex == 2
+                                  ? ConstColour.primaryColor
+                                  : ConstColour.cardBgColor,
+                              minimumSize: Size(
+                                  deviceWidth * 0.18, deviceHeight * 0.03),
+                              maximumSize: Size(
+                                  deviceWidth * 0.20, deviceHeight * 0.03),
+                              elevation: 0.5),
+                          onPressed: () {
+                            setState(() {
+                              selectedValueIndex = 2;
+                              print(selectedValueIndex);
+                            });
+                          },
+                          child: Text(
+                            "24-48 Hr",
+                            style: TextStyle(
+                                fontSize: 9,
+                                color: selectedValueIndex == 2
+                                    ? Colors.black
+                                    : Colors.black,
+                                fontFamily: ConstFont.popinsRegular),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding:  EdgeInsets.only(left: deviceWidth*0.01),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  side: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(3)),
+                              backgroundColor: selectedValueIndex == 3
+                                  ? ConstColour.primaryColor
+                                  : ConstColour.cardBgColor,
+                              minimumSize: Size(
+                                  deviceWidth * 0.18, deviceHeight * 0.03),
+                              maximumSize: Size(
+                                  deviceWidth * 0.20, deviceHeight * 0.03),
+                              elevation: 0.5),
+                          onPressed: () {
+                            setState(() {
+                              selectedValueIndex = 3;
+                              print(selectedValueIndex);
+                            });
+                          },
+                          child: Text(
+                            "Daily",
+                            style: TextStyle(
+                                fontSize: 9,
+                                color: selectedValueIndex == 3
+                                    ? Colors.black
+                                    : Colors.black,
+                                fontFamily: ConstFont.popinsRegular),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                ListView.builder(
+                  controller: ScrollController(),
+                  itemCount: 5,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: EdgeInsets.only(left: deviceWidth*0.00,right: deviceWidth*0.00),
+                      child: Card(
+                          color: Color(0xffF3F4F4),
+                          child: Padding(
+                            padding: EdgeInsets.only(left: deviceWidth*0.01,bottom: deviceHeight*0.01,right: deviceWidth*0.01,top: deviceHeight*0.01),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  //mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          color: Color(color[index].toInt()),
+                                      ),
+                                      height: 60,
+                                      width: 72,
+                                      child: Image(image: AssetImage(productImage[index].toString(),),
+                                        fit: BoxFit.cover,
+                                         height: 45,
+                                        width: 65,
+                                      ),
                                     ),
-                                    height: 60,
-                                    width: 72,
-                                    child: Image(image: AssetImage(productImage[index].toString(),),
-                                      fit: BoxFit.cover,
-                                       height: 45,
-                                      width: 65,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Padding(
-                                              padding:  EdgeInsets.only(left: deviceHeight*0.01),
-                                              child: Text(productName[index].toString(),
-                                                style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontFamily: ConstFont.popinsRegular,
-                                                    color: Colors.black,
-                                                    fontWeight: FontWeight.w500
-                                                ),),
-                                            ),
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                              children: [
-                                                Padding(
-                                                  padding:  EdgeInsets.only(left: deviceHeight*0.01,right: deviceHeight*0.01),
-                                                  child: Text(Kg[index].toString(),
-                                                    style: TextStyle(
-                                                      fontSize: 10,
-                                                      //fontWeight: FontWeight.bold,
-                                                      fontFamily: ConstFont.popinsRegular,
-                                                      color: Colors.black,
-                                                    ),),
-                                                )
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        Padding(padding: EdgeInsets.only(left: deviceHeight*0.01),
-                                          child: Row(
-                                            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Image.asset("assets/Icons/location.png"),
-                                              Text(Addresss[index].toString(),
-                                                style: TextStyle(
-                                                    letterSpacing: 1.0,
-                                                    fontSize: 10,
-                                                    fontFamily: ConstFont.popinsRegular,
-                                                    color: Colors.black
-                                                ),
-                                                  overflow: TextOverflow.ellipsis),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(padding: EdgeInsets.only(left: deviceWidth*0.01),
-                                          child: Row(
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Padding(
-                                                padding:  EdgeInsets.only(left: deviceWidth*0.01),
-                                                child: Text(Price[index].toString(),
+                                                padding:  EdgeInsets.only(left: deviceHeight*0.01),
+                                                child: Text(productName[index].toString(),
                                                   style: TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight: FontWeight.w500,
+                                                      fontSize: 14,
                                                       fontFamily: ConstFont.popinsRegular,
-                                                      color: Colors.black
+                                                      color: Colors.black,
+                                                      fontWeight: FontWeight.w500
                                                   ),),
                                               ),
-                                              Padding(
-                                                padding: EdgeInsets.only(left: deviceWidth*0.01,),
-                                                child: Row(
-                                                  children: [
-                                                    Padding(
-                                                      padding: EdgeInsets.only(left: deviceWidth*0.01),
-                                                      child: Container(
-                                                        height:25,
-                                                        width:90,
-                                                        decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(1),
-                                                        ),
-                                                        child: Center(
-                                                          child: ElevatedButton(
-                                                            style: ElevatedButton.styleFrom(primary: Color(0xff6AB04C)),
-                                                            onPressed: () {
-                                                              Get.to(()=>UserPage());
-                                                              // selectedValueIndex = 1;
-                                                              // print(selectedValueIndex);
-                                                            },
-                                                            child: Text("Accept",
-                                                              style: TextStyle(
-                                                                  fontFamily: ConstFont.popinsRegular,
-                                                                  color: Colors.white
-                                                              ),),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                children: [
+                                                  Padding(
+                                                    padding:  EdgeInsets.only(left: deviceHeight*0.01,right: deviceHeight*0.01),
+                                                    child: Text(Kg[index].toString(),
+                                                      style: TextStyle(
+                                                        fontSize: 10,
+                                                        //fontWeight: FontWeight.bold,
+                                                        fontFamily: ConstFont.popinsRegular,
+                                                        color: Colors.black,
+                                                      ),),
+                                                  )
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          Padding(padding: EdgeInsets.only(left: deviceHeight*0.01),
+                                            child: Row(
+                                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Image.asset("assets/Icons/location.png"),
+                                                Text(Addresss[index].toString(),
+                                                  style: TextStyle(
+                                                      letterSpacing: 1.0,
+                                                      fontSize: 10,
+                                                      fontFamily: ConstFont.popinsRegular,
+                                                      color: Colors.black
+                                                  ),
+                                                    overflow: TextOverflow.ellipsis),
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(padding: EdgeInsets.only(left: deviceWidth*0.01),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Padding(
+                                                  padding:  EdgeInsets.only(left: deviceWidth*0.01),
+                                                  child: Text(Price[index].toString(),
+                                                    style: TextStyle(
+                                                        fontSize: 12,
+                                                        fontWeight: FontWeight.w500,
+                                                        fontFamily: ConstFont.popinsRegular,
+                                                        color: Colors.black
+                                                    ),),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsets.only(left: deviceWidth*0.01,),
+                                                  child: Row(
+                                                    children: [
+                                                      Padding(
+                                                        padding: EdgeInsets.only(left: deviceWidth*0.01),
+                                                        child: Container(
+                                                          height:25,
+                                                          width:90,
+                                                          decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.circular(1),
                                                           ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding: EdgeInsets.only(left: deviceWidth*0.01,right: deviceWidth*0.01),
-                                                      child: Container(
-                                                        height: 25,
-                                                        width: 80,
-                                                        decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(1),
-                                                        ),
-                                                        child: Center(
-                                                          child: ElevatedButton(
-                                                            style: ElevatedButton.styleFrom(primary: Color(0xffF86C6B)),
-                                                            onPressed: (){},
-                                                            child: InkWell(
-                                                              onTap: ()async{
-                                                                final result=await showDialog(context: context, builder: (BuildContext context){
-                                                                  return AlertDialog(
-                                                                    backgroundColor: Colors.grey.shade100,
-                                                                    title: TextFormField(
-                                                                      decoration: InputDecoration(
-                                                                        fillColor: Color(0xffF3F4F4),
-                                                                        filled: true,
-                                                                        enabledBorder: OutlineInputBorder(
-                                                                            borderRadius: BorderRadius.circular(2),
-                                                                            borderSide: BorderSide.none
-                                                                        ),
-                                                                        hintStyle: TextStyle(
-                                                                            fontFamily: ConstFont.popinsRegular,
-                                                                            fontSize: 15),
-                                                                        hintText: "Reason for Reject ",
-                                                                      ),
-                                                                    ),
-                                                                    content:  Row(
-                                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                                      children: [
-                                                                        ElevatedButton(onPressed: (){
-                                                                          Navigator.pop(context,false);
-                                                                        },
-                                                                          style: ElevatedButton.styleFrom(
-                                                                              backgroundColor: Colors.grey
-                                                                          ),
-                                                                          child: Text("Submit"),),
-                                                                      ],
-                                                                    ),
-                                                                  );
-                                                                });
+                                                          child: Center(
+                                                            child: ElevatedButton(
+                                                              style: ElevatedButton.styleFrom(primary: Color(0xff6AB04C)),
+                                                              onPressed: () {
+                                                                Get.to(()=>UserPage());
+                                                                // selectedValueIndex = 1;
+                                                                // print(selectedValueIndex);
                                                               },
-                                                              child: Text("Reject",
+                                                              child: Text("Accept",
                                                                 style: TextStyle(
                                                                     fontFamily: ConstFont.popinsRegular,
                                                                     color: Colors.white
@@ -427,26 +374,82 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
                                                           ),
                                                         ),
                                                       ),
-                                                    )
-                                                  ],
+                                                      Padding(
+                                                        padding: EdgeInsets.only(left: deviceWidth*0.01,right: deviceWidth*0.01),
+                                                        child: Container(
+                                                          height: 25,
+                                                          width: 80,
+                                                          decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.circular(1),
+                                                          ),
+                                                          child: Center(
+                                                            child: ElevatedButton(
+                                                              style: ElevatedButton.styleFrom(primary: Color(0xffF86C6B)),
+                                                              onPressed: (){},
+                                                              child: InkWell(
+                                                                onTap: ()async{
+                                                                  final result=await showDialog(context: context, builder: (BuildContext context){
+                                                                    return AlertDialog(
+                                                                      backgroundColor: Colors.grey.shade100,
+                                                                      title: TextFormField(
+                                                                        decoration: InputDecoration(
+                                                                          fillColor: Color(0xffF3F4F4),
+                                                                          filled: true,
+                                                                          enabledBorder: OutlineInputBorder(
+                                                                              borderRadius: BorderRadius.circular(2),
+                                                                              borderSide: BorderSide.none
+                                                                          ),
+                                                                          hintStyle: TextStyle(
+                                                                              fontFamily: ConstFont.popinsRegular,
+                                                                              fontSize: 15),
+                                                                          hintText: "Reason for Reject ",
+                                                                        ),
+                                                                      ),
+                                                                      content:  Row(
+                                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                                        children: [
+                                                                          ElevatedButton(onPressed: (){
+                                                                            Navigator.pop(context,false);
+                                                                          },
+                                                                            style: ElevatedButton.styleFrom(
+                                                                                backgroundColor: Colors.grey
+                                                                            ),
+                                                                            child: Text("Submit"),),
+                                                                        ],
+                                                                      ),
+                                                                    );
+                                                                  });
+                                                                },
+                                                                child: Text("Reject",
+                                                                  style: TextStyle(
+                                                                      fontFamily: ConstFont.popinsRegular,
+                                                                      color: Colors.white
+                                                                  ),),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-                        )
-                    ),
-                  );
-                },
-              ),
-            ],
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
+                          )
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
