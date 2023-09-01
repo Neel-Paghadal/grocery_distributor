@@ -53,12 +53,15 @@ class _UserPageState extends State<UserPage>{
                       fontFamily: ConstFont.popinsRegular,
                       color: Colors.black,
                       fontSize: 14,),),
-                  subtitle: Text(UserAddress[index].toString(),
-                    style: TextStyle(
-                        fontFamily: ConstFont.popinsRegular,
-                        color: Colors.black,
-                        fontSize: 12),
-                      overflow: TextOverflow.ellipsis),
+                  subtitle: Expanded(
+                    child: Text(UserAddress[index].toString(),
+                      style: TextStyle(
+                          fontFamily: ConstFont.popinsRegular,
+                          color: Colors.black,
+                          fontSize: 12),
+                        overflow: TextOverflow.ellipsis,
+                    maxLines: 1,),
+                  ),
                 ),
               ),
             );

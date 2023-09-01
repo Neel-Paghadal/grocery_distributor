@@ -20,7 +20,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<String> productImage=["assets/Images/frenchbeans.png","assets/Images/beetroot.png","assets/Images/Bitmap.png","assets/Images/peas.png","assets/Images/watermelon.png",];
   List<String> productName=["French Beans","Beet Root","Banana","Peas","Watermelon",];
-  List<String> Addresss=["236, Tulsi Arcade, Sudama Chowk, Surat.","236, Tulsi Arcade, Sudama Chowk, Surat.","236, Tulsi Arcade, Sudama Chowk, Surat.","236, Tulsi Arcade, Sudama Chowk, Surat.","236, Tulsi Arcade, Sudama Chowk, Surat."];
+  List<String> Addresss=["236, Tulsi Arcade, Sudama Chowk, Surat. ","236, Tulsi Arcade, Sudama Chowk, Surat.","236, Tulsi Arcade, Sudama Chowk, Surat.","236, Tulsi Arcade, Sudama Chowk, Surat.","236, Tulsi Arcade, Sudama Chowk, Surat."];
   List<String> Price=['₹ 100.00','₹ 59.00','₹ 100.00','₹ 24.00','₹ 150.00',];
   List<String> Kg=["1 Kg","2 Kg","6 Pic","500 Gm","5 Kg"];
   List<int> color=[0xffE4EECB,0xffF0D0D8,0xffF3EDCD,0xffEEE9D8,0xffF5DBD2];
@@ -378,15 +378,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                       children: [
                                                         Image.asset("assets/Icons/location.png"),
-                                                        Text(Addresss[index].toString(),
-                                                          style: TextStyle(
-                                                              letterSpacing: 1.0,
-                                                              fontSize: 11,
-                                                              fontFamily: ConstFont.popinsRegular,
-                                                              color: Colors.black
+                                                        Expanded(
+                                                          child: Text(Addresss[index].toString(),
+                                                            overflow: TextOverflow.ellipsis,
+                                                            maxLines: 1,
+                                                            style: TextStyle(
+                                                                letterSpacing: 1.0,
+                                                                fontSize: 10,
+                                                                fontFamily: ConstFont.popinsRegular,
+                                                                color: Colors.black
+                                                            ),
                                                           ),
-                                                        overflow: TextOverflow.ellipsis),
-
+                                                        ),
                                                       ],
                                                     ),
                                                   ),

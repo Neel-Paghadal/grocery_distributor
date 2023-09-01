@@ -353,14 +353,17 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                               children: [
                                                 Image.asset(
                                                     "assets/Icons/location.png"),
-                                                Text(Addresss[index].toString(),
-                                                  style: TextStyle(
-                                                      letterSpacing: 1.0,
-                                                      fontSize: 10,
-                                                      fontFamily: ConstFont.popinsRegular,
-                                                      color: Colors.black
-                                                  ),
-                                                    overflow: TextOverflow.ellipsis),
+                                                Expanded(
+                                                  child: Text(Addresss[index].toString(),
+                                                    style: TextStyle(
+                                                        letterSpacing: 1.0,
+                                                        fontSize: 10,
+                                                        fontFamily: ConstFont.popinsRegular,
+                                                        color: Colors.black
+                                                    ),
+                                                      overflow: TextOverflow.ellipsis,
+                                                  maxLines: 1,),
+                                                ),
                                               ],
                                             ),
                                           ),

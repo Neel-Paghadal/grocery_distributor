@@ -83,13 +83,16 @@ class _lowstockPageState extends State<lowstockPage> {
                                 children: [
                                   Padding(
                                     padding:  EdgeInsets.only(left: deviceHeight*0.01),
-                                    child: Text("Savoy Cabbage",
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontFamily: ConstFont.popinsRegular,
-                                        color: Colors.black,
-                                      ),
-                                        overflow: TextOverflow.ellipsis),
+                                    child: Expanded(
+                                      child: Text("Savoy Cabbage",
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontFamily: ConstFont.popinsRegular,
+                                          color: Colors.black,
+                                        ),
+                                          overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,),
+                                    ),
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(left: deviceHeight*0.01,right: deviceHeight*0.01),
