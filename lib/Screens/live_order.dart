@@ -49,6 +49,8 @@ class _LiveorderPageState extends State<LiveorderPage> {
   List<int> color=[0xffE4EECB,0xffF0D0D8,0xffF3EDCD,0xffEEE9D8,0xffF5DBD2];
   int? selectedValueIndex = 1;
   DateTime _selectedDate = DateTime.now();
+  DateTime selectedDate = DateTime.now();
+  String? selectedDateForBackedDeveloprt;
 
 
   @override
@@ -107,11 +109,11 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                       Text(
                                           DateFormat.yMd().format(_selectedDate)),
                                        IconButton(onPressed: ()  {
-                                          _getDateFromUser();
+                                          getDateFromUser();
                                         },
                                             icon: Icon(
                                                 Icons.calendar_month_rounded)),
-                                      Text(DateFormat.yMd().format(_selectedDate))
+                                      Text(DateFormat.yMd().format(selectedDate))
                                     ],
                                   ),
                               ],
@@ -506,6 +508,23 @@ class _LiveorderPageState extends State<LiveorderPage> {
     if (_pickerDate != null) {
       setState(() {
         _selectedDate = _pickerDate;
+      });
+    }
+  }
+  getDateFromUser() async {
+    DateTime? pickerDate = await showDatePicker(
+      //enablePastDates: false,
+        context: context,
+        initialDate: selectedDate,
+        //firstDate: DateTime(2023),
+        firstDate: DateTime.now(),
+        lastDate: DateTime(3000));
+    if (pickerDate != null) {
+      return;
+    }else{
+      setState(() {
+        selectedDate=pickerDate!;
+        selectedDateForBackedDeveloprt="${selectedDate.year}/${selectedDate.month}/${selectedDate.day}";
       });
     }
   }

@@ -26,6 +26,8 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
   List<int> color=[0xffE4EECB,0xffF0D0D8,0xffF3EDCD,0xffEEE9D8,0xffF5DBD2];
   int? selectedValueIndex = 1;
   DateTime _selectedDate = DateTime.now();
+  DateTime selectedDate = DateTime.now();
+  String? selectedDateForBackedDeveloprt;
   @override
   Widget build(BuildContext context) {
     var deviceHeight = MediaQuery.of(context).size.height;
@@ -84,12 +86,12 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
                                             Icons.calendar_month_rounded)),
                                     Text(
                                         DateFormat.yMd().format(_selectedDate)),
-                                      IconButton(onPressed: ()  {
-                                        _getDateFromUser();
+                                      IconButton(onPressed: () async {
+                                        getDateFromUser();
                                       },
                                           icon: Icon(
                                               Icons.calendar_month_rounded)),
-                                    Text(DateFormat.yMd().format(_selectedDate))
+                                    Text(DateFormat.yMd().format(selectedDate))
                                   ],
                                 )
                               ],
@@ -463,10 +465,28 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
         context: context,
         initialDate: DateTime.now(),
         firstDate: DateTime(2023),
-        lastDate: DateTime(2025));
+        lastDate: DateTime(3000));
     if (_pickerDate != null) {
       setState(() {
         _selectedDate = _pickerDate;
+      });
+    }
+  }
+
+  getDateFromUser() async {
+    DateTime? pickerDate = await showDatePicker(
+        //enablePastDates: false,
+        context: context,
+        initialDate: DateTime.now(),
+        //firstDate: DateTime(2023),
+        firstDate: DateTime.now(),
+        lastDate: DateTime(3000));
+    if (pickerDate != null) {
+      return;
+    }else{
+      setState(() {
+        selectedDate=pickerDate!;
+        selectedDateForBackedDeveloprt="${selectedDate.year}/${selectedDate.month}/${selectedDate.day}";
       });
     }
   }
