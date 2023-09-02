@@ -7,6 +7,7 @@ import 'package:grocery_distributor/ConstFile/constImage.dart';
 import 'package:grocery_distributor/Screens/login_screen.dart';
 
 import '../ConstFile/constColor.dart';
+import '../ConstFile/constFonts.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -38,8 +39,13 @@ class _SplashScreenState extends State<SplashScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Text("Destubtar app",
+          style: TextStyle(
+            //color: Color(0xf333),
+            fontSize: 9,
+            fontFamily: ConstFont.popinsRegular
+          ),),
             Center(child: SvgPicture.asset(ConstImage.splash)),
-
         ],
       ),
     );
