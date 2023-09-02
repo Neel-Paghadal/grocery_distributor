@@ -32,9 +32,7 @@ class _DashbordPageState extends State<DashbordPage> {
        centerTitle: true,
       elevation: 0,
       leading: IconButton(onPressed: () =>
-          Scaffold.of(context).openDrawer()
-        //_globalKey.currentState?.openDrawer();
-      , icon: Image.asset("assets/Icons/drwar.png"),),
+          Scaffold.of(context).openDrawer(), icon: Image.asset("assets/Icons/drwar.png"),),
        actions: [
          IconButton(onPressed: (){}, icon: Image.asset("assets/Icons/notification.png"))
        ],
@@ -61,7 +59,6 @@ class _DashbordPageState extends State<DashbordPage> {
                                  mainAxisSize: MainAxisSize.max,
                                  children: [
                                    Container(
-                                     //height: 70,
                                      width: 70,
                                      child: Image(image: AssetImage(productImage[index].toString()),
                                         fit: BoxFit.cover,
@@ -85,7 +82,6 @@ class _DashbordPageState extends State<DashbordPage> {
                                                    fontSize: 14,
                                                    fontFamily: ConstFont.popinsRegular,
                                                    color: Colors.black,
-                                                   //fontWeight: FontWeight.bold
                                                  ),),
                                              ),
                                              Row(
@@ -138,7 +134,6 @@ class _DashbordPageState extends State<DashbordPage> {
                                                Padding(
                                                  padding: EdgeInsets.only(left: deviceWidth*0.01),
                                                  child: Row(
-                                                   //mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                    children: [
                                                      Padding(
                                                        padding: EdgeInsets.only(left: deviceWidth*0.01),

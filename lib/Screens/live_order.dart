@@ -148,11 +148,9 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                       }
                                       print(DateFormat('yyyy-MM-dd').format(_startDate));
                                       print("millisecond" + startDate.toString());
-                                      // _getDateFromUser();
                                     },
                                     icon: Icon(Icons.calendar_month_rounded)),
                                 Text(DateFormat('MM-dd-yyyy').format(DateTime.fromMillisecondsSinceEpoch(startdate.value))),
-                                //Text(_startDate.toString()),
                                 IconButton(
                                     onPressed: () async {
                                       final DateTime? pickedDate =
@@ -163,22 +161,16 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                         lastDate: DateTime.now(),
                                       );
                                       if (pickedDate != null) {
-                                        //final f = new DateFormat('yyyy-MM-dd hh:mm');
                                         enddate.value = pickedDate.add(Duration(hours: 23, minutes: 59)).millisecondsSinceEpoch;
                                         setState(() {
                                           _endDate = pickedDate;
                                         });
                                       }
-                                      // var dt = DateTime.fromMillisecondsSinceEpoch(ts);
-                                      // var date = DateFormat('MM/dd/yyyy, hh:mm a').format(dt);
-                                      // print(date);
                                       print(DateFormat('yyyy-MM-dd').format(_endDate));
                                       print("millisecond" + enddate.toString());
                                       // getDateFromUser();
                                     },
                                     icon: Icon(Icons.calendar_month_rounded)),
-                               // Text(_endDate.toString()),
-                               // Text(DateFormat('yyyy-MM-dd').format(_endDate).toString())
                                 Text(DateFormat('MM-dd-yyyy').format(DateTime.fromMillisecondsSinceEpoch(enddate.value)))
                               ],
                             ),

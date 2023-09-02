@@ -48,7 +48,6 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        // leading: Image.asset("assets/Icons/drwar.png"),
         leading: IconButton(onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => LiveorderPage()));
         }, icon: Icon(Icons.arrow_back_ios,color: Colors.black,),),
@@ -74,7 +73,6 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
                       borderRadius: BorderRadius.circular(5)
                   ),
                   margin: EdgeInsets.only(left: deviceWidth*0.02,right: deviceWidth*0.02),
-                  //color: Color(0xffF3F4F4),
                   child: Row(
                     children: [
                       Expanded(
@@ -84,7 +82,6 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
                                 bottom: deviceWidth * 0.02),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              // mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text("Date Range", style: TextStyle(
                                   fontSize: 14,
@@ -109,11 +106,9 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
                                       }
                                       print(DateFormat('yyyy-MM-dd').format(_startDate));
                                       print("millisecond" + startDate.toString());
-                                     // _getDateFromUser();
                                     },
                                         icon: Icon(
                                             Icons.calendar_month_rounded)),
-                                   // Text(DateFormat.yMd().format(_selectedDate)),
                                     Text(DateFormat('MM-dd-yyyy').format(DateTime.fromMillisecondsSinceEpoch(startdate.value))),
                                       IconButton(onPressed: () async {
                                         final DateTime? pickedDate =
@@ -124,7 +119,6 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
                                           lastDate: DateTime.now(),
                                         );
                                         if (pickedDate != null) {
-                                          //final f = new DateFormat('yyyy-MM-dd hh:mm');
                                           enddate.value = pickedDate.add(Duration(hours: 23, minutes: 59)).millisecondsSinceEpoch;
                                           setState(() {
                                             _endDate = pickedDate;
@@ -132,11 +126,9 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
                                         }
                                         print(DateFormat('yyyy-MM-dd').format(_endDate));
                                         print("millisecond" + enddate.toString());
-                                       // getDateFromUser();
                                       },
                                           icon: Icon(
                                               Icons.calendar_month_rounded)),
-                                    //Text(DateFormat.yMd().format(selectedDate))
                                     Text(DateFormat('MM-dd-yyyy').format(DateTime.fromMillisecondsSinceEpoch(enddate.value)))
                                   ],
                                 )
