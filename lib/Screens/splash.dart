@@ -39,12 +39,6 @@ class _SplashScreenState extends State<SplashScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("Destubtar app",
-          style: TextStyle(
-            //color: Color(0xf333),
-            fontSize: 9,
-            fontFamily: ConstFont.popinsRegular
-          ),),
             Center(child: SvgPicture.asset(ConstImage.splash)),
         ],
       ),
