@@ -28,6 +28,19 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
   DateTime _selectedDate = DateTime.now();
   DateTime selectedDate = DateTime.now();
   String? selectedDateForBackedDeveloprt;
+
+  DateTime _startDate = DateTime.now();
+  DateTime _endDate = DateTime.now();
+
+  DateTime startDate = DateTime.now();
+  DateTime endDate = DateTime.now();
+
+  var startdate = DateTime.now().add(Duration(hours: -TimeOfDay.now().hour, minutes: -TimeOfDay.now().minute))
+      .millisecondsSinceEpoch
+      .obs;
+  DateTime now = DateTime.now();
+  var enddate = DateTime.now().add(Duration(hours: 1)).millisecondsSinceEpoch.obs;
+
   @override
   Widget build(BuildContext context) {
     var deviceHeight = MediaQuery.of(context).size.height;
@@ -80,18 +93,51 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
                                 Row(
                                   children: [
                                     IconButton(onPressed: () async {
-                                      _getDateFromUser();
+                                      final DateTime? pickedDate =
+                                      await showDatePicker(
+                                        context: Get.context!,
+                                        initialDate: _startDate,
+                                        firstDate: DateTime(2000),
+                                        lastDate: DateTime.now(),
+                                      );
+                                      if (pickedDate != null) {
+                                        startdate.value = pickedDate.millisecondsSinceEpoch;
+                                        setState(() {
+                                          _startDate = pickedDate;
+                                          endDate = startDate;
+                                        });
+                                      }
+                                      print(DateFormat('yyyy-MM-dd').format(_startDate));
+                                      print("millisecond" + startDate.toString());
+                                     // _getDateFromUser();
                                     },
                                         icon: Icon(
                                             Icons.calendar_month_rounded)),
-                                    Text(
-                                        DateFormat.yMd().format(_selectedDate)),
+                                   // Text(DateFormat.yMd().format(_selectedDate)),
+                                    Text(DateFormat('MM-dd-yyyy').format(DateTime.fromMillisecondsSinceEpoch(startdate.value))),
                                       IconButton(onPressed: () async {
-                                        getDateFromUser();
+                                        final DateTime? pickedDate =
+                                        await showDatePicker(
+                                          context: Get.context!,
+                                          initialDate: _endDate,
+                                          firstDate: _startDate,
+                                          lastDate: DateTime.now(),
+                                        );
+                                        if (pickedDate != null) {
+                                          //final f = new DateFormat('yyyy-MM-dd hh:mm');
+                                          enddate.value = pickedDate.add(Duration(hours: 23, minutes: 59)).millisecondsSinceEpoch;
+                                          setState(() {
+                                            _endDate = pickedDate;
+                                          });
+                                        }
+                                        print(DateFormat('yyyy-MM-dd').format(_endDate));
+                                        print("millisecond" + enddate.toString());
+                                       // getDateFromUser();
                                       },
                                           icon: Icon(
                                               Icons.calendar_month_rounded)),
-                                    Text(DateFormat.yMd().format(selectedDate))
+                                    //Text(DateFormat.yMd().format(selectedDate))
+                                    Text(DateFormat('MM-dd-yyyy').format(DateTime.fromMillisecondsSinceEpoch(enddate.value)))
                                   ],
                                 )
                               ],
@@ -490,4 +536,5 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
       });
     }
   }
+
 }
