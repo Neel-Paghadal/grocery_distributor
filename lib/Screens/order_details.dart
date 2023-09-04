@@ -433,14 +433,22 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
                                                                 onTap: ()async{
                                                                   final result=await showDialog(context: context, builder: (BuildContext context){
                                                                     return AlertDialog(
-                                                                      backgroundColor: Colors.grey.shade100,
+                                                                      shape: OutlineInputBorder(
+                                                                          borderRadius: BorderRadius.circular(16.0)),
+                                                                      backgroundColor: Color(0xFFECF3F9),
                                                                       title: TextFormField(
                                                                         decoration: InputDecoration(
-                                                                          fillColor: Color(0xffF3F4F4),
+                                                                          fillColor: Color(0xFF0926C),
                                                                           filled: true,
+                                                                          focusedBorder: OutlineInputBorder(
+                                                                              borderRadius: BorderRadius.circular(5),
+                                                                              borderSide: BorderSide(color: Colors.black)
+                                                                          ),
+                                                                          border: OutlineInputBorder(
+                                                                            borderRadius: BorderRadius.circular(10),
+                                                                          ),
                                                                           enabledBorder: OutlineInputBorder(
-                                                                              borderRadius: BorderRadius.circular(2),
-                                                                              borderSide: BorderSide.none
+                                                                            borderRadius: BorderRadius.circular(10),
                                                                           ),
                                                                           hintStyle: TextStyle(
                                                                               fontFamily: ConstFont.popinsRegular,

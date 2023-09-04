@@ -464,16 +464,24 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                           onTap: ()async{
                                                                             final result=await showDialog(context: context, builder: (BuildContext context){
                                                                               return AlertDialog(
-                                                                                backgroundColor: Colors.grey.shade100,
+                                                                                shape: OutlineInputBorder(
+                                                                                    borderRadius: BorderRadius.circular(16.0)),
+                                                                                backgroundColor: Color(0xFFECF3F9),
                                                                                 title: Form(
                                                                                   key: formkey,
                                                                                   child: TextFormField(
                                                                                     decoration: InputDecoration(
-                                                                                      fillColor: Color(0xffF3F4F4),
+                                                                                      fillColor: Color(0xFF0926C),
                                                                                       filled: true,
+                                                                                      focusedBorder: OutlineInputBorder(
+                                                                                          borderRadius: BorderRadius.circular(5),
+                                                                                          borderSide: BorderSide(color: Colors.black)
+                                                                                      ),
+                                                                                      border: OutlineInputBorder(
+                                                                                        borderRadius: BorderRadius.circular(10),
+                                                                                      ),
                                                                                       enabledBorder: OutlineInputBorder(
-                                                                                          borderRadius: BorderRadius.circular(2),
-                                                                                          borderSide: BorderSide.none
+                                                                                        borderRadius: BorderRadius.circular(10),
                                                                                       ),
                                                                                       hintStyle: TextStyle(
                                                                                           fontFamily: ConstFont.popinsRegular,
@@ -495,9 +503,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                       Navigator.pop(context,false);
                                                                                     },
                                                                                       style: ElevatedButton.styleFrom(
-                                                                                          backgroundColor: Colors.grey
+                                                                                          backgroundColor: Color(0xFFECF3F9),
+                                                                                        elevation: 0
                                                                                       ),
-                                                                                      child: Text("Submit"),),
+                                                                                      child: Text("Submit",
+                                                                                      style: TextStyle(
+                                                                                        fontSize: 20,
+                                                                                        color: Colors.black
+                                                                                      ),),),
                                                                                   ],
                                                                                 ),
                                                                               );
