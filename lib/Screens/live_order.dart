@@ -478,7 +478,7 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                                               child: Text(
                                                                 "Accept",
                                                                 style: TextStyle(
-                                                                    fontFamily: ConstFon.popinsRegular,
+                                                                    fontFamily: ConstFont.popinsRegular,
                                                                     color: Colors.white),
                                                               ),
                                                             ),
