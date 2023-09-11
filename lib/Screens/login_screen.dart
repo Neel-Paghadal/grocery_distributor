@@ -20,7 +20,6 @@ class LoginScreen extends StatelessWidget {
   var userId;
   var password;
 
-
   @override
   Widget build(BuildContext context) {
     var deviceHeight = MediaQuery.of(context).size.height;
