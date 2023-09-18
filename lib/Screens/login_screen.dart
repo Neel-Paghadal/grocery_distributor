@@ -33,7 +33,7 @@ class LoginScreen extends StatelessWidget {
       child: Scaffold(
         bottomNavigationBar: BottomButton(
           onPressed: () {
-            userId = loginController.emailController.text;
+              userId = loginController.emailController.text;
             password = loginController.passController.text;
             //Get.to(() => GodownPage());
             Get.to(() => HomeScreen());
