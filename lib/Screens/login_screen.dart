@@ -33,11 +33,11 @@ class LoginScreen extends StatelessWidget {
       child: Scaffold(
         bottomNavigationBar: BottomButton(
           onPressed: () {
-              userId = loginController.emailController.text;
+            userId = loginController.emailController.text;
             password = loginController.passController.text;
-            //Get.to(() => GodownPage());
-            Get.to(() => HomeScreen());
-            // Services().DistributorLogin(userId, password,context);
+            // Get.to(() => GodownPage());
+
+            Services().DistributorLogin(userId, password,context);
 
           },
           btnName: "      Login",
@@ -75,6 +75,7 @@ class LoginScreen extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(top: deviceHeight * 0.1),
                   child: TextFormField(
+                      keyboardType: TextInputType.emailAddress,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       controller: loginController.emailController,
                       decoration: InputDecoration(

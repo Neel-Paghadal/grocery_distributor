@@ -40,15 +40,19 @@ class Datum {
   int id;
   String name;
   String address;
+  String address1;
   String userId;
   String password;
+  String conformPassword;
   String latitude;
   String longitude;
   String aadharCard;
   String panCard;
   String drivingLicence;
   String profileImage;
-  String distiButerType;
+  String signImage;
+  String mobileNo;
+  int distiButerType;
   int bid;
   int uid;
   DateTime entryDate;
@@ -61,14 +65,18 @@ class Datum {
     required this.id,
     required this.name,
     required this.address,
+    required this.address1,
     required this.userId,
     required this.password,
+    required this.conformPassword,
     required this.latitude,
     required this.longitude,
     required this.aadharCard,
     required this.panCard,
     required this.drivingLicence,
     required this.profileImage,
+    required this.signImage,
+    required this.mobileNo,
     required this.distiButerType,
     required this.bid,
     required this.uid,
@@ -83,14 +91,18 @@ class Datum {
     id: json["Id"],
     name: json["Name"],
     address: json["Address"],
+    address1: json["Address1"],
     userId: json["UserId"],
     password: json["Password"],
+    conformPassword: json["ConformPassword"],
     latitude: json["Latitude"],
     longitude: json["Longitude"],
     aadharCard: json["AadharCard"],
     panCard: json["PanCard"],
     drivingLicence: json["DrivingLicence"],
     profileImage: json["ProfileImage"],
+    signImage: json["SignImage"],
+    mobileNo: json["MobileNo"],
     distiButerType: json["DistiButerType"],
     bid: json["Bid"],
     uid: json["Uid"],
@@ -105,14 +117,18 @@ class Datum {
     "Id": id,
     "Name": name,
     "Address": address,
+    "Address1": address1,
     "UserId": userId,
     "Password": password,
+    "ConformPassword": conformPassword,
     "Latitude": latitude,
     "Longitude": longitude,
     "AadharCard": aadharCard,
     "PanCard": panCard,
     "DrivingLicence": drivingLicence,
     "ProfileImage": profileImage,
+    "SignImage": signImage,
+    "MobileNo": mobileNo,
     "DistiButerType": distiButerType,
     "Bid": bid,
     "Uid": uid,

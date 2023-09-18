@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,6 +17,8 @@ class GodownPage extends StatefulWidget{
   GodownPageState createState() => GodownPageState();
 }
 class GodownPageState extends State<GodownPage>{
+
+
   List<String> productName=["Onion Normal","Paprica","Savoy Cabbage","Sweet Potatoes"];
   List<String> productImage=[ConstImage.onion,ConstImage.paprica,ConstImage.cabbage,ConstImage.sweet];
   List<String> productstockin=["Stock In\n300 Kg","Stock In\n100 Kg","Stock In\n90 Pic","Stock In\n150 Kg"];
