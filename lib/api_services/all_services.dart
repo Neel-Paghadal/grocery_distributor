@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:grocery_distributor/Screens/home_screen.dart';
+import 'package:grocery_distributor/Screens/login_screen.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:shared_preferences/shared_preferences.dart';
 import '../ConstFile/constApi.dart';
 import '../Model/login_model.dart';
-
 
 
 
@@ -29,13 +30,17 @@ class Services{
      
       if(message  == 200){
         print(message );
-        Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen(),));
-        // Get.to(() => HomeScreen());
+        final SharedPreferences pref = await SharedPreferences.getInstance();
+        pref.setBool("login", true);
+        // Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen(),));
+        Get.to(() => HomeScreen());
       }
     } else {
       return null;
     }
   }
+
+
 
 
 

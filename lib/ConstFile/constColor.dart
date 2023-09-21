@@ -7,6 +7,5 @@ class ConstColour {
   static const Color btnHowerColor  = Colors.white60;
   static const Color textPrimary  = Colors.black54;
   static const Color bgColor  = Colors.white;
-
-
+  static const Color french =Color(0xffE4EECB);
 }
