@@ -8,19 +8,15 @@ import '../ConstFile/constApi.dart';
 
 class HomeController extends GetxController {
   int? messageCode;
-
-
   int orderType = 4;
   String distributorId = "1";
+  int currentIndex = 0;
 
   RxList<LiveOrders> liveOrderList = <LiveOrders>[].obs;
   RxList<OrderList> assignOrderList = <OrderList>[].obs;
 
   Future<void> LiveOrderApiCall() async {
-    final response = await http.post(Uri.parse(ConstApi.liveOrder),
-        body: {
-      "PageSize": "10", "PageIndex": "0"
-    });
+    final response = await http.get(Uri.parse(ConstApi.liveOrderFilter),);
     var data = response.body;
     debugPrint("filter List : " + data);
 
@@ -34,21 +30,9 @@ class HomeController extends GetxController {
         liveOrderList.clear();
         liveOrderList.addAll(responseData.data);
         AssignOrderApiCall(orderType.toString(),distributorId);
-        // categoriesController.categoryList.addAll(responseData.data);
         debugPrint("LiveOrder Successfully");
-        // Fluttertoast.showToast(
-        //     msg: "Product GetList Successfully",
-        //     fontSize: 18,
-        //     backgroundColor: ConstColour.primaryColor,
-        //     textColor: Colors.white);
       } else {
         debugPrint("Error LiveOrder");
-        // ArtSweetAlert.show(
-        //     context: context,
-        //     artDialogArgs: ArtDialogArgs(
-        //         confirmButtonColor: ConstColour.primaryColor,
-        //         type: ArtSweetAlertType.danger,
-        //         text: "Please Enter Address"));
       }
     } else {}
   }
@@ -56,9 +40,8 @@ class HomeController extends GetxController {
   Future<void> AssignOrderApiCall(String type,String distributorId) async {
     final response = await http.post(Uri.parse(ConstApi.assignOrder),
         body: {
-
-         "LiveOrderType": "4",
-         "DistriButerId": "1"
+         "LiveOrderType": "3",
+         "DistriButerId": "20"
 
     });
     var data = response.body;
@@ -73,24 +56,33 @@ class HomeController extends GetxController {
       if (messageCode == 200) {
         assignOrderList.clear();
         assignOrderList.addAll(responseData.data);
-        // categoriesController.categoryList.addAll(responseData.data);
         debugPrint("Assign order Successfully");
-        // Fluttertoast.showToast(
-        //     msg: "Product GetList Successfully",
-        //     fontSize: 18,
-        //     backgroundColor: ConstColour.primaryColor,
-        //     textColor: Colors.white);
       } else {
         debugPrint("Error Assign order");
-        // ArtSweetAlert.show(
-        //     context: context,
-        //     artDialogArgs: ArtDialogArgs(
-        //         confirmButtonColor: ConstColour.primaryColor,
-        //         type: ArtSweetAlertType.danger,
-        //         text: "Please Enter Address"));
       }
     } else {}
   }
 
-  int currentIndex = 0;
+  Future<void> OrderUpdateApiCall() async {
+    final response = await http.post(Uri.parse(ConstApi.updateOrderStatus),
+        body: {
+          "OrderID": 10,
+          "OrderStatusID": 2,
+          "UserId": 2,
+          "Remarks": "sample string 4"
+        });
+    var data = response.body;
+    debugPrint("order update : " + data);
+
+    if (response.statusCode == 200) {
+      debugPrint("order update : " + messageCode.toString());
+      if (messageCode == 200) {
+        debugPrint("order update Successfully");
+      } else {
+        debugPrint("Error Assign order");
+      }
+    } else {}
+  }
+
+
 }

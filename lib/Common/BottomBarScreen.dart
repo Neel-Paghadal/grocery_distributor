@@ -73,23 +73,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
           if (value == 0) {
              homeController.LiveOrderApiCall();
              homeController.AssignOrderApiCall(homeController.orderType.toString(), homeController.distributorId.toString());
-
           }
-          // if (value == 1) {
-          //   Get.to(() => const SubscribeScreen());
-          //   homeController.currentIndex.value = 1;
-          // }
-          // if (value == 2) {
-          //   Get.to(() => const WalletScreen());
-          //   homeController.currentIndex.value = 2;
-          // }
-          // if (value == 3) {
-          //   setState(() {
-          //     cartController.cart_Detail(cartController.userId.toString());
-          //
-          //   });
-
-          // }
         },
       ),
       body: IndexedStack(
