@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:grocery_distributor/Common/utils.dart';
 import 'package:grocery_distributor/Model/assignorder_model.dart';
 import 'package:grocery_distributor/Model/liveorder_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 
 import '../ConstFile/constApi.dart';
+import '../ConstFile/constPreferences.dart';
 
 class HomeController extends GetxController {
   int? messageCode;
-  int orderType = 4;
+  int? orderType;
   String distributorId = "1";
   int currentIndex = 0;
-
+  int? OrderStatus;
+  TextEditingController reasonController = TextEditingController();
   RxList<LiveOrders> liveOrderList = <LiveOrders>[].obs;
   RxList<OrderList> assignOrderList = <OrderList>[].obs;
 
@@ -37,11 +40,13 @@ class HomeController extends GetxController {
     } else {}
   }
 
+
   Future<void> AssignOrderApiCall(String type,String distributorId) async {
+    String? distributorId = await ConstPreferences().getDistributorId("DistributorId");
     final response = await http.post(Uri.parse(ConstApi.assignOrder),
         body: {
-         "LiveOrderType": "3",
-         "DistriButerId": "20"
+         "LiveOrderType": type,
+         "DistriButerId": distributorId,
 
     });
     var data = response.body;
@@ -63,13 +68,14 @@ class HomeController extends GetxController {
     } else {}
   }
 
-  Future<void> OrderUpdateApiCall() async {
+  Future<void> OrderUpdateApiCall(String orderStatusId ,String orderid,String reason) async {
+    String? distributorId = await ConstPreferences().getDistributorId("DistributorId");
     final response = await http.post(Uri.parse(ConstApi.updateOrderStatus),
         body: {
-          "OrderID": 10,
-          "OrderStatusID": 2,
-          "UserId": 2,
-          "Remarks": "sample string 4"
+          "OrderID": orderid,
+          "OrderStatusID": orderStatusId,
+          "UserId": distributorId,
+          "Remarks": reason
         });
     var data = response.body;
     debugPrint("order update : " + data);
@@ -78,6 +84,7 @@ class HomeController extends GetxController {
       debugPrint("order update : " + messageCode.toString());
       if (messageCode == 200) {
         debugPrint("order update Successfully");
+        Utils().toastMessage("Order Updated");
       } else {
         debugPrint("Error Assign order");
       }

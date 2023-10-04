@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:grocery_distributor/Controllers/home_controller.dart';
 import 'package:grocery_distributor/Screens/godown_stock.dart';
 import 'package:grocery_distributor/Screens/user_list.dart';
 import 'package:intl/intl.dart';
 
+import '../Common/BottomBarScreen.dart';
 import '../ConstFile/constColor.dart';
 import '../ConstFile/constFonts.dart';
 import 'live_order.dart';
@@ -40,6 +42,7 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
       .obs;
   DateTime now = DateTime.now();
   var enddate = DateTime.now().add(Duration(hours: 1)).millisecondsSinceEpoch.obs;
+  HomeController homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +51,10 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: IconButton(onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => LiveorderPage()));
-        }, icon: Icon(Icons.arrow_back_ios,color: Colors.black,),),
+        // leading: IconButton(onPressed: () {
+        //   Navigator.of(context).push(MaterialPageRoute(builder: (context) => LiveorderPage()));
+        // }, icon: Icon(Icons.arrow_back_ios,color: Colors.black,),),
+        automaticallyImplyLeading: false,
         actions: [
           Image.asset("assets/Icons/notification.png")
         ],
@@ -404,7 +408,7 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
                                                             child: ElevatedButton(
                                                               style: ElevatedButton.styleFrom(primary: Color(0xff6AB04C)),
                                                               onPressed: () {
-                                                                Get.to(()=>UserPage());
+                                                                Get.to(() => BottomBarScreen(),arguments: {homeController.currentIndex = 3});
                                                                 // selectedValueIndex = 1;
                                                                 // print(selectedValueIndex);
                                                               },

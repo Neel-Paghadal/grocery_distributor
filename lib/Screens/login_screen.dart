@@ -11,13 +11,28 @@ import 'package:grocery_distributor/Screens/godown_stock.dart';
 import 'package:grocery_distributor/Screens/home_screen.dart';
 import 'package:grocery_distributor/api_services/all_services.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   LoginController loginController = Get.put(LoginController());
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loginController.emailController.clear();
+    loginController.passController.clear();
+  }
+
   final _formKey = GlobalKey<FormState>();
 
   var userId;
+
   var password;
 
   @override
