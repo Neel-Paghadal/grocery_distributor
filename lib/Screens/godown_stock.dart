@@ -6,8 +6,10 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:grocery_distributor/Screens/order_details.dart';
 import 'package:grocery_distributor/Screens/user_list.dart';
 
+import '../Common/BottomBarScreen.dart';
 import '../ConstFile/constFonts.dart';
 import '../ConstFile/constImage.dart';
+import '../Controllers/home_controller.dart';
 import 'low_stock.dart';
 
 class GodownPage extends StatefulWidget{
@@ -25,6 +27,8 @@ class GodownPageState extends State<GodownPage>{
   List<String> productstockout=["Stock Out\n100 Kg","Stock Out\n50 Kg","Stock Out\n85 Pic","Stock Out\n60 Kg"];
   List<String> productstotalstock=["Total Stock\n200 Kg","Total Stock\n50 Kg","Total Stock\n5 Pic","Total Stock\n90 Kg"];
 
+  HomeController homeController = Get.put(HomeController());
+
   @override
   Widget build(BuildContext context){
     var deviceHeight = MediaQuery.of(context).size.height;
@@ -33,7 +37,8 @@ class GodownPageState extends State<GodownPage>{
       backgroundColor: Colors.white,
       appBar: AppBar(
         leading: IconButton(onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => UserPage()));
+          Get.to(() => BottomBarScreen(),arguments: {homeController.currentIndex = 0});
+
         }, icon: Icon(Icons.arrow_back_ios,color: Colors.black,),),
         actions: [
           Image.asset("assets/Icons/notification.png")

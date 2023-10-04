@@ -34,16 +34,17 @@ class _UserPageState extends State<UserPage> {
     var deviceHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const OrderdetailsPage()));
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black,
-          ),
-        ),
+        // leading: IconButton(
+        //   onPressed: () {
+        //     Navigator.of(context).push(MaterialPageRoute(
+        //         builder: (context) => const OrderdetailsPage()));
+        //   },
+        //   icon: const Icon(
+        //     Icons.arrow_back_ios,
+        //     color: Colors.black,
+        //   ),
+        // ),
+        automaticallyImplyLeading: false,
         actions: [Image.asset("assets/Icons/notification.png")],
         elevation: 0,
         backgroundColor: Colors.white,

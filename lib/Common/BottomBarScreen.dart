@@ -59,8 +59,11 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
                       ? ConstColour.primaryColor
                       : Colors.black)),
           BottomNavigationBarItem(
-              label: "Help",
-              icon: Icon(CupertinoIcons.question_circle_fill,
+              // label: "Help",
+              label: "User",
+              icon: Icon(/*CupertinoIcons.question_circle_fill*/
+
+              Icons.person,
                   color: homeController.currentIndex == 3
                       ? ConstColour.primaryColor
                       : Colors.black)),
@@ -70,10 +73,14 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
             homeController.currentIndex = value;
           });
 
-          if (value == 0) {
-             homeController.LiveOrderApiCall();
-             homeController.AssignOrderApiCall(homeController.orderType.toString(), homeController.distributorId.toString());
+          if(value == 1){
+            homeController.orderType = 0;
           }
+
+          // if (value == 0) {
+          //    homeController.LiveOrderApiCall();
+          //    homeController.AssignOrderApiCall(homeController.orderType.toString(), homeController.distributorId.toString());
+          // }
         },
       ),
       body: IndexedStack(
