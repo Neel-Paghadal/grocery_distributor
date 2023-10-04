@@ -19,11 +19,11 @@ class Services{
           "Password" : pwd
         });
     var data = response.body;
-    print(data);
+    debugPrint(data);
 
     if (response.statusCode == 200) {
       final loginData = loginFromJson(response.body);
-      print(loginData);
+      debugPrint(loginData.toString());
       var message = loginData.messageCode;
      
       if(message == 200){

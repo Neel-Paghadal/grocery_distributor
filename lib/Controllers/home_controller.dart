@@ -5,10 +5,11 @@ import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 
 import '../ConstFile/constApi.dart';
+import '../ConstFile/constPreferences.dart';
 
 class HomeController extends GetxController {
   int? messageCode;
-  int orderType = 4;
+  int? orderType;
   String distributorId = "1";
   int currentIndex = 0;
 
@@ -38,10 +39,11 @@ class HomeController extends GetxController {
   }
 
   Future<void> AssignOrderApiCall(String type,String distributorId) async {
+    String? distributorId = await ConstPreferences().getDistributorId("DistributorId");
     final response = await http.post(Uri.parse(ConstApi.assignOrder),
         body: {
-         "LiveOrderType": "3",
-         "DistriButerId": "20"
+         "LiveOrderType": type,
+         "DistriButerId": distributorId
 
     });
     var data = response.body;

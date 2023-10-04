@@ -242,46 +242,56 @@ class _HomeScreenState extends State<HomeScreen> {
                           controller: ScrollController(),
                           itemCount: homeController.liveOrderList.length,
                           itemBuilder: (context, index) {
-                            return Padding(
-                              padding:
-                                  EdgeInsets.only(right: deviceWidth * 0.01),
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                        side: BorderSide.none,
-                                        borderRadius: BorderRadius.circular(3)),
-                                    backgroundColor: selectedValueIndex == index
-                                        ? ConstColour.primaryColor
-                                        : ConstColour.cardBgColor,
-                                    minimumSize: Size(deviceWidth * 0.18,
-                                        deviceHeight * 0.01),
-                                    maximumSize: Size(deviceWidth * 0.25,
-                                        deviceHeight * 0.02),
-                                    elevation: 0.5),
-                                onPressed: () {
-                                  setState(() {
-                                    // homeController.orderType  =  homeController.liveOrderList[index].id;
-                                    selectedValueIndex = index;
-                                    print(selectedValueIndex);
-                                    homeController.AssignOrderApiCall(
-                                        homeController.orderType.toString(),
-                                        homeController.distributorId
-                                            .toString());
-                                  });
-                                },
-                                child: Text(
-                                  homeController
-                                      .liveOrderList[index].filterType == "All" ? "" : homeController
-                                      .liveOrderList[index].filterType,
-                                  style: TextStyle(
-                                      fontSize: 9,
-                                      color: selectedValueIndex == index
-                                          ? Colors.black
-                                          : Colors.black,
-                                      fontFamily: ConstFont.popinsRegular),
-                                ),
-                              ),
-                            );
+                            return homeController
+                                        .liveOrderList[index].filterType ==
+                                    "All"
+                                ? SizedBox()
+                                : Padding(
+                                    padding: EdgeInsets.only(
+                                        right: deviceWidth * 0.01),
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                              side: BorderSide.none,
+                                              borderRadius:
+                                                  BorderRadius.circular(3)),
+                                          backgroundColor:
+                                              selectedValueIndex == index
+                                                  ? ConstColour.primaryColor
+                                                  : ConstColour.cardBgColor,
+                                          minimumSize: Size(deviceWidth * 0.18,
+                                              deviceHeight * 0.01),
+                                          maximumSize: Size(deviceWidth * 0.25,
+                                              deviceHeight * 0.02),
+                                          elevation: 0.5),
+                                      onPressed: () {
+                                        setState(() {
+                                          homeController.orderType  =  homeController.liveOrderList[index].id;
+                                          selectedValueIndex = index;
+                                          print(selectedValueIndex);
+                                          homeController.AssignOrderApiCall(
+                                              homeController.orderType.toString(),
+                                              homeController.distributorId.toString());
+                                        });
+                                      },
+                                      child: Text(
+                                        homeController.liveOrderList[index]
+                                                    .filterType ==
+                                                "All"
+                                            ? ""
+                                            : homeController
+                                                .liveOrderList[index]
+                                                .filterType,
+                                        style: TextStyle(
+                                            fontSize: 9,
+                                            color: selectedValueIndex == index
+                                                ? Colors.black
+                                                : Colors.black,
+                                            fontFamily:
+                                                ConstFont.popinsRegular),
+                                      ),
+                                    ),
+                                  );
                           },
                         ),
                       ],
@@ -454,17 +464,25 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   children: [
                                                     Padding(
                                                       padding: EdgeInsets.only(
-                                                          left: deviceWidth * 0.01),
+                                                          left: deviceWidth *
+                                                              0.01),
                                                       child: Container(
                                                         height: 25,
                                                         width: 90,
-                                                        decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(1),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(1),
                                                         ),
                                                         child: Center(
                                                           child: ElevatedButton(
-                                                            style: ElevatedButton.styleFrom(
-                                                              primary: const Color(0xff6AB04C),
+                                                            style:
+                                                                ElevatedButton
+                                                                    .styleFrom(
+                                                              primary:
+                                                                  const Color(
+                                                                      0xff6AB04C),
                                                             ),
                                                             // backgroundColor:SelectedValueIndex==1
                                                             //     ? Color(0xff6AB04C)
@@ -474,15 +492,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               //   SelectedValueIndex.toString();
                                                               //   debugPrint(SelectedValueIndex.toString());
                                                               // });
-                                                              homeController.OrderUpdateApiCall();
+                                                              homeController
+                                                                  .OrderUpdateApiCall();
                                                             },
                                                             child: Text(
                                                               "Accept",
                                                               style: TextStyle(
                                                                 fontFamily:
-                                                                    ConstFont.popinsRegular,
-                                                                color: SelectedValueIndex == 1 ? Colors.black
-                                                                    : Colors.black,
+                                                                    ConstFont
+                                                                        .popinsRegular,
+                                                                color: SelectedValueIndex == 1
+                                                                    ? Colors
+                                                                        .black
+                                                                    : Colors
+                                                                        .black,
                                                                 //color: Colors.white
                                                               ),
                                                             ),
@@ -507,20 +530,27 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         ),
                                                         child: Center(
                                                           child: ElevatedButton(
-                                                            style: ElevatedButton.styleFrom(
+                                                            style: ElevatedButton
+                                                                .styleFrom(
                                                                     primary:
                                                                         const Color(
                                                                             0xffF86C6B)),
                                                             onPressed: () {},
                                                             child: InkWell(
                                                               onTap: () async {
-                                                                final result = await showDialog(
-                                                                        context: context,
-                                                                        builder: (BuildContextcontext) {
+                                                                final result =
+                                                                    await showDialog(
+                                                                        context:
+                                                                            context,
+                                                                        builder:
+                                                                            (BuildContextcontext) {
                                                                           return AlertDialog(
-                                                                            shape: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
-                                                                            backgroundColor: const Color(0xFFECF3F9),
-                                                                            title: Form(
+                                                                            shape:
+                                                                                OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
+                                                                            backgroundColor:
+                                                                                const Color(0xFFECF3F9),
+                                                                            title:
+                                                                                Form(
                                                                               key: formkey,
                                                                               child: TextFormField(
                                                                                 decoration: InputDecoration(
