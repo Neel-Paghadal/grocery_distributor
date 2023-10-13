@@ -12,7 +12,7 @@ class ConstPreferences {
     return prefs.getString(key);
   }
 
-  void clearPreferences()async{
+  void clearPreferences() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.clear();
   }

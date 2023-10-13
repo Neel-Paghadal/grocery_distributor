@@ -38,6 +38,7 @@ class Services{
         final SharedPreferences pref = await SharedPreferences.getInstance();
         pref.setBool("login", true);
         Get.to(() => HomeScreen());
+        // Get.to(()=> BottomAppBar(),arguments: 1);
       }
     } else {
       return null;

@@ -17,6 +17,7 @@ class HomeController extends GetxController {
   TextEditingController reasonController = TextEditingController();
   RxList<LiveOrders> liveOrderList = <LiveOrders>[].obs;
   RxList<OrderList> assignOrderList = <OrderList>[].obs;
+  RxBool isChange = false.obs;
 
   Future<void> LiveOrderApiCall() async {
     final response = await http.get(Uri.parse(ConstApi.liveOrderFilter),);
