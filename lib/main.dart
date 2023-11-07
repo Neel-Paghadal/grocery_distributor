@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import 'Screens/dash_board.dart';
@@ -11,6 +12,11 @@ import 'Screens/order_details.dart';
 import 'Screens/splash.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(const MyApp());
 }
 
@@ -30,11 +36,11 @@ class MyApp extends StatelessWidget {
       home:  SplashScreen(),
       // home:   LoginScreen(),
       // home:   SplashScreen(),
-       //home:   HomeScreen(),
-      //home: LiveorderPage(),
-      //home: DashbordPage(),
-      //home: lowstockPage(),
-      //home: OrderdetailsPage(),
+      //  home:   HomeScreen(),
+      // home: LiveorderPage(),
+      // home: DashbordPage(),
+      // home: lowstockPage(),
+      // home: GodownPage(),
     );
   }
 }

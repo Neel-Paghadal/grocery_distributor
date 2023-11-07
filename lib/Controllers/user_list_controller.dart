@@ -15,7 +15,7 @@ class UserListController extends GetxController{
     debugPrint("Pref distributorId" + distributorId.toString());
     final response = await http.post(Uri.parse(ConstApi.userList),
         body: {
-          "DistriButerId": "1"
+          "DistriButerId": distributorId
         });
     var data = response.body;
     debugPrint(data.toString());
@@ -27,6 +27,7 @@ class UserListController extends GetxController{
       debugPrint("LiveOrder : " + messageCode.toString());
 
       if (messageCode == 200) {
+        allUser.clear();
         allUser.addAll(responseData.data);
         debugPrint("User fetched Succefully");
       } else {

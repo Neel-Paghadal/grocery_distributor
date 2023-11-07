@@ -43,6 +43,7 @@ class Users {
   String name;
   String address;
   String pinCode;
+  String mobileNo;
 
   Users({
     required this.distriButerId,
@@ -51,15 +52,17 @@ class Users {
     required this.name,
     required this.address,
     required this.pinCode,
+    required this.mobileNo,
   });
 
   factory Users.fromJson(Map<String, dynamic> json) => Users(
     distriButerId: json["DistriButerId"],
     customerId: json["CustomerId"],
     customerImage: json["CustomerImage"],
-    name: json["Name"],
+    name: json["Name"] == null ? "" : json["Name"] ,
     address: json["Address"],
     pinCode: json["PinCode"],
+    mobileNo: json["MobileNo"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -69,5 +72,6 @@ class Users {
     "Name": name,
     "Address": address,
     "PinCode": pinCode,
+    "MobileNo": mobileNo,
   };
 }

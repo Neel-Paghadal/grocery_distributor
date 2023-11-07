@@ -12,6 +12,7 @@ import '../ConstFile/constColor.dart';
 import '../ConstFile/constFonts.dart';
 import '../Controllers/home_controller.dart';
 import 'home_screen.dart';
+import 'loader.dart';
 
 class LiveorderPage extends StatefulWidget {
   const LiveorderPage({Key? key}) : super(key: key);
@@ -21,42 +22,8 @@ class LiveorderPage extends StatefulWidget {
 }
 
 class _LiveorderPageState extends State<LiveorderPage> {
-  List<String> productImage = [
-    "assets/Images/frenchbeans.png",
-    "assets/Images/beetroot.png",
-    "assets/Images/Bitmap.png",
-    "assets/Images/peas.png",
-    "assets/Images/watermelon.png",
-  ];
-  List<String> productName = [
-    "French Beans",
-    "Beet Root",
-    "Banana",
-    "Peas",
-    "Watermelon",
-  ];
-  List<String> Addresss = [
-    "236, Tulsi Arcade, Sudama Chowk, Surat.",
-    "236, Tulsi Arcade, Sudama Chowk, Surat.",
-    "236, Tulsi Arcade, Sudama Chowk, Surat.",
-    "236, Tulsi Arcade, Sudama Chowk, Surat.",
-    "236, Tulsi Arcade, Sudama Chowk, Surat."
-  ];
-  List<String> Price = [
-    '₹ 100.00',
-    '₹ 59.00',
-    '₹ 100.00',
-    '₹ 24.00',
-    '₹ 150.00',
-  ];
-  List<String> Kg = ["1 Kg", "2 Kg", "6 Pic", "500 Gm", "5 Kg"];
-  List<int> color = [
-    0xffE4EECB,
-    0xffF0D0D8,
-    0xffF3EDCD,
-    0xffEEE9D8,
-    0xffF5DBD2
-  ];
+
+
   int? selectedValueIndex = 0;
   DateTime _selectedDate = DateTime.now();
   DateTime selectedDate = DateTime.now();
@@ -230,7 +197,8 @@ class _LiveorderPageState extends State<LiveorderPage> {
                     () => Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        ListView.builder(
+
+                       ListView.builder(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
                           controller: ScrollController(),
@@ -286,7 +254,79 @@ class _LiveorderPageState extends State<LiveorderPage> {
               Flexible(
                 child: Obx(
                   () => homeController.assignOrderList.isEmpty
-                      ? Center(child: Text("Order is not Avaliable."))
+                      // ? Center(child: Text("Order is not Avaliable."))
+                      ?  Loaders(
+                    items: 10,
+                    direction: LoaderDirection.ltr,
+                    builder: Padding(
+                      padding: EdgeInsets.only(right: deviceWidth * 0.01),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Column(
+                                crossAxisAlignment:
+                                CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                MainAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        left: deviceWidth * 0.018),
+                                    child: const Icon(
+                                      Icons.image,
+                                      size: 80,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                mainAxisAlignment:
+                                MainAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: deviceHeight * 0.01,
+                                        left: deviceWidth * 0.02),
+                                    child: Container(
+                                      color: Colors.grey,
+                                      width: deviceWidth * 0.6,
+                                      height: deviceHeight * 0.01,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: deviceHeight * 0.02,
+                                        left: deviceWidth * 0.02),
+                                    child: Container(
+                                      color: Colors.grey,
+                                      width: deviceWidth * 0.6,
+                                      height: deviceHeight * 0.01,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: deviceHeight * 0.02,
+                                        left: deviceWidth * 0.02,
+                                        bottom: deviceHeight * 0.02),
+                                    child: Container(
+                                      color: Colors.grey,
+                                      width: deviceWidth * 0.6,
+                                      height: deviceHeight * 0.01,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
                       : ListView.builder(
                           controller: ScrollController(),
                           scrollDirection: Axis.vertical,
@@ -338,24 +378,25 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                                           .spaceBetween,
                                                   children: [
                                                     Padding(
-                                                      padding: EdgeInsets.only(
-                                                          left: deviceHeight *
-                                                              0.01),
-                                                      child: Text(
-                                                        homeController
-                                                            .assignOrderList[
-                                                                index]
-                                                            .productName,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: TextStyle(
-                                                            fontSize: 14,
-                                                            fontFamily: ConstFont
-                                                                .popinsRegular,
-                                                            color: Colors.black,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                                                      padding:  EdgeInsets.only(left: deviceWidth * 0.02),
+                                                      child: Container(
+                                                        width: deviceWidth * 0.5,
+                                                        child: Text(
+                                                          homeController
+                                                              .assignOrderList[
+                                                                  index]
+                                                              .productName,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              fontFamily: ConstFont
+                                                                  .popinsRegular,
+                                                              color: Colors.black,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
                                                       ),
                                                     ),
                                                     Row(
@@ -368,24 +409,38 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                                               left:
                                                                   deviceHeight *
                                                                       0.01,
-                                                              right:
-                                                                  deviceHeight *
-                                                                      0.01),
-                                                          child: Text(
-                                                            homeController
-                                                                .assignOrderList[
-                                                                    index]
-                                                                .quantity
-                                                                .toString(),
-                                                            style:
-                                                                const TextStyle(
-                                                              fontSize: 10,
-                                                              //fontWeight: FontWeight.bold,
-                                                              fontFamily: ConstFont
-                                                                  .popinsRegular,
-                                                              color:
-                                                                  Colors.black,
                                                             ),
+                                                          child: Row(
+                                                            children: [
+                                                              Text("Quantity : "
+                                                                ,
+                                                                style:
+                                                                const TextStyle(
+                                                                  fontSize: 12,
+                                                                  //fontWeight: FontWeight.bold,
+                                                                  fontFamily: ConstFont
+                                                                      .popinsRegular,
+                                                                  color:
+                                                                  Colors.black,
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                homeController
+                                                                    .assignOrderList[
+                                                                        index]
+                                                                    .quantity
+                                                                    .toString(),
+                                                                style:
+                                                                    const TextStyle(
+                                                                  fontSize: 12,
+                                                                  //fontWeight: FontWeight.bold,
+                                                                  fontFamily: ConstFont
+                                                                      .popinsMedium,
+                                                                  color:
+                                                                      Colors.black,
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
                                                         )
                                                       ],
@@ -400,17 +455,17 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                                     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
                                                       Image.asset(
-                                                          "assets/Icons/location.png"),
+                                                          "assets/Icons/pin.png",width: deviceWidth * 0.04),
                                                       Expanded(
                                                         child: Text(
-                                                          homeController
+                                                          " "+homeController
                                                               .assignOrderList[
                                                                   index]
                                                               .address
                                                               .toString(),
                                                           overflow: TextOverflow
                                                               .ellipsis,
-                                                          maxLines: 1,
+                                                          maxLines: 2,
                                                           style: const TextStyle(
                                                               letterSpacing:
                                                                   1.0,
@@ -426,281 +481,625 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                                 ),
                                                 Padding(
                                                   padding: EdgeInsets.only(
-                                                      left: deviceWidth * 0.01),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
+                                                      left: deviceWidth * 0.01,top: deviceHeight * 0.005),
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+
                                                     children: [
                                                       Padding(
-                                                        padding: EdgeInsets.only(
-                                                            left: deviceWidth *
-                                                                0.01),
+                                                        padding:  EdgeInsets.only(bottom: deviceHeight * 0.005),
                                                         child: Text(
-                                                          homeController
-                                                              .assignOrderList[
-                                                                  index]
-                                                              .totalAmount
+                                                          " "+homeController
+                                                              .assignOrderList[index]
+                                                              .unitType
                                                               .toString(),
                                                           style: const TextStyle(
                                                               fontSize: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
                                                               fontFamily: ConstFont
                                                                   .popinsRegular,
                                                               color:
-                                                                  Colors.black),
+                                                              Colors.black),
                                                         ),
                                                       ),
-                                                      homeController.assignOrderList[index].orderStatus == 0
-                                                          ? Padding(
-                                                              padding:
-                                                                  EdgeInsets.only(
-                                                                left: deviceWidth * 0.01,
-                                                              ),
-                                                              child: Row(
-                                                                //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                                children: [
-                                                                  Padding(
-                                                                    padding: EdgeInsets.only(
-                                                                        left: deviceWidth * 0.01),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+
+                                                        children: [
+                                                          Padding(
+                                                            padding: EdgeInsets.only(
+                                                                left: deviceWidth *
+                                                                    0.01),
+                                                            child: Text(
+                                                              "₹ "+ homeController
+                                                                  .assignOrderList[
+                                                              index]
+                                                                  .totalAmount
+                                                                  .toString(),
+                                                              style: const TextStyle(
+                                                                  fontSize: 12,
+                                                                  fontWeight:
+                                                                  FontWeight
+                                                                      .w700,
+                                                                  fontFamily: ConstFont
+                                                                      .popinsRegular,
+                                                                  color:
+                                                                  Colors.black),
+                                                            ),
+                                                          ),
+
+                                                          // change
+
+                                                          homeController.assignOrderList[index].orderStatus == 0
+                                                              ?
+                                                          Padding(padding: EdgeInsets.only(
+                                                            left: deviceWidth * 0.01,),
+                                                            child: Row(
+                                                              children: [
+                                                                Padding(
+                                                                  padding: EdgeInsets.only(
+                                                                      left: deviceWidth *
+                                                                          0.01),
+                                                                  child:
+                                                                  Container(
+                                                                    height:  25,
+                                                                    width: 90,
+                                                                    decoration:
+                                                                    BoxDecoration(
+                                                                      borderRadius:
+                                                                      BorderRadius.circular(1),
+                                                                    ),
                                                                     child:
-                                                                        Container(
-                                                                      height: 25,
-                                                                      width: 90,
-                                                                      decoration: BoxDecoration(
-                                                                        borderRadius: BorderRadius.circular(1),
-                                                                      ),
-                                                                      child: Center(
-                                                                        child: ElevatedButton(
-                                                                          style: ElevatedButton.styleFrom(
-                                                                            primary: const Color(0xff6AB04C),
+                                                                    Center(
+                                                                      child:
+                                                                      ElevatedButton(
+                                                                        style:
+                                                                        ElevatedButton.styleFrom(
+                                                                          primary:
+                                                                          const Color(0xff6AB04C),
+                                                                        ),
+                                                                        onPressed:
+                                                                            () {
+                                                                          homeController.assignOrderList[index].orderStatus =
+                                                                          1;
+                                                                          homeController.OrderUpdateApiCall(
+                                                                              "1",
+                                                                              homeController.assignOrderList[index].orderId.toString(),
+                                                                              "");
+                                                                          setState(() {});
+                                                                        },
+                                                                        child:
+                                                                        Text(
+                                                                          "Accept",
+                                                                          style:
+                                                                          TextStyle(
+                                                                            fontFamily: ConstFont.popinsRegular,
+                                                                            color: SelectedValueIndex == 1 ? Colors.black : Colors.white,
+                                                                            //color: Colors.white
                                                                           ),
-                                                                          onPressed: () {
-                                                                            homeController.OrderUpdateApiCall("1", homeController.assignOrderList[index].orderId.toString(), "");
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding: EdgeInsets.only(
+                                                                      left: deviceWidth *
+                                                                          0.01,
+                                                                      right: deviceWidth *
+                                                                          0.01),
+                                                                  child:
+                                                                  Container(
+                                                                    height:
+                                                                    25,
+                                                                    width: 75,
+                                                                    decoration:
+                                                                    BoxDecoration(
+                                                                      borderRadius:
+                                                                      BorderRadius.circular(1),
+                                                                    ),
+                                                                    child:
+                                                                    Center(
+                                                                      child:
+                                                                      ElevatedButton(
+                                                                        style:
+                                                                        ElevatedButton.styleFrom(primary: const Color(0xffF86C6B)),
+                                                                        onPressed:
+                                                                            () {},
+                                                                        child:
+                                                                        InkWell(
+                                                                          onTap:
+                                                                              () async {
+                                                                            homeController.reasonController.clear();
+                                                                            final result = await showDialog(
+                                                                                context: context,
+                                                                                builder: (BuildContextcontext) {
+                                                                                  return AlertDialog(
+                                                                                    shape: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
+                                                                                    backgroundColor: const Color(0xFFECF3F9),
+                                                                                    title: Form(
+                                                                                      key: formkey,
+                                                                                      child: TextFormField(
+                                                                                        controller: homeController.reasonController,
+                                                                                        decoration: InputDecoration(
+                                                                                          fillColor: const Color(0xFF0926C),
+                                                                                          filled: true,
+                                                                                          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: const BorderSide(color: Colors.black)),
+                                                                                          border: OutlineInputBorder(
+                                                                                            borderRadius: BorderRadius.circular(10),
+                                                                                          ),
+                                                                                          enabledBorder: OutlineInputBorder(
+                                                                                            borderRadius: BorderRadius.circular(10),
+                                                                                          ),
+                                                                                          hintStyle: const TextStyle(fontFamily: ConstFont.popinsRegular, fontSize: 15),
+                                                                                          hintText: "Reason for Reject ",
+                                                                                        ),
+                                                                                        validator: (value) {
+                                                                                          if (value!.isEmpty) {
+                                                                                            return "Propar Reason";
+                                                                                          }
+                                                                                          return null;
+                                                                                        },
+                                                                                      ),
+                                                                                    ),
+                                                                                    content: Row(
+                                                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                                                      children: [
+                                                                                        ElevatedButton(
+                                                                                          onPressed: () {
+                                                                                            homeController.assignOrderList[index].orderStatus = 2;
+                                                                                            homeController.OrderUpdateApiCall("2", homeController.assignOrderList[index].orderId.toString(), homeController.reasonController.text);
+                                                                                            setState(() {});
+                                                                                            Navigator.pop(context, false);
+                                                                                          },
+                                                                                          style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFECF3F9), elevation: 0),
+                                                                                          child: const Text(
+                                                                                            "Submit",
+                                                                                            style: TextStyle(fontSize: 20, color: Colors.black),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  );
+                                                                                });
                                                                           },
                                                                           child:
-                                                                              Text(
-                                                                            "Accept",
-                                                                            style:
-                                                                                TextStyle(
-                                                                              fontFamily: ConstFont.popinsRegular,
-                                                                              color: SelectedValueIndex == 1 ? Colors.black : Colors.white,
-                                                                              //color: Colors.white
-                                                                            ),
+                                                                          const Text(
+                                                                            "Reject",
+                                                                            style: TextStyle(fontFamily: ConstFont.popinsRegular, color: Colors.white),
                                                                           ),
                                                                         ),
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                  Padding(
-                                                                    padding: EdgeInsets.only(
-                                                                        left: deviceWidth * 0.01,
-                                                                        right: deviceWidth * 0.01),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          )
+                                                              :
+                                                          (homeController
+                                                              .assignOrderList[
+                                                          index]
+                                                              .orderStatus !=
+                                                              3 &&
+                                                              homeController
+                                                                  .assignOrderList[
+                                                              index]
+                                                                  .orderStatus !=
+                                                                  4)
+                                                              ? Padding(
+                                                            padding: EdgeInsets.only( left:deviceWidth *  0.01,),
+                                                            child: Row(
+                                                              children: [
+                                                                Padding(
+                                                                  padding:
+                                                                  EdgeInsets.only(left: deviceWidth * 0.01),
+                                                                  child: Container(
+                                                                    height:25,
+                                                                    width: deviceWidth * 0.21,
+                                                                    decoration:
+                                                                    BoxDecoration(
+                                                                      borderRadius:
+                                                                      BorderRadius.circular(1),
+                                                                    ),
                                                                     child:
-                                                                        Container(
-                                                                      height: 25,
-                                                                      width: 75,
-                                                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(1),
+                                                                    Center(
+                                                                      child:
+                                                                      ElevatedButton(
+                                                                        style: ElevatedButton.styleFrom(
+                                                                          primary: const Color(0xff6AB04C),
+                                                                        ),
+                                                                        onPressed: () {
+                                                                          homeController.assignOrderList[index].orderStatus = 3;
+                                                                          homeController.OrderUpdateApiCall("3", homeController.assignOrderList[index].orderId.toString(), "");
+                                                                          setState(() {});
+                                                                          print("Delivered ");
+                                                                        },
+                                                                        child: Text(
+                                                                          "Delivered",
+                                                                          style: TextStyle(
+                                                                            fontFamily: ConstFont.popinsRegular,
+                                                                            fontSize: 10,
+                                                                            color: SelectedValueIndex == 1 ? Colors.black : Colors.white,
+                                                                            //color: Colors.white
+                                                                          ),
+                                                                        ),
                                                                       ),
-                                                                      child: Center(
-                                                                        child:
-                                                                        ElevatedButton(
-                                                                          style: ElevatedButton.styleFrom(primary: const Color(0xffF86C6B)),
-                                                                          onPressed: () {},
-                                                                          child: InkWell(
-                                                                            onTap: () async {
-                                                                              homeController.reasonController.clear();
-                                                                              final result = await showDialog(
-                                                                                  context: context,
-                                                                                  builder: (BuildContextcontext) {
-                                                                                    return AlertDialog(
-                                                                                      shape: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
-                                                                                      backgroundColor: const Color(0xFFECF3F9),
-                                                                                      title: Form(
-                                                                                        key: formkey,
-                                                                                        child: TextFormField(
-                                                                                          controller: homeController.reasonController,
-                                                                                          decoration: InputDecoration(
-                                                                                            fillColor: const Color(0xFF0926C),
-                                                                                            filled: true,
-                                                                                            focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: const BorderSide(color: Colors.black)),
-                                                                                            border: OutlineInputBorder(
-                                                                                              borderRadius: BorderRadius.circular(10),
-                                                                                            ),
-                                                                                            enabledBorder: OutlineInputBorder(
-                                                                                              borderRadius: BorderRadius.circular(10),
-                                                                                            ),
-                                                                                            hintStyle: const TextStyle(fontFamily: ConstFont.popinsRegular, fontSize: 15),
-                                                                                            hintText: "Reason for Reject ",
-                                                                                          ),
-                                                                                          validator: (value) {
-                                                                                            if (value!.isEmpty) {
-                                                                                              return "Propar Reason";
-                                                                                            }
-                                                                                            return null;
-                                                                                          },
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Container(
+                                                                  height:
+                                                                  deviceHeight * 0.03,
+                                                                  width:
+                                                                  deviceWidth * 0.26,
+                                                                  decoration:
+                                                                  BoxDecoration(
+                                                                    borderRadius:
+                                                                    BorderRadius.circular(1),
+                                                                  ),
+                                                                  child:
+                                                                  Center(
+                                                                    child:
+                                                                    ElevatedButton(
+                                                                      style: ElevatedButton.styleFrom(
+                                                                        // primary: const Color(0xffF86C6B)
+                                                                          primary: Colors.white
+                                                                      ),
+
+                                                                      onPressed: () {},
+                                                                      child: InkWell(
+                                                                        onTap: () async {
+                                                                          homeController.reasonController.clear();
+                                                                          final result = await showDialog(
+                                                                              context: context,
+                                                                              builder: (BuildContextcontext) {
+                                                                                return AlertDialog(
+                                                                                  shape: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
+                                                                                  backgroundColor: const Color(0xFFECF3F9),
+                                                                                  title: Form(
+                                                                                    key: formkey,
+                                                                                    child: TextFormField(
+                                                                                      controller: homeController.reasonController,
+                                                                                      decoration: InputDecoration(
+                                                                                        fillColor: const Color(0xFF0926C),
+                                                                                        filled: true,
+                                                                                        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: const BorderSide(color: Colors.black)),
+                                                                                        border: OutlineInputBorder(
+                                                                                          borderRadius: BorderRadius.circular(10),
+                                                                                        ),
+                                                                                        enabledBorder: OutlineInputBorder(
+                                                                                          borderRadius: BorderRadius.circular(10),
+                                                                                        ),
+                                                                                        hintStyle: const TextStyle(fontFamily: ConstFont.popinsRegular, fontSize: 15),
+                                                                                        hintText: "Reason for Not Deliver",
+                                                                                      ),
+                                                                                      validator: (value) {
+                                                                                        if (value!.isEmpty) {
+                                                                                          return "Why Not Deliver";
+                                                                                        }
+                                                                                        return null;
+                                                                                      },
+                                                                                    ),
+                                                                                  ),
+                                                                                  content: Row(
+                                                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                                                    children: [
+                                                                                      ElevatedButton(
+                                                                                        onPressed: () {
+                                                                                          homeController.assignOrderList[index].orderStatus = 4;
+                                                                                          homeController.OrderUpdateApiCall("4", homeController.assignOrderList[index].orderId.toString(), homeController.reasonController.text);
+                                                                                          setState(() {});
+                                                                                          Navigator.pop(context, false);
+                                                                                        },
+                                                                                        style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFECF3F9), elevation: 0),
+                                                                                        child: const Text(
+                                                                                          "Submit",
+                                                                                          style: TextStyle(fontSize: 20, color: Colors.black),
                                                                                         ),
                                                                                       ),
-                                                                                      content: Row(
-                                                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                                                        children: [
-                                                                                          ElevatedButton(
-                                                                                            onPressed: () {
-                                                                                              homeController.OrderUpdateApiCall("2", homeController.assignOrderList[index].orderId.toString(), homeController.reasonController.text);
-                                                                                              Navigator.pop(context, false);
-                                                                                            },
-                                                                                            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFECF3F9), elevation: 0),
-                                                                                            child: const Text(
-                                                                                              "Submit",
-                                                                                              style: TextStyle(fontSize: 20, color: Colors.black),
-                                                                                            ),
-                                                                                          ),
-                                                                                        ],
-                                                                                      ),
-                                                                                    );
-                                                                                  });
-                                                                            },
-                                                                            child: const Text(
-                                                                              "Reject",
-                                                                              style: TextStyle(fontFamily: ConstFont.popinsRegular, color: Colors.white),
-                                                                            ),
+                                                                                    ],
+                                                                                  ),
+                                                                                );
+                                                                              });
+                                                                        },
+                                                                        child: const Text(
+                                                                          "Not Delivered",
+                                                                          style: TextStyle(fontFamily: ConstFont.popinsMedium, color: Colors.red,
+                                                                            fontSize: 10,
                                                                           ),
                                                                         ),
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                ],
-                                                              ),
-                                                            )
-                                                          : (homeController.assignOrderList[index].orderStatus == 3 &&
-                                                                  homeController.assignOrderList[index].orderStatus == 4)
-                                                              ? Padding(
-                                                                  padding: EdgeInsets.only(
-                                                                    left: deviceWidth * 0.01,
-                                                                  ),
-                                                                  child: Row(
-                                                                    children: [
-                                                                      Padding(
-                                                                        padding: EdgeInsets.only(left: deviceWidth * 0.01),
-                                                                        child: Container(
-                                                                          height: 25,
-                                                                          width: 90,
-                                                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(1),),
-                                                                          child: Center(
-                                                                            child: ElevatedButton(
-                                                                              style: ElevatedButton.styleFrom(
-                                                                                primary: const Color(0xff6AB04C),
-                                                                              ),
-                                                                              onPressed: () {
-                                                                                homeController.isChange = true.obs;
-                                                                                homeController.OrderUpdateApiCall("3", homeController.assignOrderList[index].orderId.toString(), "");
-                                                                                print("Delivered ");
-                                                                              },
-                                                                              child: Text(
-                                                                                "Delivered",
-                                                                                style: TextStyle(
-                                                                                  fontFamily: ConstFont.popinsRegular,
-                                                                                  color: SelectedValueIndex == 1 ? Colors.black : Colors.white,
-                                                                                  //color: Colors.white
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      Padding(
-                                                                        padding: EdgeInsets.only(
-                                                                            left: deviceWidth * 0.01,
-                                                                            right: deviceWidth * 0.01),
-                                                                        child: Container(
-                                                                              height: 25,
-                                                                              width: 75,
-                                                                          decoration: BoxDecoration(
-                                                                            borderRadius: BorderRadius.circular(1),
-                                                                          ),
-                                                                          child: Center(
-                                                                            child: ElevatedButton(
-                                                                              style: ElevatedButton.styleFrom(primary: const Color(0xffF86C6B)),
-                                                                              onPressed: () {},
-                                                                              child: InkWell(
-                                                                                onTap: () async {
-                                                                                  homeController.reasonController.clear();
-                                                                                  final result = await showDialog(
-                                                                                      context: context,
-                                                                                      builder: (BuildContextcontext) {
-                                                                                        return AlertDialog(
-                                                                                          shape: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
-                                                                                          backgroundColor: const Color(0xFFECF3F9),
-                                                                                          title: Form(
-                                                                                            key: formkey,
-                                                                                            child: TextFormField(
-                                                                                              controller: homeController.reasonController,
-                                                                                              decoration: InputDecoration(
-                                                                                                fillColor: const Color(0xFF0926C),
-                                                                                                filled: true,
-                                                                                                focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: const BorderSide(color: Colors.black)),
-                                                                                                border: OutlineInputBorder(
-                                                                                                  borderRadius: BorderRadius.circular(10),
-                                                                                                ),
-                                                                                                enabledBorder: OutlineInputBorder(
-                                                                                                  borderRadius: BorderRadius.circular(10),
-                                                                                                ),
-                                                                                                hintStyle: const TextStyle(fontFamily: ConstFont.popinsRegular, fontSize: 15),
-                                                                                                hintText: "Reason for Not Deliver ",
-                                                                                              ),
-                                                                                              validator: (value) {
-                                                                                                if (value!.isEmpty) {
-                                                                                                  return "Why Not Deliver";
-                                                                                                }
-                                                                                                return null;
-                                                                                              },
-                                                                                            ),
-                                                                                          ),
-                                                                                          content: Row(
-                                                                                            mainAxisAlignment: MainAxisAlignment.center,
-                                                                                            children: [
-                                                                                              ElevatedButton(
-                                                                                                onPressed: () {
-                                                                                                  homeController.OrderUpdateApiCall("4", homeController.assignOrderList[index].orderId.toString(), homeController.reasonController.text);
-                                                                                                  Navigator.pop(context, false);
-                                                                                                },
-                                                                                                style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFECF3F9), elevation: 0),
-                                                                                                child: const Text(
-                                                                                                  "Submit",
-                                                                                                  style: TextStyle(fontSize: 20, color: Colors.black),
-                                                                                                ),
-                                                                                              ),
-                                                                                            ],
-                                                                                          ),
-                                                                                        );
-                                                                                      });
-                                                                                },
-                                                                                child: const Text(
-                                                                                  "Not Delivered",
-                                                                                  style: TextStyle(fontFamily: ConstFont.popinsRegular, color: Colors.white),
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                )
-                                                              : Text(
-                                                                  (homeController.assignOrderList[index].orderStatus == 3)
-                                                                      ? "Deliverd"
-                                                                      : "Not Delivered",
-                                                                  style: TextStyle(
-                                                                      color: homeController.assignOrderList[index].orderStatus == 3
-                                                                          ? Colors.black
-                                                                          : Colors.red,
-                                                                      fontWeight: homeController.assignOrderList[index].orderStatus == 3
-                                                                          ? FontWeight.bold
-                                                                          : FontWeight.w500),
                                                                 ),
+                                                              ],
+                                                            ),
+                                                          )
+                                                              : Text(
+                                                            (homeController.assignOrderList[index].orderStatus == 3)
+                                                                ? "Delivered"
+                                                                : "Not Delivered",
+                                                            style: TextStyle(
+                                                              color: (homeController.assignOrderList[index].orderStatus == 2 || homeController.assignOrderList[index].orderStatus == 4 )  ? Colors.red : Colors.green,fontSize: 12,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      // Row(
+                                                      //   mainAxisAlignment:
+                                                      //       MainAxisAlignment
+                                                      //           .spaceBetween,
+                                                      //   children: [
+                                                      //     Padding(
+                                                      //       padding: EdgeInsets.only(
+                                                      //           left: deviceWidth *
+                                                      //               0.01),
+                                                      //       child: Text(
+                                                      //         homeController
+                                                      //             .assignOrderList[
+                                                      //                 index]
+                                                      //             .totalAmount
+                                                      //             .toString(),
+                                                      //         style: const TextStyle(
+                                                      //             fontSize: 12,
+                                                      //             fontFamily: ConstFont
+                                                      //                 .popinsMedium,
+                                                      //             color:
+                                                      //                 Colors.black),
+                                                      //       ),
+                                                      //     ),
+                                                      //     homeController.assignOrderList[index].orderStatus == 0
+                                                      //         ?
+                                                      //     Padding(
+                                                      //             padding:
+                                                      //                 EdgeInsets.only(
+                                                      //               left: deviceWidth * 0.01,
+                                                      //             ),
+                                                      //             child: Row(
+                                                      //               //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                      //               children: [
+                                                      //                 Padding(
+                                                      //                   padding: EdgeInsets.only(
+                                                      //                       left: deviceWidth * 0.01),
+                                                      //                   child:
+                                                      //                       Container(
+                                                      //                     height: 25,
+                                                      //                     width: 90,
+                                                      //                     decoration: BoxDecoration(
+                                                      //                       borderRadius: BorderRadius.circular(1),
+                                                      //                     ),
+                                                      //                     child: Center(
+                                                      //                       child: ElevatedButton(
+                                                      //                         style: ElevatedButton.styleFrom(
+                                                      //                           primary: const Color(0xff6AB04C),
+                                                      //                         ),
+                                                      //                         onPressed: () {
+                                                      //                           homeController.OrderUpdateApiCall("1", homeController.assignOrderList[index].orderId.toString(), "");
+                                                      //                         },
+                                                      //                         child:
+                                                      //                             Text(
+                                                      //                           "Accept",
+                                                      //                           style:
+                                                      //                               TextStyle(
+                                                      //                             fontFamily: ConstFont.popinsRegular,
+                                                      //                             color: SelectedValueIndex == 1 ? Colors.black : Colors.white,
+                                                      //                             //color: Colors.white
+                                                      //                           ),
+                                                      //                         ),
+                                                      //                       ),
+                                                      //                     ),
+                                                      //                   ),
+                                                      //                 ),
+                                                      //                 Padding(
+                                                      //                   padding: EdgeInsets.only(
+                                                      //                       left: deviceWidth * 0.01,
+                                                      //                       right: deviceWidth * 0.01),
+                                                      //                   child:
+                                                      //                       Container(
+                                                      //                     height: 25,
+                                                      //                     width: 75,
+                                                      //                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(1),
+                                                      //                     ),
+                                                      //                     child: Center(
+                                                      //                       child:
+                                                      //                       ElevatedButton(
+                                                      //                         style: ElevatedButton.styleFrom(primary: const Color(0xffF86C6B)),
+                                                      //                         onPressed: () {},
+                                                      //                         child: InkWell(
+                                                      //                           onTap: () async {
+                                                      //                             homeController.reasonController.clear();
+                                                      //                             final result = await showDialog(
+                                                      //                                 context: context,
+                                                      //                                 builder: (BuildContextcontext) {
+                                                      //                                   return AlertDialog(
+                                                      //                                     shape: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
+                                                      //                                     backgroundColor: const Color(0xFFECF3F9),
+                                                      //                                     title: Form(
+                                                      //                                       key: formkey,
+                                                      //                                       child: TextFormField(
+                                                      //                                         controller: homeController.reasonController,
+                                                      //                                         decoration: InputDecoration(
+                                                      //                                           fillColor: const Color(0xFF0926C),
+                                                      //                                           filled: true,
+                                                      //                                           focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: const BorderSide(color: Colors.black)),
+                                                      //                                           border: OutlineInputBorder(
+                                                      //                                             borderRadius: BorderRadius.circular(10),
+                                                      //                                           ),
+                                                      //                                           enabledBorder: OutlineInputBorder(
+                                                      //                                             borderRadius: BorderRadius.circular(10),
+                                                      //                                           ),
+                                                      //                                           hintStyle: const TextStyle(fontFamily: ConstFont.popinsRegular, fontSize: 15),
+                                                      //                                           hintText: "Reason for Reject ",
+                                                      //                                         ),
+                                                      //                                         validator: (value) {
+                                                      //                                           if (value!.isEmpty) {
+                                                      //                                             return "Propar Reason";
+                                                      //                                           }
+                                                      //                                           return null;
+                                                      //                                         },
+                                                      //                                       ),
+                                                      //                                     ),
+                                                      //                                     content: Row(
+                                                      //                                       mainAxisAlignment: MainAxisAlignment.center,
+                                                      //                                       children: [
+                                                      //                                         ElevatedButton(
+                                                      //                                           onPressed: () {
+                                                      //                                             homeController.OrderUpdateApiCall("2", homeController.assignOrderList[index].orderId.toString(), homeController.reasonController.text);
+                                                      //                                             Navigator.pop(context, false);
+                                                      //                                           },
+                                                      //                                           style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFECF3F9), elevation: 0),
+                                                      //                                           child: const Text(
+                                                      //                                             "Submit",
+                                                      //                                             style: TextStyle(fontSize: 20, color: Colors.black),
+                                                      //                                           ),
+                                                      //                                         ),
+                                                      //                                       ],
+                                                      //                                     ),
+                                                      //                                   );
+                                                      //                                 });
+                                                      //                           },
+                                                      //                           child: const Text(
+                                                      //                             "Reject",
+                                                      //                             style: TextStyle(fontFamily: ConstFont.popinsRegular, color: Colors.white),
+                                                      //                           ),
+                                                      //                         ),
+                                                      //                       ),
+                                                      //                     ),
+                                                      //                   ),
+                                                      //                 ),
+                                                      //               ],
+                                                      //             ),
+                                                      //           )
+                                                      //         : (homeController.assignOrderList[index].orderStatus == 3 &&
+                                                      //                 homeController.assignOrderList[index].orderStatus == 4)
+                                                      //             ? Padding(
+                                                      //                 padding: EdgeInsets.only(
+                                                      //                   left: deviceWidth * 0.01,
+                                                      //                 ),
+                                                      //                 child: Row(
+                                                      //                   children: [
+                                                      //                     Padding(
+                                                      //                       padding: EdgeInsets.only(left: deviceWidth * 0.01),
+                                                      //                       child: Container(
+                                                      //                         height: 25,
+                                                      //                         width: 90,
+                                                      //                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(1),),
+                                                      //                         child: Center(
+                                                      //                           child: ElevatedButton(
+                                                      //                             style: ElevatedButton.styleFrom(
+                                                      //                               primary: const Color(0xff6AB04C),
+                                                      //                             ),
+                                                      //                             onPressed: () {
+                                                      //                               homeController.isChange = true.obs;
+                                                      //                               homeController.OrderUpdateApiCall("3", homeController.assignOrderList[index].orderId.toString(), "");
+                                                      //                               print("Delivered ");
+                                                      //                             },
+                                                      //                             child: Text(
+                                                      //                               "Delivered",
+                                                      //                               style: TextStyle(
+                                                      //                                 fontFamily: ConstFont.popinsRegular,
+                                                      //                                 color: SelectedValueIndex == 1 ? Colors.black : Colors.white,
+                                                      //                                 //color: Colors.white
+                                                      //                               ),
+                                                      //                             ),
+                                                      //                           ),
+                                                      //                         ),
+                                                      //                       ),
+                                                      //                     ),
+                                                      //                     Padding(
+                                                      //                       padding: EdgeInsets.only(
+                                                      //                           left: deviceWidth * 0.01,
+                                                      //                           right: deviceWidth * 0.01),
+                                                      //                       child: Container(
+                                                      //                             height: 25,
+                                                      //                             width: 75,
+                                                      //                         decoration: BoxDecoration(
+                                                      //                           borderRadius: BorderRadius.circular(1),
+                                                      //                         ),
+                                                      //                         child: Center(
+                                                      //                           child: ElevatedButton(
+                                                      //                             style: ElevatedButton.styleFrom(primary: const Color(0xffF86C6B)),
+                                                      //                             onPressed: () {},
+                                                      //                             child: InkWell(
+                                                      //                               onTap: () async {
+                                                      //                                 homeController.reasonController.clear();
+                                                      //                                 final result = await showDialog(
+                                                      //                                     context: context,
+                                                      //                                     builder: (BuildContextcontext) {
+                                                      //                                       return AlertDialog(
+                                                      //                                         shape: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
+                                                      //                                         backgroundColor: const Color(0xFFECF3F9),
+                                                      //                                         title: Form(
+                                                      //                                           key: formkey,
+                                                      //                                           child: TextFormField(
+                                                      //                                             controller: homeController.reasonController,
+                                                      //                                             decoration: InputDecoration(
+                                                      //                                               fillColor: const Color(0xFF0926C),
+                                                      //                                               filled: true,
+                                                      //                                               focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: const BorderSide(color: Colors.black)),
+                                                      //                                               border: OutlineInputBorder(
+                                                      //                                                 borderRadius: BorderRadius.circular(10),
+                                                      //                                               ),
+                                                      //                                               enabledBorder: OutlineInputBorder(
+                                                      //                                                 borderRadius: BorderRadius.circular(10),
+                                                      //                                               ),
+                                                      //                                               hintStyle: const TextStyle(fontFamily: ConstFont.popinsRegular, fontSize: 15),
+                                                      //                                               hintText: "Reason for Not Deliver ",
+                                                      //                                             ),
+                                                      //                                             validator: (value) {
+                                                      //                                               if (value!.isEmpty) {
+                                                      //                                                 return "Why Not Deliver";
+                                                      //                                               }
+                                                      //                                               return null;
+                                                      //                                             },
+                                                      //                                           ),
+                                                      //                                         ),
+                                                      //                                         content: Row(
+                                                      //                                           mainAxisAlignment: MainAxisAlignment.center,
+                                                      //                                           children: [
+                                                      //                                             ElevatedButton(
+                                                      //                                               onPressed: () {
+                                                      //                                                 homeController.OrderUpdateApiCall("4", homeController.assignOrderList[index].orderId.toString(), homeController.reasonController.text);
+                                                      //                                                 Navigator.pop(context, false);
+                                                      //                                               },
+                                                      //                                               style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFECF3F9), elevation: 0),
+                                                      //                                               child: const Text(
+                                                      //                                                 "Submit",
+                                                      //                                                 style: TextStyle(fontSize: 20, color: Colors.black),
+                                                      //                                               ),
+                                                      //                                             ),
+                                                      //                                           ],
+                                                      //                                         ),
+                                                      //                                       );
+                                                      //                                     });
+                                                      //                               },
+                                                      //                               child: const Text(
+                                                      //                                 "Not Delivered",
+                                                      //                                 style: TextStyle(fontFamily: ConstFont.popinsRegular, color: Colors.white),
+                                                      //                               ),
+                                                      //                             ),
+                                                      //                           ),
+                                                      //                         ),
+                                                      //                       ),
+                                                      //                     ),
+                                                      //                   ],
+                                                      //                 ),
+                                                      //               )
+                                                      //             : Text(
+                                                      //                 (homeController.assignOrderList[index].orderStatus == 3)
+                                                      //                     ? "Deliverd"
+                                                      //                     : "Not Delivered",
+                                                      //                 style: TextStyle(
+                                                      //                     color: (homeController.assignOrderList[index].orderStatus == 2 || homeController.assignOrderList[index].orderStatus == 4 )  ? Colors.red : Colors.green,fontSize: 12,
+                                                      //
+                                                      //                     fontWeight: homeController.assignOrderList[index].orderStatus == 3
+                                                      //                         ? FontWeight.bold
+                                                      //                         : FontWeight.w500),
+                                                      //               ),
+                                                      //   ],
+                                                      // ),
                                                     ],
                                                   ),
                                                 )

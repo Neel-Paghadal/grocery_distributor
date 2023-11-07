@@ -25,14 +25,30 @@ class HomeDrawer extends StatefulWidget {
 
 class _HomeDrawerState extends State<HomeDrawer> {
   HomeController homeController = Get.put(HomeController());
+  String? distributorId;
+  String? distributorEmail;
+  String? distributorName;
 
+  getDistributorData() async {
+   distributorId = await ConstPreferences().getDistributorId("DistributorId");
+   distributorEmail = await ConstPreferences().getDistributorEmail("DistributorEmail");
+   distributorName = await ConstPreferences().getDistributorName("DistributorName");
+ }
 
+ @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    homeController.getDistributorData();
+
+ }
 
   @override
   Widget build(BuildContext context) {
 
     var deviceHeight = MediaQuery.of(context).size.height;
     var deviceWidth = MediaQuery.of(context).size.width;
+
 
    return Drawer(
       child: ListView(
@@ -55,16 +71,34 @@ class _HomeDrawerState extends State<HomeDrawer> {
                                 child: Column(
                                   children: [
                                     ListTile(
+                                      minVerticalPadding: deviceHeight * 0.03,
                                       leading: Image.asset("assets/Images/drawerdp.png"),
-                                      title: const Text(
-                                        "Vidya Vox",
-                                        style:
-                                        TextStyle(fontSize: 14, color: Colors.black),
+                                      // leading: Image.network(homeController.distributorImage.toString(),width: deviceWidth * 0.1,height: deviceHeight * 0.05),
+                                      title: Padding(
+                                        padding:  EdgeInsets.only(bottom: deviceHeight * 0.005),
+                                        child:  Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                              homeController.distributorName.toString(),
+                                              style:
+                                              TextStyle(fontSize: 14, color: Colors.black),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),Text(
+                                              homeController.distributorEmail.toString(),
+                                              style:
+                                              TextStyle(fontSize: 14, color: Colors.black),maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                      subtitle: const Text(
-                                        "236, Tulsi Arcade, Sudama\nChowk, Surat.",
-                                        style:
-                                        TextStyle(fontSize: 10, color: Colors.black),
+
+                                      subtitle:  Text(homeController.distributorAddress.toString(),
+                                        style: TextStyle(fontSize: 12, color: Colors.black),
+                                        overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
                                   ],

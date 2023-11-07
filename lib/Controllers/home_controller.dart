@@ -19,6 +19,28 @@ class HomeController extends GetxController {
   RxList<OrderList> assignOrderList = <OrderList>[].obs;
   RxBool isChange = false.obs;
 
+
+  String? distributorEmail;
+  String? distributorName;
+  String? distributorAddress;
+  String? distributorImage;
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    getDistributorData();
+  }
+  getDistributorData() async {
+    distributorEmail = await ConstPreferences().getDistributorEmail("DistributorEmail");
+    distributorName = await ConstPreferences().getDistributorName("DistributorName");
+    distributorAddress = await ConstPreferences().getDistributorAddress("DistributorAdd");
+    distributorImage = await ConstPreferences().getDistributorImage("DistributorImage");
+    debugPrint("*****************"+distributorImage.toString());
+  }
+
+
+
   Future<void> LiveOrderApiCall() async {
     final response = await http.get(Uri.parse(ConstApi.liveOrderFilter),);
     var data = response.body;

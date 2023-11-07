@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:grocery_distributor/Common/bottom_button_widget.dart';
+import 'package:grocery_distributor/Common/utils.dart';
 import 'package:grocery_distributor/ConstFile/constColor.dart';
 import 'package:grocery_distributor/ConstFile/constFonts.dart';
 import 'package:grocery_distributor/ConstFile/constImage.dart';
@@ -30,6 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   final _formKey = GlobalKey<FormState>();
+  final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
 
   var userId;
 
@@ -51,11 +53,16 @@ class _LoginScreenState extends State<LoginScreen> {
             userId = loginController.emailController.text;
             password = loginController.passController.text;
             // Get.to(() => GodownPage());
-
-            Services().DistributorLogin(userId, password,context);
-
+            if (loginController.emailController.text.isEmpty &&
+                loginController.passController.text.isEmpty) {
+              setState(() {
+                Utils().toastMessage("Enter valid email & password");
+              });
+            } else {
+              Services().DistributorLogin(userId, password, context);
+            }
           },
-          btnName: "      Login",
+          btnName: "Login",
         ),
         backgroundColor: ConstColour.bgColor,
         body: SingleChildScrollView(
@@ -96,14 +103,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       decoration: InputDecoration(
                           labelStyle: TextStyle(color: Colors.black),
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                              borderSide: BorderSide(color: Colors.black)
-
-                          ),
-                          focusedBorder:  OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(5)),
-                            borderSide: BorderSide(color: Colors.black)
-                          ),
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: BorderSide(color: Colors.black)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5)),
+                              borderSide: BorderSide(color: Colors.black)),
                           isDense: true,
                           hintStyle: TextStyle(
                               fontFamily: ConstFont.popinsRegular,
@@ -112,10 +117,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           hintText: "Enter Your Email Id",
                           labelText: "Email Id"),
                       validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Email Id is required';
+                        if (value!.isEmpty) {
+                          return "Enter Email";
+                        } else if (!emailRegex.hasMatch(value)) {
+                          return 'Enter a valid email address';
+                        } else {
+                          return null;
                         }
-                        return null;
                       }),
                 ),
                 Padding(

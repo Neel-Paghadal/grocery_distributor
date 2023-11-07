@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:grocery_distributor/ConstFile/constColor.dart';
 import 'package:grocery_distributor/ConstFile/constFonts.dart';
 import 'package:grocery_distributor/Controllers/home_controller.dart';
+import 'package:grocery_distributor/Controllers/user_list_controller.dart';
 import 'package:grocery_distributor/Screens/home_screen.dart';
 import 'package:grocery_distributor/Screens/live_order.dart';
 import 'package:grocery_distributor/Screens/order_details.dart';
@@ -21,6 +22,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
 
   HomeController homeController = Get.put(HomeController());
   // CartController cartController = Get.put(CartController());
+  UserListController userListController = Get.put(UserListController());
 
   final screens = [HomeScreen(),LiveorderPage(),OrderdetailsPage(),UserPage()];
 
@@ -77,10 +79,14 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
             homeController.orderType = 0;
           }
 
-          // if (value == 0) {
-          //    homeController.LiveOrderApiCall();
-          //    homeController.AssignOrderApiCall(homeController.orderType.toString(), homeController.distributorId.toString());
-          // }
+          if (value == 0) {
+             homeController.LiveOrderApiCall();
+             homeController.AssignOrderApiCall(homeController.orderType.toString(), homeController.distributorId.toString());
+          }
+          if(value == 3){
+            userListController.UserListApiCall();
+
+          }
         },
       ),
       body: IndexedStack(
