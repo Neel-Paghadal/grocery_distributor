@@ -30,6 +30,7 @@ class HomeController extends GetxController {
     // TODO: implement onInit
     super.onInit();
     getDistributorData();
+    currentIndex = 0;
   }
   getDistributorData() async {
     distributorEmail = await ConstPreferences().getDistributorEmail("DistributorEmail");
@@ -55,7 +56,7 @@ class HomeController extends GetxController {
       if (messageCode == 200) {
         liveOrderList.clear();
         liveOrderList.addAll(responseData.data);
-        AssignOrderApiCall(orderType.toString(),distributorId);
+        // AssignOrderApiCall(orderType.toString(),distributorId);
         debugPrint("LiveOrder Successfully");
       } else {
         debugPrint("Error LiveOrder");
@@ -64,7 +65,7 @@ class HomeController extends GetxController {
   }
 
 
-  Future<void> AssignOrderApiCall(String type,String distributorId) async {
+ AssignOrderApiCall(String type,String distributorId) async {
     String? distributorId = await ConstPreferences().getDistributorId("DistributorId");
     final response = await http.post(Uri.parse(ConstApi.assignOrder),
         body: {
@@ -85,6 +86,7 @@ class HomeController extends GetxController {
         assignOrderList.clear();
         assignOrderList.addAll(responseData.data);
         debugPrint("Assign order Successfully");
+        return assignOrderList;
       } else {
         debugPrint("Error Assign order");
       }

@@ -6,5 +6,6 @@ class ConstApi {
   static const String liveOrderFilter = '${baseUrl}Product/Get_Live_Order_Filter_List_ALL';
   static const String userList = '${baseUrl}DistiButer/Get_DistiButer_WiseCustomerList';
   static const String updateOrderStatus = '${baseUrl}DistiButer/UpdateOrderStatus';
+  static const String userOrderHistory = '${baseUrl}DistiButer/Get_UserOrder_Detail';
 
 }

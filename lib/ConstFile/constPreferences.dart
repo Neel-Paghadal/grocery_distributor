@@ -2,6 +2,20 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ConstPreferences {
+
+  var ADDRESS = "ADDRESS";
+  var FLOOR = "FLOOR";
+  var BUILDING = "BUILDING";
+  var FLATE = "FLATE";
+  var LANDMARK = "LANDMARK";
+  var USERDATA = "USERDATA";
+  var NAME = "NAME";
+  var EMAIL = "EMAIL";
+  var INDEX = "INDEX";
+  var PINCODE = "PINCODE";
+  var DISCOUNT = "DISCOUNT";
+
+
   Future<void> saveDistributorId(String key, String value) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(key, value);

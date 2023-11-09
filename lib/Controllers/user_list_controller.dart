@@ -10,7 +10,7 @@ class UserListController extends GetxController{
   int? messageCode;
   RxList<Users> allUser = <Users>[].obs;
 
-  Future<void> UserListApiCall() async {
+  UserListApiCall() async {
     String? distributorId = await ConstPreferences().getDistributorId("DistributorId");
     debugPrint("Pref distributorId" + distributorId.toString());
     final response = await http.post(Uri.parse(ConstApi.userList),
@@ -29,6 +29,7 @@ class UserListController extends GetxController{
       if (messageCode == 200) {
         allUser.clear();
         allUser.addAll(responseData.data);
+        return allUser;
         debugPrint("User fetched Succefully");
       } else {
         debugPrint("Error in User fetched");

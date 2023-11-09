@@ -45,12 +45,12 @@ class DetailsAppbar extends StatelessWidget {
                   fontSize: 16,
                   color: Colors.black),
             ),
-            IconButton(
-              splashColor: ConstColour.btnHowerColor,
-
-              onPressed: onTap,
-              icon: SvgPicture.asset("assets/Icons/bell.svg",)
-            )
+            // IconButton(
+            //   splashColor: ConstColour.btnHowerColor,
+            //
+            //   onPressed: onTap,
+            //   icon: SvgPicture.asset("assets/Icons/bell.svg",)
+            // )
           ],
         ));
   }

@@ -7,7 +7,8 @@ import 'package:grocery_distributor/ConstFile/constFonts.dart';
 import 'package:grocery_distributor/Controllers/home_controller.dart';
 
 class ProductDetailPage extends StatefulWidget {
-   ProductDetailPage({super.key});
+   int productIndex;
+   ProductDetailPage({required this.productIndex});
 
   @override
   State<ProductDetailPage> createState() => _ProductDetailPageState();
@@ -42,7 +43,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         child: Column(
           children: [
               ListView.builder(
-                itemCount: 5,
+                itemCount: 1,
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
                 controller: ScrollController(),
@@ -65,7 +66,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                            return Icon(Icons.image,size: 45,);
                          },
                          image:  NetworkImage(
-                           homeController.assignOrderList[index].imageName,),
+                           homeController.assignOrderList[widget.productIndex].imageName,),
                        ),
                     ),
                   ),
@@ -73,23 +74,29 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(width:  deviceWidth * 0.6,
-                          child: Text( homeController.assignOrderList[index].productName,style: TextStyle(fontSize: 16,color: Colors.black,fontFamily: ConstFont.popinsMedium),maxLines: 1,overflow: TextOverflow.ellipsis)),
-                      Row(
-                        children: [
-                          Text("Quantity : ",style: TextStyle(fontSize: 16,color: Colors.black,fontFamily: ConstFont.popinsRegular),maxLines: 1,overflow: TextOverflow.ellipsis),
-                          Text( homeController.assignOrderList[index].quantity.toString(),style: TextStyle(fontSize: 16,color: Colors.black,fontFamily: ConstFont.popinsMedium),maxLines: 1,overflow: TextOverflow.ellipsis),
-                        ],
+                          child: Text( homeController.assignOrderList[widget.productIndex].productName,style: TextStyle(fontSize: 16,color: Colors.black,fontFamily: ConstFont.popinsMedium),maxLines: 1,overflow: TextOverflow.ellipsis)),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Text("Quantity : ",style: TextStyle(fontSize: 16,color: Colors.black,fontFamily: ConstFont.popinsRegular),maxLines: 1,overflow: TextOverflow.ellipsis),
+                            Text( homeController.assignOrderList[widget.productIndex].quantity.toString(),style: TextStyle(fontSize: 16,color: Colors.black,fontFamily: ConstFont.popinsMedium),maxLines: 1,overflow: TextOverflow.ellipsis),
+                          ],
+                        ),
                       ),
 
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("₹ ${homeController.assignOrderList[index].totalAmount.toString()}",style: TextStyle(fontSize: 16,color: Colors.black,fontFamily: ConstFont.popinsMedium),maxLines: 1,overflow: TextOverflow.ellipsis),
-                      Text( homeController.assignOrderList[index].unitType,style: TextStyle(fontSize: 16,color: Colors.black,fontFamily: ConstFont.popinsMedium),maxLines: 1,overflow: TextOverflow.ellipsis),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("₹ ${homeController.assignOrderList[widget.productIndex].totalAmount.toString()}",style: TextStyle(fontSize: 16,color: Colors.black,fontFamily: ConstFont.popinsRegular),maxLines: 1,overflow: TextOverflow.ellipsis),
+                        Text( homeController.assignOrderList[widget.productIndex].unitType,style: TextStyle(fontSize: 16,color: Colors.black,fontFamily: ConstFont.popinsRegular),maxLines: 1,overflow: TextOverflow.ellipsis),
 
-                    ],
+                      ],
+                    ),
                   ),
                     Padding(
                       padding:
@@ -125,7 +132,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             padding: const EdgeInsets.all(10.0),
                             child: Text(
                               homeController
-                                  .assignOrderList[0].discription
+                                  .assignOrderList[widget.productIndex].discription
                                   .toString(),
                               softWrap: true,
                               style: const TextStyle(
@@ -137,7 +144,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         ),
                       ),
                     ),
-                    homeController.assignOrderList[index].orderStatus == 0
+                    homeController.assignOrderList[widget.productIndex].orderStatus == 0
                         ?
                     Padding(padding: EdgeInsets.only(
                       left: deviceWidth * 0.01,),
@@ -162,17 +169,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 ElevatedButton(
                                   style:
                                   ElevatedButton.styleFrom(
-                                    primary:
-                                    const Color(0xff6AB04C),
+                  maximumSize: Size(deviceWidth * 0.4, deviceHeight * 0.06),
+                  minimumSize: Size(deviceWidth * 0.4, deviceHeight * 0.05),
+                                    backgroundColor: const Color(0xff6AB04C),
                                   ),
                                   onPressed:
                                       () {
-                                    homeController.assignOrderList[index].orderStatus =
-                                    1;
-                                    homeController.OrderUpdateApiCall(
-                                        "1",
-                                        homeController.assignOrderList[index].orderId.toString(),
-                                        "");
+                                    homeController.assignOrderList[widget.productIndex].orderStatus = 1;
+                                    homeController.OrderUpdateApiCall("1", homeController.assignOrderList[widget.productIndex].orderId.toString(), "");
                                     setState(() {});
                                   },
                                   child:
@@ -210,7 +214,12 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 child:
                                 ElevatedButton(
                                   style:
-                                  ElevatedButton.styleFrom(primary: const Color(0xffF86C6B)),
+                                  ElevatedButton.styleFrom(
+                                      backgroundColor: const Color(0xffF86C6B),
+                                      maximumSize: Size(deviceWidth * 0.4, deviceHeight * 0.06),
+                                      minimumSize: Size(deviceWidth * 0.4, deviceHeight * 0.05)
+                                  ),
+
                                   onPressed:
                                       () {},
                                   child:
@@ -223,8 +232,32 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                           builder: (BuildContextcontext) {
                                             return AlertDialog(
                                               shape: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
-                                              backgroundColor: const Color(0xFFECF3F9),
-                                              title: Form(
+                                              backgroundColor: Colors.white,
+                                               actions: [
+                                                 Row(
+                                                   mainAxisAlignment: MainAxisAlignment.center,
+                                                   children: [
+                                                     ElevatedButton(
+                                                       onPressed: () {
+                                                         if(formkey.currentState!.validate()){
+                                                           homeController.assignOrderList[widget.productIndex].orderStatus = 2;
+                                                           homeController.OrderUpdateApiCall("2", homeController.assignOrderList[widget.productIndex].orderId.toString(), homeController.reasonController.text);
+                                                           setState(() {});
+                                                           Navigator.pop(context, false);
+                                                         }
+
+                                                       },
+                                                       style: ElevatedButton.styleFrom(backgroundColor: ConstColour.primaryColor, elevation: 0),
+                                                       child: const Text( "Submit", style: TextStyle(fontSize: 20, color: Colors.white,fontFamily: ConstFont.popinsRegular,),),
+                                                     ),
+                                                   ],
+                                                 )
+                                               ],
+                                              title   :   Text("Enter Your Reason Why Product Not Delivered",style: TextStyle(
+                                                  fontFamily: ConstFont.popinsRegular
+                                              )),
+
+                                              content: Form(
                                                 key: formkey,
                                                 child: TextFormField(
                                                   controller: homeController.reasonController,
@@ -243,30 +276,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                   ),
                                                   validator: (value) {
                                                     if (value!.isEmpty) {
-                                                      return "Propar Reason";
+                                                      return "Enter Propar Reason";
                                                     }
                                                     return null;
                                                   },
                                                 ),
                                               ),
-                                              content: Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  ElevatedButton(
-                                                    onPressed: () {
-                                                      homeController.assignOrderList[index].orderStatus = 2;
-                                                      homeController.OrderUpdateApiCall("2", homeController.assignOrderList[index].orderId.toString(), homeController.reasonController.text);
-                                                      setState(() {});
-                                                      Navigator.pop(context, false);
-                                                    },
-                                                    style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFECF3F9), elevation: 0),
-                                                    child: const Text(
-                                                      "Submit",
-                                                      style: TextStyle(fontSize: 20, color: Colors.black),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
+
                                             );
                                           });
                                     },
@@ -284,10 +300,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       ),
                     )
                         :
-                    (homeController.assignOrderList[index].orderStatus !=  3 &&
-                        homeController.assignOrderList[index].orderStatus != 4)
+                    (homeController.assignOrderList[widget.productIndex].orderStatus !=  3 &&
+                        homeController.assignOrderList[widget.productIndex].orderStatus != 4)
                         ? Padding(
-                      padding: EdgeInsets.only( left:deviceWidth *  0.01,),
+                      padding: EdgeInsets.only( left:deviceWidth *  0.01,top: deviceHeight * 0.05),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -303,8 +319,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   minimumSize: Size(deviceWidth * 0.4, deviceHeight * 0.05)
                                 ),
                                 onPressed: () {
-                                  homeController.assignOrderList[index].orderStatus = 3;
-                                  homeController.OrderUpdateApiCall("3", homeController.assignOrderList[index].orderId.toString(), "");
+                                  homeController.assignOrderList[widget.productIndex].orderStatus = 3;
+                                  homeController.OrderUpdateApiCall("3", homeController.assignOrderList[widget.productIndex].orderId.toString(), "");
                                   setState(() {});
                                   print("Delivered ");
                                 },
@@ -339,50 +355,59 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                       builder: (BuildContextcontext) {
                                         return AlertDialog(
                                           shape: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
-                                          backgroundColor: const Color(0xFFECF3F9),
-                                          title: Form(
-                                            key: formkey,
-                                            child: TextFormField(
-                                              controller: homeController.reasonController,
-                                              decoration: InputDecoration(
-                                                fillColor: const Color(0xFF0926C),
-                                                filled: true,
-                                                focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: const BorderSide(color: Colors.black)),
-                                                border: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(10),
+                                          // backgroundColor: const Color(0xFFECF3F9),
+                                          backgroundColor: Colors.white,
+                                          actions: [
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                ElevatedButton(
+
+                                                  onPressed: () {
+                                                    if(formkey.currentState!.validate()){
+                                                      homeController.assignOrderList[widget.productIndex].orderStatus = 4;
+                                                      homeController.OrderUpdateApiCall("4", homeController.assignOrderList[widget.productIndex].orderId.toString(), homeController.reasonController.text);
+                                                      setState(() {});
+                                                      Navigator.pop(context, false);
+                                                    }
+
+                                                  },
+                                                  style: ElevatedButton.styleFrom(backgroundColor: ConstColour.primaryColor, elevation: 0),
+                                                  child: const Text( "Submit", style: TextStyle(fontSize: 20, color: Colors.white,fontFamily: ConstFont.popinsRegular,),),
                                                 ),
-                                                enabledBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(10),
-                                                ),
-                                                hintStyle: const TextStyle(fontFamily: ConstFont.popinsRegular, fontSize: 15),
-                                                hintText: "Reason for Not Deliver",
-                                              ),
-                                              validator: (value) {
-                                                if (value!.isEmpty) {
-                                                  return "Why Not Deliver";
-                                                }
-                                                return null;
-                                              },
+                                              ],
                                             ),
-                                          ),
-                                          content: Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              ElevatedButton(
-                                                onPressed: () {
-                                                  homeController.assignOrderList[index].orderStatus = 4;
-                                                  homeController.OrderUpdateApiCall("4", homeController.assignOrderList[index].orderId.toString(), homeController.reasonController.text);
-                                                  setState(() {});
-                                                  Navigator.pop(context, false);
-                                                },
-                                                style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFECF3F9), elevation: 0),
-                                                child: const Text(
-                                                  "Submit",
-                                                  style: TextStyle(fontSize: 20, color: Colors.black),
+                                          ],
+                                         title   :   Text("Enter Your Reason Why Product Not Delivered",style: TextStyle(
+                                           fontFamily: ConstFont.popinsRegular
+                                         )),
+
+                                            content :    Form(
+                                              key: formkey,
+                                              child: TextFormField(
+                                                controller: homeController.reasonController,
+                                                decoration: InputDecoration(
+                                                  fillColor: const Color(0xFF0926C),
+                                                  filled: true,
+                                                  focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: const BorderSide(color: Colors.black)),
+                                                  border: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(10),
+                                                  ),
+                                                  enabledBorder: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(10),
+                                                  ),
+                                                  hintStyle: const TextStyle(fontFamily: ConstFont.popinsRegular, fontSize: 15),
+                                                  hintText: "Reason for Not Deliver",
                                                 ),
+                                                validator: (value) {
+                                                  if (value!.isEmpty) {
+                                                    return "Enter Your Reason Why Product Not Delivered";
+                                                  }
+                                                  return null;
+                                                },
                                               ),
-                                            ],
-                                          ),
+                                            )
+
                                         );
                                       });
                                 },
@@ -398,14 +423,19 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         ],
                       ),
                     )
-                        : Text(
-                      (homeController.assignOrderList[index].orderStatus == 3)
-                          ? "Delivered"
-                          : "Not Delivered",
+                        : Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Center(
+                            child: Text(
+                      (homeController.assignOrderList[widget.productIndex].orderStatus == 3)
+                              ? "Delivered"
+                              : "Not Delivered",
                       style: TextStyle(
-                        color: (homeController.assignOrderList[index].orderStatus == 2 || homeController.assignOrderList[index].orderStatus == 4 )  ? Colors.red : Colors.green,fontSize: 12,
+                            color: (homeController.assignOrderList[index].orderStatus == 2 || homeController.assignOrderList[widget.productIndex].orderStatus == 4 )  ? Colors.red : Colors.green,fontSize: 20,
                       ),
                     ),
+                          ),
+                        ),
                 ],);
               },)
           ],

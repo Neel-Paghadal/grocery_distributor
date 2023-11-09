@@ -363,7 +363,7 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
                                             child: Row(
                                               //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                                Image.asset("assets/Icons/location.png"),
+                                                Image.asset("assets/Icons/pin.png",width: deviceWidth * 0.04),
                                                 Expanded(
                                                   child: Text(Addresss[index].toString(),
                                                     style: TextStyle(

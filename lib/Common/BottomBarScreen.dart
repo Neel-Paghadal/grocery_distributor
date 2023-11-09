@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:grocery_distributor/ConstFile/constColor.dart';
 import 'package:grocery_distributor/ConstFile/constFonts.dart';
@@ -56,10 +58,17 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
                       : Colors.black)),
           BottomNavigationBarItem(
               label: "Wallet",
-              icon: Icon(Icons.account_balance_wallet,
-                  color: homeController.currentIndex  == 2
-                      ? ConstColour.primaryColor
-                      : Colors.black)),
+              icon: SvgPicture.asset("assets/Icons/wallets.svg",color:  homeController.currentIndex  == 2
+              ? ConstColour.primaryColor
+                  : Colors.black
+                 ),
+              ),
+              // icon: Icon(Icons.account_balance_wallet,
+              //     color: homeController.currentIndex  == 2
+              //         ? ConstColour.primaryColor
+              //         : Colors.black)
+
+          // ),
           BottomNavigationBarItem(
               // label: "Help",
               label: "User",
@@ -81,17 +90,23 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
 
           if (value == 0) {
              homeController.LiveOrderApiCall();
-             homeController.AssignOrderApiCall(homeController.orderType.toString(), homeController.distributorId.toString());
+             // homeController.AssignOrderApiCall(homeController.orderType.toString(), homeController.distributorId.toString());
           }
           if(value == 3){
-            userListController.UserListApiCall();
+            // userListController.UserListApiCall();
 
           }
         },
       ),
-      body: IndexedStack(
-        index: homeController.currentIndex,
-        children: screens,
+      body: WillPopScope(
+        onWillPop: () async{
+          SystemNavigator.pop();
+          return false;
+        },
+        child: IndexedStack(
+          index: homeController.currentIndex,
+          children: screens,
+        ),
       ),
 
     );
