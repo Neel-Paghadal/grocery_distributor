@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -18,8 +19,17 @@ void main() {
     DeviceOrientation.portraitDown,
   ]);
   runApp(const MyApp());
+  // runApp(DevicePreview(
+  //   builder: (context) => const MyApp(),
+  //   enabled: true,
+  // ));
 }
 
+// runApp(DevicePreview(
+// builder:(context) =>  MyApp(),
+// enabled: true,
+//
+// ));
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -28,12 +38,12 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // new intail
-        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        // useMaterial3: true,
-      ),
+          // new intail
+          // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          // useMaterial3: true,
+          ),
       debugShowCheckedModeBanner: false,
-      home:  SplashScreen(),
+      home: const SplashScreen(),
       // home:   LoginScreen(),
       // home:   SplashScreen(),
       //  home:   HomeScreen(),

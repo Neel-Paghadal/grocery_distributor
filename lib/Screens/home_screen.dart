@@ -232,10 +232,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                               selectedValueIndex == index
                                                   ? ConstColour.primaryColor
                                                   : ConstColour.cardBgColor,
-                                          minimumSize: Size(deviceWidth * 0.18,
-                                              deviceHeight * 0.01),
-                                          maximumSize: Size(deviceWidth * 0.25,
-                                              deviceHeight * 0.02),
+                                          minimumSize: Size(deviceWidth * 0.18, deviceHeight * 0.01),
+                                          maximumSize: Size(deviceWidth * 0.3, deviceHeight * 0.02),
                                           elevation: 0.5),
                                       onPressed: () {
                                         setState(() {
@@ -444,8 +442,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           child: Container(
                                                             width: deviceWidth * 0.45,
                                                             child: Text(
-                                                              homeController
-                                                                  .assignOrderList[
+                                                              homeController.assignOrderList[
                                                               index]
                                                                   .productName,
                                                               overflow: TextOverflow
@@ -743,12 +740,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                   :
                                                               (homeController.assignOrderList[index].orderStatus !=  3 && homeController.assignOrderList[index].orderStatus != 4)
                                                                   ? Padding(
-                                                                padding: EdgeInsets.only( left:deviceWidth *  0.01,),
+                                                                padding: EdgeInsets.only( left:deviceWidth *  0.01),
                                                                 child: Row(
                                                                   children: [
                                                                     Padding(
                                                                       padding:
-                                                                      EdgeInsets.only(left: deviceWidth * 0.01),
+                                                                      EdgeInsets.only(left: deviceWidth * 0.01,right: deviceWidth * 0.01),
                                                                       child: Container(
                                                                         height:25,
                                                                         width: deviceWidth * 0.21,
@@ -762,7 +759,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                           child:
                                                                           ElevatedButton(
                                                                             style: ElevatedButton.styleFrom(
-                                                                              primary: const Color(0xff6AB04C),
+                                                                              backgroundColor: const Color(0xff6AB04C),
                                                                             ),
                                                                             onPressed: () {
                                                                               homeController.assignOrderList[index].orderStatus = 3;
@@ -774,7 +771,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                               "Delivered",
                                                                               style: TextStyle(
                                                                                 fontFamily: ConstFont.popinsRegular,
-                                                                                fontSize: 10,
+                                                                                fontSize: 9,
                                                                                 color: SelectedValueIndex == 1 ? Colors.black : Colors.white,
                                                                                 //color: Colors.white
                                                                               ),
@@ -784,10 +781,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                       ),
                                                                     ),
                                                                     Container(
-                                                                      height:
-                                                                      deviceHeight * 0.03,
-                                                                      width:
-                                                                      deviceWidth * 0.26,
+                                                                      height:deviceHeight * 0.035,
+                                                                      width:deviceWidth * 0.26,
                                                                       decoration:
                                                                       BoxDecoration(
                                                                         borderRadius:
@@ -799,10 +794,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                         ElevatedButton(
                                                                           style: ElevatedButton.styleFrom(
                                                                             // primary: const Color(0xffF86C6B)
-                                                                              primary: Colors.white
+                                                                              maximumSize: Size(deviceWidth * 0.25, deviceHeight * 0.035),
+                                                                              minimumSize: Size(deviceWidth * 0.2, deviceHeight * 0.03),
+                                                                              backgroundColor: Colors.white
                                                                           ),
 
-                                                                          onPressed: () {},
+                                                                          onPressed: () {
+
+                                                                          },
                                                                           child: InkWell(
                                                                             onTap: () async {
                                                                               homeController.reasonController.clear();
@@ -828,7 +827,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                                 }
 
                                                                                               },
-                                                                                              style: ElevatedButton.styleFrom(backgroundColor : ConstColour.primaryColor, elevation: 0),
+                                                                                              style: ElevatedButton.styleFrom(
+                                                                                                  backgroundColor : ConstColour.primaryColor,
+                                                                                                  elevation: 0),
                                                                                               child: const Text(
                                                                                                 "Submit",
                                                                                                 style: TextStyle(fontSize: 20, color: Colors.white),
@@ -872,7 +873,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                             child: const Text(
                                                                               "Not Delivered",
                                                                               style: TextStyle(fontFamily: ConstFont.popinsMedium, color: Colors.red,
-                                                                                fontSize: 10,
+                                                                                fontSize: 9,
                                                                               ),
                                                                             ),
                                                                           ),

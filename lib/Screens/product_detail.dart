@@ -27,16 +27,17 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     final deviceWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: PreferredSize(
-          preferredSize: Size(deviceWidth, deviceHeight),
-          child: DetailsAppbar(
-            title: 'All Categories',
-            onPressed: () {
-              Get.back();
-
-            },
-            onTap: () {},
-          )),
+        appBar: AppBar(
+          iconTheme: IconThemeData(color: Colors.black),
+          automaticallyImplyLeading: true,
+          elevation: 0,
+          backgroundColor: Colors.white,
+          centerTitle: true,
+          title: const Text(
+            "Order Detail",
+            style: TextStyle(color: Colors.black),
+          ),
+        ),
       body: SingleChildScrollView(
         controller: ScrollController(),
         scrollDirection: Axis.vertical,
@@ -98,52 +99,88 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       ],
                     ),
                   ),
+
                     Padding(
-                      padding:
-                      EdgeInsets.only(top: deviceHeight * 0.01),
-                      child: Container(
-                        color: ConstColour.cardBgColor,
-                        child: ExpandablePanel(
-                          theme: ExpandableThemeData(
-                            // alignment: Alignment.center,
-                              hasIcon: true,
-                              iconSize: 24,
-                              fadeCurve: Curves.slowMiddle,
-                              iconPadding: EdgeInsets.only(
-                                  top: deviceHeight * 0.02,
-                                  right: deviceWidth * 0.02)),
-                          header: Padding(
-                            padding: EdgeInsets.only(
-                                top: deviceHeight * 0.025,
-                                left: deviceWidth * 0.04),
-                            child: const Text("Product Description",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontFamily:
-                                    ConstFont.popinsRegular)),
-                          ),
-                          collapsed: const Text(
-                            "",
+                      padding: const EdgeInsets.all(4.0),
+                      child: ListTile(
+                        tileColor: ConstColour.cardBgColor,
+                         title : Padding(
+                           padding: EdgeInsets.only(
+                               top: deviceHeight * 0.02,
+                               left: deviceWidth * 0.03),
+                           child: Text("Product Description",
+                               style: TextStyle(
+                                   fontSize: 16,
+                                   fontFamily:
+                                   ConstFont.popinsMedium)),
+                         ),
+                        subtitle: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(
+                            homeController
+                                .assignOrderList[widget.productIndex].discription
+                                .toString(),
                             softWrap: true,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                color: Colors.black87,
+                                fontSize: 13,
+                                fontFamily:
+                                ConstFont.popinsRegular),
                           ),
-                          expanded: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(
-                              homeController
-                                  .assignOrderList[widget.productIndex].discription
-                                  .toString(),
-                              softWrap: true,
-                              style: const TextStyle(
-                                  fontSize: 12,
-                                  fontFamily:
-                                  ConstFont.popinsRegular),
-                            ),
-                          ),
-                        ),
+                        )
                       ),
                     ),
+                    // Padding(
+                    //   padding:
+                    //   EdgeInsets.only(top: deviceHeight * 0.01),
+                    //   child: Container(
+                    //     color: ConstColour.cardBgColor,
+                    //     child: ExpandablePanel(
+                    //
+                    //       theme: ExpandableThemeData(
+                    //         // tapHeaderToExpand: false,
+                    //         // tapBodyToExpand: false,
+                    //         // alignment: Alignment.center,
+                    //           hasIcon: true,
+                    //           iconSize: 24,
+                    //           fadeCurve: Curves.slowMiddle,
+                    //
+                    //           iconPadding: EdgeInsets.only(
+                    //               top: deviceHeight * 0.02,
+                    //               right: deviceWidth * 0.02)),
+                    //       header: Padding(
+                    //         padding: EdgeInsets.only(
+                    //             top: deviceHeight * 0.025,
+                    //             left: deviceWidth * 0.04),
+                    //         child: const Text("Product Description",
+                    //             style: TextStyle(
+                    //                 fontSize: 14,
+                    //                 fontFamily:
+                    //                 ConstFont.popinsRegular)),
+                    //       ),
+                    //
+                    //       collapsed: const Text(
+                    //         "",
+                    //         softWrap: true,
+                    //         maxLines: 2,
+                    //         overflow: TextOverflow.ellipsis,
+                    //       ),
+                    //       expanded: Padding(
+                    //         padding: const EdgeInsets.all(10.0),
+                    //         child: Text(
+                    //           homeController
+                    //               .assignOrderList[widget.productIndex].discription
+                    //               .toString(),
+                    //           softWrap: true,
+                    //           style: const TextStyle(
+                    //               fontSize: 12,
+                    //               fontFamily:
+                    //               ConstFont.popinsRegular),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                     homeController.assignOrderList[widget.productIndex].orderStatus == 0
                         ?
                     Padding(padding: EdgeInsets.only(

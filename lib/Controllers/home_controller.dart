@@ -65,6 +65,7 @@ class HomeController extends GetxController {
   }
 
 
+
  AssignOrderApiCall(String type,String distributorId) async {
     String? distributorId = await ConstPreferences().getDistributorId("DistributorId");
     final response = await http.post(Uri.parse(ConstApi.assignOrder),
@@ -115,6 +116,47 @@ class HomeController extends GetxController {
       }
     } else {}
   }
+
+
+
+ Future<void> getProductFilterApiCall(int orderType,String toDate,String fromDate) async {
+    String? distributorId = await ConstPreferences().getDistributorId("DistributorId");
+    final response = await http.post(Uri.parse(ConstApi.getProdectFilterWise),
+        body: {
+          "PageSize": 100,
+          "PageIndex": 0,
+          "Keyword": "",
+          "FromDate": fromDate.toString(),
+          "ToDate" : toDate.toString(),
+          "OrderStatus"  :orderType.toString(),
+          "DistriButerId" : distributorId
+
+        });
+    var data = response.body;
+    debugPrint("Assign order List : " + data);
+
+    if (response.statusCode == 200) {
+      final responseData = assignOrderFromJson(response.body);
+      debugPrint(responseData.toString());
+      messageCode = responseData.messageCode;
+      debugPrint("LiveOrder Filter Product : " + messageCode.toString());
+
+      if (messageCode == 200) {
+        assignOrderList.clear();
+        assignOrderList.addAll(responseData.data);
+        Get.back();
+        debugPrint("Filter Product Successfully");
+        // return assignOrderList;
+      } else {
+        debugPrint("Error Filter Product order");
+      }
+    } else {}
+  }
+
+
+
+
+
 
 
 }
