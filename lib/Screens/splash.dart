@@ -42,6 +42,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
       Get.to(() => BottomBarScreen(),arguments: {homeController.currentIndex = 0});
       // Get.to(() => const HomeScreen());
+      setState(() {
+      });
 
     } else {
       Get.to(() =>  LoginScreen());
