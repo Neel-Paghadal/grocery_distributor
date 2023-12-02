@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:grocery_distributor/Common/BottomBarScreen.dart';
 import 'package:grocery_distributor/Common/utils.dart';
 import 'package:grocery_distributor/ConstFile/constPreferences.dart';
+import 'package:grocery_distributor/Controllers/home_controller.dart';
 import 'package:grocery_distributor/Controllers/login_controller.dart';
 import 'package:grocery_distributor/Screens/home_screen.dart';
 import 'package:grocery_distributor/Screens/login_screen.dart';
@@ -11,6 +13,8 @@ import '../ConstFile/constApi.dart';
 import '../Model/login_model.dart';
 
 LoginController loginController = Get.put(LoginController());
+HomeController homeController = Get.put(HomeController());
+
 
 class Services{
 
@@ -47,7 +51,9 @@ class Services{
         ConstPreferences().saveDistributorImage("DistributorImage",DImage.toString());
         final SharedPreferences pref = await SharedPreferences.getInstance();
         pref.setBool("login", true);
-        Get.to(() => HomeScreen());
+        // Get.to(() => HomeScreen());
+        Get.to(() => BottomBarScreen(),arguments: {homeController.currentIndex = 0});
+
         // Get.to(()=> BottomAppBar(),arguments: 1);
       }else{
         Utils().toastMessage("Invalid Email & Password");

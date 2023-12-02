@@ -10,7 +10,7 @@ import '../ConstFile/constPreferences.dart';
 
 class HomeController extends GetxController {
   int? messageCode;
-  int? orderType;
+  int? orderType = 1;
   String distributorId = "1";
   int currentIndex = 0;
   int? OrderStatus;
@@ -18,7 +18,8 @@ class HomeController extends GetxController {
   RxList<LiveOrders> liveOrderList = <LiveOrders>[].obs;
   RxList<OrderList> assignOrderList = <OrderList>[].obs;
   RxBool isChange = false.obs;
-
+  RxBool isFilterApplyed = false.obs;
+  RxBool isListEmplty = false.obs;
 
   String? distributorEmail;
   String? distributorName;
@@ -86,6 +87,11 @@ class HomeController extends GetxController {
       if (messageCode == 200) {
         assignOrderList.clear();
         assignOrderList.addAll(responseData.data);
+        if(assignOrderList.isEmpty){
+          isListEmplty = true.obs;
+        }else {
+          isListEmplty = false.obs;
+        }
         debugPrint("Assign order Successfully");
         return assignOrderList;
       } else {
@@ -96,8 +102,7 @@ class HomeController extends GetxController {
 
   Future<void> OrderUpdateApiCall(String orderStatusId ,String orderid,String reason) async {
     String? distributorId = await ConstPreferences().getDistributorId("DistributorId");
-    final response = await http.post(Uri.parse(ConstApi.updateOrderStatus),
-        body: {
+    final response = await http.post(Uri.parse(ConstApi.updateOrderStatus),        body: {
           "OrderID": orderid,
           "OrderStatusID": orderStatusId,
           "UserId": distributorId,
@@ -119,7 +124,7 @@ class HomeController extends GetxController {
 
 
 
- Future<void> getProductFilterApiCall(int orderType,String toDate,String fromDate) async {
+Future<void> getProductFilterApiCall(int orderType,String toDate,String fromDate,String type) async {
     String? distributorId = await ConstPreferences().getDistributorId("DistributorId");
     debugPrint(distributorId);
     final response = await http.post(Uri.parse(ConstApi.getProdectFilterWise),
@@ -130,7 +135,8 @@ class HomeController extends GetxController {
           "FromDate": fromDate.toString(),
           "ToDate" : toDate.toString(),
           "OrderStatus"  : orderType.toString(),
-          "DistriButerId" : distributorId
+          "DistriButerId" : distributorId,
+          "LiveOrderType" : type
 
         });
     var data = response.body;
@@ -145,7 +151,12 @@ class HomeController extends GetxController {
       if (messageCode == 200) {
         assignOrderList.clear();
         assignOrderList.addAll(responseData.data);
-        Get.back();
+        if(assignOrderList.isEmpty){
+          isListEmplty = true.obs;
+        }else {
+          isListEmplty = false.obs;
+          }
+
         debugPrint("Filter Product Successfully");
         // return assignOrderList;
       } else {
@@ -153,11 +164,5 @@ class HomeController extends GetxController {
       }
     } else {}
   }
-
-
-
-
-
-
 
 }

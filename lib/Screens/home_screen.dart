@@ -258,12 +258,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 .liveOrderList[index]
                                                 .filterType,
                                         style: TextStyle(
-                                            fontSize: 9,
+                                            fontSize: 10,
                                             color: selectedValueIndex == index
                                                 ? Colors.black
                                                 : Colors.black,
                                             fontFamily:
-                                                ConstFont.popinsRegular),
+                                                ConstFont.popinsMedium),
                                       ),
                                     ),
                                   );

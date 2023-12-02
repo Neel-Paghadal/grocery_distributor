@@ -85,7 +85,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
           });
 
           if(value == 1){
-            homeController.orderType = 0;
+            homeController.orderType = 1;
           }
 
           if (value == 0) {
