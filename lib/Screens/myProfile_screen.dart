@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -150,42 +151,11 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                               child: imageNotes != null
                                   ? Image.file(
                                 imageNotes!,
-                                width: deviceWidth * 0.23,
-                                height: deviceHeight * 0.12,
+                                width: deviceWidth * 0.275,
+                                height: deviceHeight * 0.13,
                                 fit: BoxFit.cover,
                               )
-                                  : Image.asset('assets/Images/man.png',
-                                width: deviceWidth * 0.23,
-                                height: deviceHeight * 0.12,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          // Container(
-                          //   decoration: BoxDecoration(
-                          //     border: Border.all(color: Colors.transparent),
-                          //     borderRadius: const BorderRadius.all(
-                          //       Radius.circular(100),
-                          //     ),
-                          //   ),
-                          //   child: ClipOval(
-                          //     child: CircleAvatar(
-                          //       maxRadius: 45,
-                          //       backgroundColor: imageNotes == null
-                          //           ? const Color(0xff99CE02).withOpacity(0.2)
-                          //           : Colors.transparent,
-                          //       child: imageNotes == null ? null : ClipOval(
-                          //               child: Image.file(
-                          //               imageNotes!,
-                          //             )),
-                          //       // backgroundColor: Colors.transparent,
-                          //     ),
-                          //   ),
-                          // ),
-                          Positioned(
-                            bottom: 4,
-                            right: 6,
-                            child: InkWell(
+                                  : InkWell(
                                 onTap: () {
                                   showDialog<void>(
                                     context: context,
@@ -227,11 +197,129 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                       );
                                     },
                                   );
+
+
                                 },
-                                splashColor: ConstColour.btnHowerColor,
-                                child: SvgPicture.asset(
-                                    "assets/Icons/userEdit.svg")),
+                                    child: Image.asset('assets/Images/mans.png',
+                                width: deviceWidth * 0.275,
+                                height: deviceHeight * 0.13,
+                                fit: BoxFit.contain,
+                              ),
+                                  ),
+                            ),
+                          ),
+
+
+                          // CircleAvatar(
+                          //   // maxRadius: deviceWidth * 0.12,
+                          //   // minRadius: deviceWidth * 0.08,
+                          //   radius: deviceWidth * 0.12,
+                          //
+                          //   child: imageNotes != null
+                          //       ? Image.file(
+                          //     imageNotes!,
+                          //     width: deviceWidth * 1.0,
+                          //     // width: deviceWidth * 0.23,
+                          //     // height: deviceHeight * 0.12,
+                          //     fit: BoxFit.cover,
+                          //   )
+                          //       : Image.asset('assets/Images/man.png',
+                          //     // width: deviceWidth * 0.23,
+                          //     // height: deviceHeight * 0.12,
+                          //     fit: BoxFit.cover,
+                          //     width: deviceWidth * 0.2,
+                          //   ),
+                          // ),
+
+
+                          
+                          
+                          
+                          
+
+
+
+
+
+
+
+                          // Positioned(
+                          //   bottom: 6,
+                          //   right: 7,
+                          //   child: InkWell(
+                          //       onTap: () {
+                          //         showDialog<void>(
+                          //           context: context,
+                          //           builder: (BuildContext dialogContext) {
+                          //             return AlertDialog(
+                          //               content: SizedBox(
+                          //                 height: deviceHeight * 0.15,
+                          //                 child: Column(
+                          //                   children: [
+                          //                     Card(
+                          //                       child: ListTile(
+                          //                         title: const Text("Camera"),
+                          //                         onTap: () {
+                          //                           Navigator.pop(context);
+                          //                           getImageCamera();
+                          //                         },
+                          //                         leading: const Icon(
+                          //                           Icons.camera_alt,
+                          //                           color: Colors.black,
+                          //                         ),
+                          //                       ),
+                          //                     ),
+                          //                     Card(
+                          //                       child: ListTile(
+                          //                         title: const Text("Gallery"),
+                          //                         onTap: () {
+                          //                           Navigator.pop(context);
+                          //                           getImageGallery();
+                          //                         },
+                          //                         leading: const Icon(
+                          //                           Icons.photo_library_rounded,
+                          //                           color: Colors.black,
+                          //                         ),
+                          //                       ),
+                          //                     ),
+                          //                   ],
+                          //                 ),
+                          //               ),
+                          //             );
+                          //           },
+                          //         );
+                          //       },
+                          //       splashColor: ConstColour.btnHowerColor,
+                          //       child: SvgPicture.asset(
+                          //           "assets/Icons/userEdit.svg")),
+                          // ),
+
+
+
+                          // Positioned(
+                          //   left: deviceWidth * 0.18,
+                          //   bottom: deviceHeight * 0.08,
+                          //   child: imageNotes != null ? IconButton(onPressed: () {
+                          //     setState(() {
+                          //       imageNotes = null;
+                          //     });
+                          //   }, icon: Icon(Icons.cancel,color: Colors.black,size: 24,)) : SizedBox()
+                          // )
+
+
+                          Positioned(
+                              left: deviceWidth * 0.18,
+                              // bottom: deviceHeight * 0.08,
+                              top: deviceHeight * 0.08,
+                              child: imageNotes != null ? IconButton(onPressed: () {
+                                setState(() {
+                                  imageNotes = null;
+                                });
+                              }, icon: Icon(CupertinoIcons.minus_circle_fill,color: Colors.red,size: 24,)) : SizedBox()
                           )
+
+
+
                         ],
                       ),
                     ),

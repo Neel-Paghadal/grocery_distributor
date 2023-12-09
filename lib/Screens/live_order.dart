@@ -51,42 +51,6 @@ class _LiveorderPageState extends State<LiveorderPage> {
     homeController.isFilterApplyed = false.obs;
   }
 
-  int dates = 0;
-  int remianDates = 0;
-
-
-
-  selectDate() async {
-    final DateTime? pickedDate = await showDatePicker(
-      context: Get.context!,
-      initialDate: DateTime.fromMillisecondsSinceEpoch(dates),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2050),
-    );
-    if (pickedDate != null && pickedDate != selectDate) {
-      setState(() {
-        // incomeController.dateUp.value = pickedDate.add(Duration(hours: TimeOfDay.now().hour,minutes: TimeOfDay.now().minute)).millisecondsSinceEpoch;
-        // print(incomeController.timeUp.toString());
-      });
-      setState(() {
-      });
-    }
-  }
-
-  selectDates() async {
-    final DateTime? pickedDates = await showDatePicker(
-      context: Get.context!,
-      initialDate: DateTime.fromMillisecondsSinceEpoch(remianDates),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2050),
-    );
-    if (pickedDates != null && pickedDates != selectDates) {
-      setState(() {
-        // incomeController.remianDateUp.value = pickedDates.add(Duration(hours: TimeOfDay.now().hour,minutes: TimeOfDay.now().minute)).millisecondsSinceEpoch;
-        // print(incomeController.timesUp.toString());
-      });
-    }
-  }
 
   int status = 0;
 
@@ -555,7 +519,9 @@ class _LiveorderPageState extends State<LiveorderPage> {
                 child: Obx(
                       () => homeController.assignOrderList.isEmpty
                   // ? Center(child: Text("Order is not Avaliable."))
-                      ?  (homeController.isListEmplty.value == true) ? Center(child: Text('No data available',style: TextStyle(color: Colors.black,fontFamily: ConstFont.popinsRegular,fontSize: 18,overflow: TextOverflow.ellipsis,))) : Loaders(
+                      ?  (homeController.isListEmplty.value == true) ?
+                      Center(child: Text('No data available',style: TextStyle(color: Colors.black,fontFamily: ConstFont.popinsRegular,fontSize: 18,overflow: TextOverflow.ellipsis,)))
+                          : Loaders(
                     items: 10,
                     direction: LoaderDirection.ltr,
                     builder:  Padding(
