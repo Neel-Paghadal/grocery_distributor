@@ -8,5 +8,8 @@ class ConstApi {
   static const String updateOrderStatus = '${baseUrl}DistiButer/UpdateOrderStatus';
   static const String userOrderHistory = '${baseUrl}DistiButer/Get_UserOrder_Detail';
   static const String getProdectFilterWise = '${baseUrl}DistiButer/Get_Detail_filterwise';
+  static const String orderGenrate = '${baseUrl}Stock/Product_GetList_Stock';
+  static const String distributorDetail = '${baseUrl}DistiButer/DistiButer_EditDataReturn';
+  static const String productWisePriceList = '${baseUrl}Stock/Product_Wise_PriceDetail_GetList';
 
 }

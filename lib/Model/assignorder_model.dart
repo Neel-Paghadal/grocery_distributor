@@ -83,7 +83,7 @@ class OrderList {
     discription: json["Description"],
     mobileNo: json["MobileNo"],
     address: json["Address"],
-    name: json["Name"],
+    name: json["Name"] == null ? "Name" : json["Name"],
     orderId: json["OrderId"],
     unitType: json["UnitType"],
     unitVal: json["UnitVal"]?.toDouble(),

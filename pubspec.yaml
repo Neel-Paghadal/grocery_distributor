@@ -48,6 +48,7 @@ dependencies:
   intl:
   expandable: ^5.0.1
   device_preview: ^1.1.0
+  liquid_pull_to_refresh: ^3.0.1
 
 
   # The following adds the Cupertino Icons font to your application.

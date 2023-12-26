@@ -1,4 +1,7 @@
 
+import 'dart:convert';
+
+import 'package:grocery_distributor/Model/distributordeatil_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ConstPreferences {
@@ -63,6 +66,23 @@ class ConstPreferences {
   Future<String?> getDistributorImage(String key) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString(key);
+  }
+
+
+  Future<void> setUserData(DistibutorData user) async {
+    final prefs = await SharedPreferences.getInstance();
+    final userJson = user.toJson();
+    prefs.setString(USERDATA, json.encode(userJson));
+  }
+
+  Future<DistibutorData?> getUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+    final userJson = prefs.getString(USERDATA);
+    if (userJson != null) {
+      return DistibutorData.fromJson(json.decode(userJson));
+    } else {
+      return null;
+    }
   }
 
 

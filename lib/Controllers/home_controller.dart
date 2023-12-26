@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_distributor/Common/utils.dart';
+import 'package:grocery_distributor/Controllers/my_profile_controller.dart';
 import 'package:grocery_distributor/Model/assignorder_model.dart';
 import 'package:grocery_distributor/Model/liveorder_model.dart';
 import 'package:http/http.dart' as http;
@@ -7,6 +8,9 @@ import 'package:get/get.dart';
 
 import '../ConstFile/constApi.dart';
 import '../ConstFile/constPreferences.dart';
+
+
+MyProfileController myProfileController = Get.put(MyProfileController());
 
 class HomeController extends GetxController {
   int? messageCode;
@@ -31,6 +35,8 @@ class HomeController extends GetxController {
     // TODO: implement onInit
     super.onInit();
     getDistributorData();
+    myProfileController.UserDetailApi();
+    myProfileController.getPrefData();
     currentIndex = 0;
   }
   getDistributorData() async {
@@ -68,7 +74,7 @@ class HomeController extends GetxController {
 
 
  AssignOrderApiCall(String type,String distributorId) async {
-    String? distributorId = await ConstPreferences().getDistributorId("DistributorId");
+   String? distributorId = await ConstPreferences().getDistributorId("DistributorId");
     final response = await http.post(Uri.parse(ConstApi.assignOrder),
         body: {
          "LiveOrderType": type,

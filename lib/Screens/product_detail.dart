@@ -184,47 +184,39 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     homeController.assignOrderList[widget.productIndex].orderStatus == 0
                         ?
                     Padding(padding: EdgeInsets.only(
-                      left: deviceWidth * 0.01,),
+                      left: deviceWidth * 0.01,top: deviceHeight * 0.05),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Padding(
                             padding: EdgeInsets.only(
                                 left: deviceWidth *
                                     0.01),
                             child:
-                            Container(
-                              height:  25,
-                              width: 90,
-                              decoration:
-                              BoxDecoration(
-                                borderRadius:
-                                BorderRadius.circular(1),
-                              ),
+                            Center(
                               child:
-                              Center(
-                                child:
-                                ElevatedButton(
-                                  style:
-                                  ElevatedButton.styleFrom(
+                              ElevatedButton(
+                                style:
+                                ElevatedButton.styleFrom(
                   maximumSize: Size(deviceWidth * 0.4, deviceHeight * 0.06),
                   minimumSize: Size(deviceWidth * 0.4, deviceHeight * 0.05),
-                                    backgroundColor: const Color(0xff6AB04C),
-                                  ),
-                                  onPressed:
-                                      () {
-                                    homeController.assignOrderList[widget.productIndex].orderStatus = 1;
-                                    homeController.OrderUpdateApiCall("1", homeController.assignOrderList[widget.productIndex].orderId.toString(), "");
-                                    setState(() {});
-                                  },
-                                  child:
-                                  Text(
-                                    "Accept",
-                                    style:
-                                    TextStyle(
-                                      fontFamily: ConstFont.popinsRegular,
-                                      color: SelectedValueIndex == 1 ? Colors.black : Colors.white,
-                                      //color: Colors.white
-                                    ),
+                                  backgroundColor: const Color(0xff6AB04C),
+                                  elevation: 8.0,
+                                ),
+                                onPressed:
+                                    () {
+                                  homeController.assignOrderList[widget.productIndex].orderStatus = 1;
+                                  homeController.OrderUpdateApiCall("1", homeController.assignOrderList[widget.productIndex].orderId.toString(), "");
+                                  setState(() {});
+                                },
+                                child:
+                                Text(
+                                  "Accept",
+                                  style:
+                                  TextStyle(
+                                    fontFamily: ConstFont.popinsRegular,
+                                    color: SelectedValueIndex == 1 ? Colors.black : Colors.white,
+                                    //color: Colors.white
                                   ),
                                 ),
                               ),
@@ -237,97 +229,88 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 right: deviceWidth *
                                     0.01),
                             child:
-                            Container(
-                              height:
-                              25,
-                              width: 75,
-                              decoration:
-                              BoxDecoration(
-                                borderRadius:
-                                BorderRadius.circular(1),
-                              ),
+                            Center(
                               child:
-                              Center(
+                              ElevatedButton(
+                                style:
+                                ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(0xffF86C6B),
+                                    maximumSize: Size(deviceWidth * 0.4, deviceHeight * 0.06),
+                                    minimumSize: Size(deviceWidth * 0.4, deviceHeight * 0.05),
+                                  elevation: 8.0,
+
+                                ),
+
+                                onPressed:
+                                    () {},
                                 child:
-                                ElevatedButton(
-                                  style:
-                                  ElevatedButton.styleFrom(
-                                      backgroundColor: const Color(0xffF86C6B),
-                                      maximumSize: Size(deviceWidth * 0.4, deviceHeight * 0.06),
-                                      minimumSize: Size(deviceWidth * 0.4, deviceHeight * 0.05)
-                                  ),
+                                InkWell(
+                                  onTap:
+                                      () async {
+                                    homeController.reasonController.clear();
+                                    final result = await showDialog(
+                                        context: context,
+                                        builder: (BuildContextcontext) {
+                                          return AlertDialog(
+                                            shape: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
+                                            backgroundColor: Colors.white,
+                                             actions: [
+                                               Row(
+                                                 mainAxisAlignment: MainAxisAlignment.center,
+                                                 children: [
+                                                   ElevatedButton(
+                                                     onPressed: () {
+                                                       if(formkey.currentState!.validate()){
+                                                         homeController.assignOrderList[widget.productIndex].orderStatus = 2;
+                                                         homeController.OrderUpdateApiCall("2", homeController.assignOrderList[widget.productIndex].orderId.toString(), homeController.reasonController.text);
+                                                         setState(() {});
+                                                         Navigator.pop(context, false);
+                                                       }
 
-                                  onPressed:
-                                      () {},
-                                  child:
-                                  InkWell(
-                                    onTap:
-                                        () async {
-                                      homeController.reasonController.clear();
-                                      final result = await showDialog(
-                                          context: context,
-                                          builder: (BuildContextcontext) {
-                                            return AlertDialog(
-                                              shape: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
-                                              backgroundColor: Colors.white,
-                                               actions: [
-                                                 Row(
-                                                   mainAxisAlignment: MainAxisAlignment.center,
-                                                   children: [
-                                                     ElevatedButton(
-                                                       onPressed: () {
-                                                         if(formkey.currentState!.validate()){
-                                                           homeController.assignOrderList[widget.productIndex].orderStatus = 2;
-                                                           homeController.OrderUpdateApiCall("2", homeController.assignOrderList[widget.productIndex].orderId.toString(), homeController.reasonController.text);
-                                                           setState(() {});
-                                                           Navigator.pop(context, false);
-                                                         }
+                                                     },
+                                                     style: ElevatedButton.styleFrom(backgroundColor: ConstColour.primaryColor, elevation: 0),
+                                                     child: const Text( "Submit", style: TextStyle(fontSize: 20, color: Colors.white,fontFamily: ConstFont.popinsRegular,),),
+                                                   ),
+                                                 ],
+                                               )
+                                             ],
+                                            title   :   Text("Enter Your Reason Why Product Not Delivered",style: TextStyle(
+                                                fontFamily: ConstFont.popinsRegular
+                                            )),
 
-                                                       },
-                                                       style: ElevatedButton.styleFrom(backgroundColor: ConstColour.primaryColor, elevation: 0),
-                                                       child: const Text( "Submit", style: TextStyle(fontSize: 20, color: Colors.white,fontFamily: ConstFont.popinsRegular,),),
-                                                     ),
-                                                   ],
-                                                 )
-                                               ],
-                                              title   :   Text("Enter Your Reason Why Product Not Delivered",style: TextStyle(
-                                                  fontFamily: ConstFont.popinsRegular
-                                              )),
-
-                                              content: Form(
-                                                key: formkey,
-                                                child: TextFormField(
-                                                  controller: homeController.reasonController,
-                                                  decoration: InputDecoration(
-                                                    fillColor: const Color(0xFF0926C),
-                                                    filled: true,
-                                                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: const BorderSide(color: Colors.black)),
-                                                    border: OutlineInputBorder(
-                                                      borderRadius: BorderRadius.circular(10),
-                                                    ),
-                                                    enabledBorder: OutlineInputBorder(
-                                                      borderRadius: BorderRadius.circular(10),
-                                                    ),
-                                                    hintStyle: const TextStyle(fontFamily: ConstFont.popinsRegular, fontSize: 15),
-                                                    hintText: "Reason for Reject ",
+                                            content: Form(
+                                              key: formkey,
+                                              child: TextFormField(
+                                                controller: homeController.reasonController,
+                                                decoration: InputDecoration(
+                                                  fillColor: const Color(0xFF0926C),
+                                                  filled: true,
+                                                  focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: const BorderSide(color: Colors.black)),
+                                                  border: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(10),
                                                   ),
-                                                  validator: (value) {
-                                                    if (value!.isEmpty) {
-                                                      return "Enter Propar Reason";
-                                                    }
-                                                    return null;
-                                                  },
+                                                  enabledBorder: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(10),
+                                                  ),
+                                                  hintStyle: const TextStyle(fontFamily: ConstFont.popinsRegular, fontSize: 15),
+                                                  hintText: "Reason for Reject ",
                                                 ),
+                                                validator: (value) {
+                                                  if (value!.isEmpty) {
+                                                    return "Enter Propar Reason";
+                                                  }
+                                                  return null;
+                                                },
                                               ),
+                                            ),
 
-                                            );
-                                          });
-                                    },
-                                    child:
-                                    const Text(
-                                      "Reject",
-                                      style: TextStyle(fontFamily: ConstFont.popinsRegular, color: Colors.white),
-                                    ),
+                                          );
+                                        });
+                                  },
+                                  child:
+                                  const Text(
+                                    "Reject",
+                                    style: TextStyle(fontFamily: ConstFont.popinsRegular, color: Colors.white),
                                   ),
                                 ),
                               ),
@@ -353,7 +336,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: const Color(0xff6AB04C),
                                   maximumSize: Size(deviceWidth * 0.4, deviceHeight * 0.06),
-                                  minimumSize: Size(deviceWidth * 0.4, deviceHeight * 0.05)
+                                  minimumSize: Size(deviceWidth * 0.4, deviceHeight * 0.05),
+                                  elevation: 8.0,
+
                                 ),
                                 onPressed: () {
                                   homeController.assignOrderList[widget.productIndex].orderStatus = 3;
@@ -380,7 +365,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 // primary: const Color(0xffF86C6B)
                                   backgroundColor: Colors.white,
                                   maximumSize: Size(deviceWidth * 0.4, deviceHeight * 0.06),
-                                  minimumSize: Size(deviceWidth * 0.4, deviceHeight * 0.05)
+                                  minimumSize: Size(deviceWidth * 0.4, deviceHeight * 0.05),
+                                elevation: 8.0,
                               ),
 
                               onPressed: () {},

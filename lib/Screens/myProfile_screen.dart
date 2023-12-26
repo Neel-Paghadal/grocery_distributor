@@ -27,7 +27,8 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    myProfileController.getPrefData();
+    // myProfileController.UserDetailApi();
+    // myProfileController.getPrefData();
 
   }
 
@@ -121,6 +122,8 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
         //           ),
         //         ),
         // ],
+
+
       ),
       body: Padding(
         padding: EdgeInsets.only(
@@ -141,73 +144,142 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                         children: [
 
                           Container(
-                            decoration: const BoxDecoration(
-                              // border: Border.all(),
-                              // borderRadius: BorderRadius.all(
-                              //   Radius.circular(10),
-                              // ),
-                            ),
-                            child: ClipOval(
-                              child: imageNotes != null
-                                  ? Image.file(
+                            child:imageNotes != null
+                                ?  CircleAvatar(
+                              radius: 60,
+
+                              backgroundImage: FileImage(
                                 imageNotes!,
-                                width: deviceWidth * 0.275,
-                                height: deviceHeight * 0.13,
-                                fit: BoxFit.cover,
-                              )
-                                  : InkWell(
-                                onTap: () {
-                                  showDialog<void>(
-                                    context: context,
-                                    builder: (BuildContext dialogContext) {
-                                      return AlertDialog(
-                                        content: SizedBox(
-                                          height: deviceHeight * 0.15,
-                                          child: Column(
-                                            children: [
-                                              Card(
-                                                child: ListTile(
-                                                  title: const Text("Camera"),
-                                                  onTap: () {
-                                                    Navigator.pop(context);
-                                                    getImageCamera();
-                                                  },
-                                                  leading: const Icon(
-                                                    Icons.camera_alt,
-                                                    color: Colors.black,
-                                                  ),
-                                                ),
-                                              ),
-                                              Card(
-                                                child: ListTile(
-                                                  title: const Text("Gallery"),
-                                                  onTap: () {
-                                                    Navigator.pop(context);
-                                                    getImageGallery();
-                                                  },
-                                                  leading: const Icon(
-                                                    Icons.photo_library_rounded,
-                                                    color: Colors.black,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  );
-
-
-                                },
-                                    child: Image.asset('assets/Images/mans.png',
-                                width: deviceWidth * 0.275,
-                                height: deviceHeight * 0.13,
-                                fit: BoxFit.contain,
+                                // width: deviceWidth * 0.275,
+                                // height: deviceHeight * 0.13,
                               ),
-                                  ),
+                            )
+
+                                : InkWell(
+                              onTap: () {
+                                showDialog<void>(
+                                  context: context,
+                                  builder: (BuildContext dialogContext) {
+                                    return AlertDialog(
+                                      content: SizedBox(
+                                        // height: deviceHeight * 0.17,
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Card(
+                                              child: ListTile(
+                                                title: const Text("Camera"),
+                                                onTap: () {
+                                                  Navigator.pop(context);
+                                                  getImageCamera();
+                                                },
+                                                leading: const Icon(
+                                                  Icons.camera_alt,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                            Card(
+                                              child: ListTile(
+                                                title: const Text("Gallery"),
+                                                onTap: () {
+                                                  Navigator.pop(context);
+                                                  getImageGallery();
+                                                },
+                                                leading: const Icon(
+                                                  Icons.photo_library_rounded,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+
+                              },
+                              child:
+                              (myProfileController.userProfileImage == null.obs) ? Image.asset(
+                                  'assets/Images/mans.png',width: deviceWidth * 0.275,height: deviceHeight * 0.13) : CircleAvatar(
+                                radius: 55,
+                                backgroundImage :  NetworkImage(myProfileController.userProfileImage!.toString()),
+                              ),
                             ),
                           ),
+
+
+
+                          // Container(
+                          //   decoration: const BoxDecoration(
+                          //     // border: Border.all(),
+                          //     // borderRadius: BorderRadius.all(
+                          //     //   Radius.circular(10),
+                          //     // ),
+                          //   ),
+                          //   child: ClipOval(
+                          //     child: imageNotes != null
+                          //         ? Image.file(
+                          //       imageNotes!,
+                          //       width: deviceWidth * 0.275,
+                          //       height: deviceHeight * 0.13,
+                          //       fit: BoxFit.cover,
+                          //     )
+                          //         : InkWell(
+                          //       onTap: () {
+                          //         showDialog<void>(
+                          //           context: context,
+                          //           builder: (BuildContext dialogContext) {
+                          //             return AlertDialog(
+                          //               content: SizedBox(
+                          //                 height: deviceHeight * 0.15,
+                          //                 child: Column(
+                          //                   children: [
+                          //                     Card(
+                          //                       child: ListTile(
+                          //                         title: const Text("Camera"),
+                          //                         onTap: () {
+                          //                           Navigator.pop(context);
+                          //                           getImageCamera();
+                          //                         },
+                          //                         leading: const Icon(
+                          //                           Icons.camera_alt,
+                          //                           color: Colors.black,
+                          //                         ),
+                          //                       ),
+                          //                     ),
+                          //                     Card(
+                          //                       child: ListTile(
+                          //                         title: const Text("Gallery"),
+                          //                         onTap: () {
+                          //                           Navigator.pop(context);
+                          //                           getImageGallery();
+                          //                         },
+                          //                         leading: const Icon(
+                          //                           Icons.photo_library_rounded,
+                          //                           color: Colors.black,
+                          //                         ),
+                          //                       ),
+                          //                     ),
+                          //                   ],
+                          //                 ),
+                          //               ),
+                          //             );
+                          //           },
+                          //         );
+                          //
+                          //
+                          //       },
+                          //           child: Image.asset('assets/Images/mans.png',
+                          //       width: deviceWidth * 0.275,
+                          //       height: deviceHeight * 0.13,
+                          //       fit: BoxFit.contain,
+                          //     ),
+                          //         ),
+                          //   ),
+                          // ),
 
 
                           // CircleAvatar(
