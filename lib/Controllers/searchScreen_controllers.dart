@@ -13,6 +13,7 @@ class SearchScreenController extends GetxController{
 
   TextEditingController allSearchController = TextEditingController();
   RxList<GenrateOrder> searchList = <GenrateOrder>[].obs;
+  RxString inputValue = ''.obs;
 
   int? messageCode;
 

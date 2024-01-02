@@ -232,21 +232,24 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontSize: 16,
                     ),
                   ),
-                  TextButton(
-                    onPressed: () {
-                      homeController.orderType = 0;
-                      Get.to(() => LiveorderPage());
-                      Get.to(BottomBarScreen(),
-                          arguments: homeController.currentIndex = 1);
-                      setState(() {});
-                    },
-                    child: const Text(
-                      "Show all",
-                      style: TextStyle(
-                        fontFamily: ConstFont.popinsRegular,
-                        fontWeight: FontWeight.w600,
-                        color: ConstColour.primaryColor,
-                        fontSize: 16,
+                  Tooltip(
+                    message: "Show All Products",
+                    child: TextButton(
+                      onPressed: () {
+                        homeController.orderType = 0;
+                        Get.to(() => LiveorderPage());
+                        Get.to(BottomBarScreen(),
+                            arguments: homeController.currentIndex = 1);
+                        setState(() {});
+                      },
+                      child: const Text(
+                        "Show all",
+                        style: TextStyle(
+                          fontFamily: ConstFont.popinsRegular,
+                          fontWeight: FontWeight.w600,
+                          color: ConstColour.primaryColor,
+                          fontSize: 16,
+                        ),
                       ),
                     ),
                   )

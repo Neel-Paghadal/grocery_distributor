@@ -1,15 +1,6 @@
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-
-import 'Screens/dash_board.dart';
-import 'Screens/home_screen.dart';
-import 'Screens/godown_stock.dart';
-import 'Screens/live_order.dart';
-import 'Screens/login_screen.dart';
-import 'Screens/low_stock.dart';
-import 'Screens/order_details.dart';
 import 'Screens/splash.dart';
 
 void main() {

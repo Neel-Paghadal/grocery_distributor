@@ -484,18 +484,16 @@ class _LiveorderPageState extends State<LiveorderPage> {
         automaticallyImplyLeading: false,
         actions: [
           Obx(
-            () => IconButton(
-                onPressed: () async {
+            () => Tooltip(
+              message: "Filter",
+              child: IconButton(
+                  onPressed: () async {
 
-                    _showDialog(context);
+                      _showDialog(context);
 
-                },
-                // icon: homeController.isFilterApplyed == true ? Icon(Icons.filter_alt_off_rounded,color: Colors.black,size: 24,) : Icon(
-                //   Icons.filter_alt_rounded,
-                //   color: Colors.black,
-                //   size: 24,
-                // )
-              icon: Icon(homeController.isFilterApplyed.value == true ? Icons.filter_alt_off_rounded : Icons.filter_alt_rounded,color: Colors.black),
+                  },
+                icon: Icon(homeController.isFilterApplyed.value == true ? Icons.filter_alt_off_rounded : Icons.filter_alt_rounded,color: Colors.black),
+              ),
             ),
           )
         ],

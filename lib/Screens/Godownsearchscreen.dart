@@ -8,14 +8,14 @@ import 'package:grocery_distributor/Screens/loader.dart';
 
 import '../Controllers/searchScreen_controllers.dart';
 
-class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
+class GodownSearchScreen extends StatefulWidget {
+  const GodownSearchScreen({super.key});
 
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
+  State<GodownSearchScreen> createState() => _GodownSearchScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
+class _GodownSearchScreenState extends State<GodownSearchScreen> {
 
   SearchScreenController searchController = Get.put(SearchScreenController());
   OrderGenrateController orderGenrate = Get.put(OrderGenrateController());
@@ -113,6 +113,8 @@ class _SearchScreenState extends State<SearchScreen> {
                             tileColor: Colors.grey.shade50,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(6)),
+                            trailing:  const Text("Show All",style: TextStyle(color: ConstColour.primaryColor,fontFamily: ConstFont.popinsMedium),),
+
                             leading: Image(
                               width: deviceWidth * 0.1,
                               errorBuilder: (BuildContext context, Object exception,
@@ -135,7 +137,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                   fontFamily: ConstFont.popinsMedium,
                                   fontSize: 16,
                                 ),
-                                overflow: TextOverflow.ellipsis,maxLines: 2),
+                                overflow: TextOverflow.ellipsis,maxLines: 4),
                           ),
                         ),
                       );
@@ -264,9 +266,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             child: ListTile(
                               onTap: () {
                                 Get.back();
-                                orderGenrate.showDialogs(context, productId, orderGenrate.orderPriceList[index].priceId.toString(),);
                               },
-                              trailing: const Icon(Icons.add_shopping_cart,color: ConstColour.primaryColor),
                               dense: false,
                               tileColor: Colors.grey.shade50,
                               shape: RoundedRectangleBorder(
@@ -293,7 +293,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                     fontFamily: ConstFont.popinsMedium,
                                     fontSize: 16,
                                   ),
-                                  overflow: TextOverflow.ellipsis,maxLines: 2),
+                                  overflow: TextOverflow.ellipsis,maxLines: 4),
                               subtitle: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -317,6 +317,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                   ),
                                 ],
                               ),
+
                             ),
                           ),
                         );

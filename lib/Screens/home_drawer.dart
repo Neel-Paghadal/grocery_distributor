@@ -61,6 +61,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                       padding:  EdgeInsets.only(top: deviceHeight * 0.06,bottom: deviceHeight * 0.02),
                       child: InkWell(
                         onTap: () {
+                          Get.back();
                         Get.to(()=>const MyProfileScreen() );
                         },
                         child: Container(
@@ -132,6 +133,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                       leading: SvgPicture.asset("assets/Icons/orders.svg"),
                       onTap: () {
                         setState(() {
+                          Get.back();
                           Get.to(() => const LiveorderPage());
                           Get.to(() => const BottomBarScreen(),arguments: {homeController.currentIndex = 1});
                         });
@@ -150,6 +152,8 @@ class _HomeDrawerState extends State<HomeDrawer> {
 
                       leading: SvgPicture.asset("assets/Icons/userlist.svg"),
                       onTap: () {
+                        Get.back();
+
                         Get.to(() => const UserPage());
                         Get.to(() => const BottomBarScreen(),arguments: {homeController.currentIndex = 3});
 
@@ -168,6 +172,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
 
                       leading: SvgPicture.asset("assets/Icons/stock.svg"),
                       onTap: () {
+                        Get.back();
                         Get.to(const GodownPage());
                       },
                       title: const Text(
@@ -183,7 +188,10 @@ class _HomeDrawerState extends State<HomeDrawer> {
                       splashColor: ConstColour.btnHowerColor,
 
                       leading: SvgPicture.asset("assets/Icons/product.svg"),
-                      onTap: () {},
+                      onTap: () {
+                        Get.back();
+
+                      },
                       title: const Text(
                         "Product Info",
                         style: TextStyle(
@@ -193,11 +201,12 @@ class _HomeDrawerState extends State<HomeDrawer> {
                         ),
                       ),
                     ),
-          ListTile(
+                    ListTile(
             splashColor: ConstColour.btnHowerColor,
 
             leading: const Icon(Icons.shopping_cart_outlined, color: ConstColour.primaryColor),
             onTap: () {
+              Get.back();
 
         Get.to(() => const OrderGenrate());
             },
@@ -215,6 +224,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
 
                       leading: SvgPicture.asset("assets/Icons/lowstock.svg"),
                       onTap: () {
+                        Get.back();
                         Get.to(const lowstockPage());
                       },
                       title: const Text(
@@ -230,7 +240,10 @@ class _HomeDrawerState extends State<HomeDrawer> {
                       splashColor: ConstColour.btnHowerColor,
 
                       leading: SvgPicture.asset("assets/Icons/ads.svg"),
-                      onTap: () {},
+                      onTap: () {
+                        Get.back();
+
+                      },
                       title: const Text(
                         "Ads",
                         style: TextStyle(
@@ -247,6 +260,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                         color: ConstColour.primaryColor,
                       ),
                       onTap: () {
+                        Get.back();
                         ConstPreferences().clearPreferences();
                         Get.to(() => LoginScreen());
                       },
