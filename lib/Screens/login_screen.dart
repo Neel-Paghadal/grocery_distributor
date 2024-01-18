@@ -50,6 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Scaffold(
         bottomNavigationBar: BottomButton(
           onPressed: () {
+
             userId = loginController.emailController.text;
             password = loginController.passController.text;
             // Get.to(() => GodownPage());

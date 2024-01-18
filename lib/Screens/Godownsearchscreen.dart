@@ -154,6 +154,12 @@ class _GodownSearchScreenState extends State<GodownSearchScreen> {
 
 
 
+
+
+
+
+
+
   void showPriceQuantityList(String image,String productName,String productId){
     final deviceHeight = MediaQuery.of(context).size.height;
     final deviceWidth = MediaQuery.of(context).size.width;

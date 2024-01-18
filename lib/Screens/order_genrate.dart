@@ -147,6 +147,7 @@ class _OrderGenrateState extends State<OrderGenrate> {
           Flexible(child: Obx( () =>  _buildProductList())),
         ],
       ),
+
     );
   }
 

@@ -36,7 +36,7 @@ class Services{
       var message = loginData.messageCode;
      
       if(message == 200){
-        print(message );
+        print(message);
         var Id = loginData.data[0].id;
         var Email = loginData.data[0].userId;
         var Name = loginData.data[0].name;
