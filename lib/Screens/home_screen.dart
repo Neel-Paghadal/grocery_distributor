@@ -257,73 +257,119 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  height: deviceHeight * 0.03,
-                  child: Obx(
-                    () => Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        homeController.liveOrderList.isEmpty ? Center(child: Text("No Data Avaliable")) :   ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          controller: ScrollController(),
-                          itemCount: homeController.liveOrderList.length,
-                          itemBuilder: (context, index) {
-                            return homeController
-                                        .liveOrderList[index].filterType ==
-                                    "All"
-                                ? SizedBox()
-                                : Padding(
-                                    padding: EdgeInsets.only(
-                                        right: deviceWidth * 0.01),
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          shape: RoundedRectangleBorder(
-                                              side: BorderSide.none,
-                                              borderRadius:
-                                                  BorderRadius.circular(3)),
-                                          backgroundColor:
-                                              selectedValueIndex == index
-                                                  ? ConstColour.primaryColor
-                                                  : ConstColour.cardBgColor,
-                                          minimumSize: Size(deviceWidth * 0.18, deviceHeight * 0.01),
-                                          maximumSize: Size(deviceWidth * 0.3, deviceHeight * 0.02),
-                                          elevation: 0.5),
-                                      onPressed: () {
-                                        setState(() {
-                                          homeController.orderType =
-                                              homeController
-                                                  .liveOrderList[index].id;
-                                          selectedValueIndex = index;
-                                          print(selectedValueIndex);
-                                          homeController.AssignOrderApiCall(
-                                              homeController.orderType
-                                                  .toString(),
-                                              homeController.distributorId
-                                                  .toString());
-                                        });
-                                      },
-                                      child: Text(
-                                        homeController.liveOrderList[index]
-                                                    .filterType ==
-                                                "All"
-                                            ? ""
-                                            : homeController
-                                                .liveOrderList[index]
-                                                .filterType,
-                                        style: TextStyle(
-                                            fontSize: 10,
-                                            color: selectedValueIndex == index
-                                                ? Colors.black
-                                                : Colors.black,
-                                            fontFamily:
-                                                ConstFont.popinsMedium),
-                                      ),
-                                    ),
+                child: Flexible(
+                  child: Container(
+                    height: deviceHeight * 0.03,
+                    width: double.infinity,
+                    child: Obx(
+                      () => homeController.liveOrderList.isEmpty ? Center(child: Text("No Data Avaliable")) :   ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        controller: ScrollController(),
+                        itemCount: homeController.liveOrderList.length,
+                        itemBuilder: (context, index) {
+
+                          return homeController.liveOrderList[index].filterType == "All"
+                              ? SizedBox()
+                              : Padding(
+                            padding: EdgeInsets.symmetric(horizontal: deviceWidth * 0.02),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  side: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(3),
+                                ),
+                                backgroundColor: selectedValueIndex == index
+                                    ? ConstColour.primaryColor
+                                    : ConstColour.cardBgColor,
+                                elevation: 0.5,
+                                padding: EdgeInsets.zero, // Remove default padding
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  homeController.orderType =
+                                      homeController.liveOrderList[index].id;
+                                  selectedValueIndex = index;
+                                  print(selectedValueIndex);
+                                  homeController.AssignOrderApiCall(
+                                    homeController.orderType.toString(),
+                                    homeController.distributorId.toString(),
                                   );
-                          },
-                        ),
-                      ],
+                                });
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: deviceWidth * 0.02),
+                                child: Center(
+                                  child: Text(
+                                    homeController.liveOrderList[index].filterType == "All"
+                                        ? ""
+                                        : homeController.liveOrderList[index].filterType,
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                      color: selectedValueIndex == index
+                                          ? Colors.black
+                                          : Colors.black,
+                                      fontFamily: ConstFont.popinsMedium,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+
+
+                          // working
+                          // Padding(
+                          //         padding: EdgeInsets.only(
+                          //             right: deviceWidth * 0.01),
+                          //         child: Expanded(
+                          //           child: ElevatedButton(
+                          //             style: ElevatedButton.styleFrom(
+                          //                 shape: RoundedRectangleBorder(
+                          //                     side: BorderSide.none,
+                          //                     borderRadius:
+                          //                         BorderRadius.circular(3)),
+                          //                 backgroundColor: selectedValueIndex == index
+                          //                         ? ConstColour.primaryColor
+                          //                         : ConstColour.cardBgColor,
+                          //                 minimumSize: Size(deviceWidth * 0.18, deviceHeight * 0.01),
+                          //                 maximumSize: Size(deviceWidth * 0.3, deviceHeight * 0.02),
+                          //                 elevation: 0.5),
+                          //             onPressed: () {
+                          //               setState(() {
+                          //                 homeController.orderType =
+                          //                     homeController
+                          //                         .liveOrderList[index].id;
+                          //                 selectedValueIndex = index;
+                          //                 print(selectedValueIndex);
+                          //                 homeController.AssignOrderApiCall(
+                          //                     homeController.orderType
+                          //                         .toString(),
+                          //                     homeController.distributorId
+                          //                         .toString());
+                          //               });
+                          //             },
+                          //             child: Text(
+                          //               homeController.liveOrderList[index]
+                          //                           .filterType ==
+                          //                       "All"
+                          //                   ? ""
+                          //                   : homeController
+                          //                       .liveOrderList[index]
+                          //                       .filterType,
+                          //               style: TextStyle(
+                          //                   fontSize: 10,
+                          //                   color: selectedValueIndex == index
+                          //                       ? Colors.black
+                          //                       : Colors.black,
+                          //                   fontFamily:
+                          //                       ConstFont.popinsMedium),
+                          //             ),
+                          //           ),
+                          //         ),
+                          //       );
+                        },
+                      ),
                     ),
                   ),
                 ),
