@@ -110,111 +110,94 @@ class _HomeScreenState extends State<HomeScreen> {
                   top: deviceHeight * 0.01, /*bottom: deviceHeight * 0.01*/
                 ),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
-                      child: Container(
-                        // decoration: BoxDecoration(
-                        //     borderRadius: BorderRadius.circular(6),
-                        //     color: const Color(0xff81ECEC)),
-                        decoration: BoxDecoration(
-                            color:  Color(0xff81ECEC),
-                            shape: BoxShape.rectangle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.4),
-                                spreadRadius: 2,
-                                blurRadius: 2,
-                                offset: const Offset(0, 2),
-                              ),
-                            ],
-                            // gradient: const LinearGradient(
-                            //   begin: Alignment.topCenter,
-                            //   end: Alignment.bottomCenter,
-                            //   // colors: [ ConstColour.primaryColor,Colors.white, Color(0xff99CE02)],
-                            //   colors: [
-                            //     // Color(0xff0b3046),
-                            //     Colors.white,
-                            //     Color(0xff649f9b)
-                            //   ],
-                            // ),
-                            borderRadius: BorderRadius.circular(8)),
-                        height: deviceHeight * 0.08,
-                        child: Padding(
-                          padding: EdgeInsets.only(left: deviceWidth * 0.04),
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "15",
-                                style: TextStyle(
-                                    fontFamily: ConstFont.popinsRegular,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 16),
-                              ),
-                              Text(
-                                "Products",
-                                style: TextStyle(
-                                    fontFamily: ConstFont.popinsRegular,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12),
-                              ),
-                            ],
-                          ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color:  Color(0xff81ECEC),
+                          shape: BoxShape.rectangle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.4),
+                              spreadRadius: 2,
+                              blurRadius: 2,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                          borderRadius: BorderRadius.circular(8)),
+                      height: deviceHeight * 0.08,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: deviceWidth * 0.04),
+                        child: const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "15",
+                              style: TextStyle(
+                                  fontFamily: ConstFont.popinsRegular,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16),
+                            ),
+                            Text(
+                              "Products",
+                              style: TextStyle(
+                                  fontFamily: ConstFont.popinsRegular,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12),
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                    SizedBox(width: deviceWidth * 0.02),
-                    Expanded(
-                      child: Container(
-                        // decoration: BoxDecoration(
-                        //     borderRadius: BorderRadius.circular(6),
-                        //     color: const Color(0xffFEA47F)),
-                        decoration: BoxDecoration(
-                            color: const Color(0xffFEA47F),
-                            shape: BoxShape.rectangle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.4),
-                                spreadRadius: 2,
-                                blurRadius: 2,
-                                offset: const Offset(0, 2),
-                              ),
-                            ],
-                            // gradient: const LinearGradient(
-                            //   begin: Alignment.topCenter,
-                            //   end: Alignment.bottomCenter,
-                            //   // colors: [ ConstColour.primaryColor,Colors.white, Color(0xff99CE02)],
-                            //   colors: [
-                            //     // Color(0xff0b3046),
-                            //     Colors.white,
-                            //     Color(0xff649f9b)
-                            //   ],
-                            // ),
-                            borderRadius: BorderRadius.circular(8)),
-                        height: deviceHeight * 0.08,
-                        child: Padding(
-                          padding: EdgeInsets.only(left: deviceWidth * 0.04),
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "2",
-                                style: TextStyle(
-                                    fontFamily: ConstFont.popinsRegular,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 16),
-                              ),
-                              Text(
-                                "Low Stock",
-                                style: TextStyle(
-                                    fontFamily: ConstFont.popinsRegular,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12),
-                              ),
-                            ],
-                          ),
+                    Container(
+                      // decoration: BoxDecoration(
+                      //     borderRadius: BorderRadius.circular(6),
+                      //     color: const Color(0xffFEA47F)),
+                      decoration: BoxDecoration(
+                          color: const Color(0xffFEA47F),
+                          shape: BoxShape.rectangle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.4),
+                              spreadRadius: 2,
+                              blurRadius: 2,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                          // gradient: const LinearGradient(
+                          //   begin: Alignment.topCenter,
+                          //   end: Alignment.bottomCenter,
+                          //   // colors: [ ConstColour.primaryColor,Colors.white, Color(0xff99CE02)],
+                          //   colors: [
+                          //     // Color(0xff0b3046),
+                          //     Colors.white,
+                          //     Color(0xff649f9b)
+                          //   ],
+                          // ),
+                          borderRadius: BorderRadius.circular(8)),
+                      height: deviceHeight * 0.08,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: deviceWidth * 0.04),
+                        child: const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "2",
+                              style: TextStyle(
+                                  fontFamily: ConstFont.popinsRegular,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16),
+                            ),
+                            Text(
+                              "Low Stock",
+                              style: TextStyle(
+                                  fontFamily: ConstFont.popinsRegular,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -729,7 +712,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                               onPressed:
                                                                                   () {
                                                                                 homeController.assignOrderList[index].orderStatus = 1;
-                                                                                homeController.OrderUpdateApiCall("1",homeController.assignOrderList[index].orderId.toString(),"");
+                                                                                homeController.OrderUpdateApiCall("1",homeController.assignOrderList[index].detailId.toString(),"");
                                                                                 setState(() {});
                                                                               },
                                                                               child:
@@ -786,7 +769,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                                   onPressed: () {
                                                                                                     if(formkey.currentState!.validate()){
                                                                                                       homeController.assignOrderList[index].orderStatus = 2;
-                                                                                                      homeController.OrderUpdateApiCall("2", homeController.assignOrderList[index].orderId.toString(), homeController.reasonController.text);
+                                                                                                      homeController.OrderUpdateApiCall("2", homeController.assignOrderList[index].detailId.toString(), homeController.reasonController.text);
                                                                                                       setState(() {});
                                                                                                       Navigator.pop(context, false);
                                                                                                     }
@@ -872,7 +855,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                               ),
                                                                               onPressed: () {
                                                                                 homeController.assignOrderList[index].orderStatus = 3;
-                                                                                homeController.OrderUpdateApiCall("3", homeController.assignOrderList[index].orderId.toString(), "");
+                                                                                homeController.OrderUpdateApiCall("3", homeController.assignOrderList[index].detailId.toString(), "");
                                                                                 setState(() {});
                                                                                 print("Delivered ");
                                                                               },
@@ -929,7 +912,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                                 onPressed: () {
                                                                                                   if(formkey.currentState!.validate()){
                                                                                                     homeController.assignOrderList[index].orderStatus = 4;
-                                                                                                    homeController.OrderUpdateApiCall("4", homeController.assignOrderList[index].orderId.toString(), homeController.reasonController.text);
+                                                                                                    homeController.OrderUpdateApiCall("4", homeController.assignOrderList[index].detailId.toString(), homeController.reasonController.text);
                                                                                                     setState(() {});
                                                                                                     Navigator.pop(context, false);
 

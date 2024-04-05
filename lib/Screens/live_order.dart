@@ -55,7 +55,7 @@ class _LiveorderPageState extends State<LiveorderPage> {
 
   int status = 0;
 
-  void _showDialog(context) {
+    void _showDialog(context) {
     var deviceHeight = MediaQuery
         .of(context)
         .size
@@ -253,116 +253,116 @@ class _LiveorderPageState extends State<LiveorderPage> {
                         ),
                         SizedBox(height: deviceHeight * 0.01,),
 
-                        Padding(
-                          padding: EdgeInsets.only(left: deviceWidth * 0.02,
-                              right: deviceWidth * 0.02),
-                          child: Column(
-                            children: [
-                              RadioListTile(
-                                dense: true,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(11),
-                                    side: const BorderSide(color: Colors.black)
+                          Padding(
+                            padding: EdgeInsets.only(left: deviceWidth * 0.02,
+                                right: deviceWidth * 0.02),
+                            child: Column(
+                              children: [
+                                RadioListTile(
+                                  dense: true,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(11),
+                                      side: const BorderSide(color: Colors.black)
+                                  ),
+                                  activeColor: ConstColour.primaryColor,
+                                  title: const Text("Accept", style: TextStyle(
+                                      color: Colors.black,
+                                      overflow: TextOverflow.ellipsis,
+                                      fontFamily: ConstFont.popinsRegular,
+                                      fontSize: 14
+                                  ), maxLines: 2, textAlign: TextAlign.center),
+                                  value: 1,
+                                  groupValue: status,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      status = value!.toInt();
+                                    });
+                                  },
                                 ),
-                                activeColor: ConstColour.primaryColor,
-                                title: const Text("Accept", style: TextStyle(
+                                SizedBox(height: deviceHeight * 0.01,),
+
+                                RadioListTile(
+                                  dense: true,
+
+                                  activeColor: ConstColour.primaryColor,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(11),
+                                      side: const BorderSide(color: Colors.black)
+                                  ),
+                                  title: const Text("Reject", style: TextStyle(
+                                      color: Colors.black,
+                                      overflow: TextOverflow.ellipsis,
+                                      fontFamily: ConstFont.popinsRegular,
+                                      fontSize: 14
+                                  ),
+                                    maxLines: 2,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  value: 2,
+                                  groupValue: status,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      status = value!.toInt();
+                                    });
+                                  },
+                                ),
+                                SizedBox(height: deviceHeight * 0.01,),
+
+                                RadioListTile(
+                                  dense: true,
+
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(11),
+                                      side: const BorderSide(color: Colors.black)
+                                  ),
+                                  activeColor: ConstColour.primaryColor,
+                                  title: const Text("Delivered", style: TextStyle(
+                                      color: Colors.black,
+                                      overflow: TextOverflow.ellipsis,
+                                      fontFamily: ConstFont.popinsRegular,
+                                      fontSize: 14
+                                  ),
+                                    maxLines: 2,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  value: 3,
+                                  groupValue: status,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      status = value!.toInt();
+                                    });
+                                  },
+                                ),
+                                SizedBox(height: deviceHeight * 0.01,),
+
+                                RadioListTile(
+                                  dense: true,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(11),
+                                      side: const BorderSide(color: Colors.black)
+                                  ),
+                                  activeColor: ConstColour.primaryColor,
+                                  title: const Text(
+                                    "Not Delivered", style: TextStyle(
                                     color: Colors.black,
                                     overflow: TextOverflow.ellipsis,
                                     fontFamily: ConstFont.popinsRegular,
-                                    fontSize: 14
-                                ), maxLines: 2, textAlign: TextAlign.center),
-                                value: 1,
-                                groupValue: status,
-                                onChanged: (value) {
-                                  setState(() {
-                                    status = value!.toInt();
-                                  });
-                                },
-                              ),
-                              SizedBox(height: deviceHeight * 0.01,),
-
-                              RadioListTile(
-                                dense: true,
-
-                                activeColor: ConstColour.primaryColor,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(11),
-                                    side: const BorderSide(color: Colors.black)
+                                    fontSize: 14,
+                                  ),
+                                    textAlign: TextAlign.center,
+                                    maxLines: 2,
+                                  ),
+                                  value: 4,
+                                  groupValue: status,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      status = value!.toInt();
+                                    });
+                                  },
                                 ),
-                                title: const Text("Reject", style: TextStyle(
-                                    color: Colors.black,
-                                    overflow: TextOverflow.ellipsis,
-                                    fontFamily: ConstFont.popinsRegular,
-                                    fontSize: 14
-                                ),
-                                  maxLines: 2,
-                                  textAlign: TextAlign.center,
-                                ),
-                                value: 2,
-                                groupValue: status,
-                                onChanged: (value) {
-                                  setState(() {
-                                    status = value!.toInt();
-                                  });
-                                },
-                              ),
-                              SizedBox(height: deviceHeight * 0.01,),
-
-                              RadioListTile(
-                                dense: true,
-
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(11),
-                                    side: const BorderSide(color: Colors.black)
-                                ),
-                                activeColor: ConstColour.primaryColor,
-                                title: const Text("Delivered", style: TextStyle(
-                                    color: Colors.black,
-                                    overflow: TextOverflow.ellipsis,
-                                    fontFamily: ConstFont.popinsRegular,
-                                    fontSize: 14
-                                ),
-                                  maxLines: 2,
-                                  textAlign: TextAlign.center,
-                                ),
-                                value: 3,
-                                groupValue: status,
-                                onChanged: (value) {
-                                  setState(() {
-                                    status = value!.toInt();
-                                  });
-                                },
-                              ),
-                              SizedBox(height: deviceHeight * 0.01,),
-
-                              RadioListTile(
-                                dense: true,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(11),
-                                    side: const BorderSide(color: Colors.black)
-                                ),
-                                activeColor: ConstColour.primaryColor,
-                                title: const Text(
-                                  "Not Delivered", style: TextStyle(
-                                  color: Colors.black,
-                                  overflow: TextOverflow.ellipsis,
-                                  fontFamily: ConstFont.popinsRegular,
-                                  fontSize: 14,
-                                ),
-                                  textAlign: TextAlign.center,
-                                  maxLines: 2,
-                                ),
-                                value: 4,
-                                groupValue: status,
-                                onChanged: (value) {
-                                  setState(() {
-                                    status = value!.toInt();
-                                  });
-                                },
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
 
                         SizedBox(height: deviceHeight * 0.01,),
 
@@ -449,6 +449,7 @@ class _LiveorderPageState extends State<LiveorderPage> {
       setState(() {});
     });
   }
+
 
 
 
@@ -964,7 +965,7 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                                                       ),
                                                                       onPressed: () {
                                                                         homeController.assignOrderList[index].orderStatus = 1;
-                                                                        homeController.OrderUpdateApiCall("1", homeController.assignOrderList[index].orderId.toString(), "");
+                                                                        homeController.OrderUpdateApiCall("1", homeController.assignOrderList[index].detailId.toString(), "");
                                                                         setState(() {});
                                                                       },
                                                                       child: Text(
@@ -1033,7 +1034,7 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                                                                         ElevatedButton(
                                                                                           onPressed: () {
                                                                                             homeController.assignOrderList[index].orderStatus = 2;
-                                                                                            homeController.OrderUpdateApiCall("2", homeController.assignOrderList[index].orderId.toString(), homeController.reasonController.text);
+                                                                                            homeController.OrderUpdateApiCall("2", homeController.assignOrderList[index].detailId.toString(), homeController.reasonController.text);
                                                                                             setState(() {});
                                                                                             Navigator.pop(context, false);
                                                                                           },
@@ -1084,7 +1085,7 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                                                       ),
                                                                       onPressed: () {
                                                                         homeController.assignOrderList[index].orderStatus = 3;
-                                                                        homeController.OrderUpdateApiCall("3", homeController.assignOrderList[index].orderId.toString(), "");
+                                                                        homeController.OrderUpdateApiCall("3", homeController.assignOrderList[index].detailId.toString(), "");
                                                                         setState(() {});
                                                                         debugPrint("Delivered ");
                                                                       },
@@ -1158,7 +1159,7 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                                                                         onPressed: () {
                                                                                           if (formkey.currentState!.validate()) {
                                                                                             homeController.assignOrderList[index].orderStatus = 4;
-                                                                                            homeController.OrderUpdateApiCall("4", homeController.assignOrderList[index].orderId.toString(), homeController.reasonController.text);
+                                                                                            homeController.OrderUpdateApiCall("4", homeController.assignOrderList[index].detailId.toString(), homeController.reasonController.text);
                                                                                             setState(() {});
                                                                                             Navigator.pop(context, false);
                                                                                           }
@@ -1250,7 +1251,7 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                                     //                           primary: const Color(0xff6AB04C),
                                                     //                         ),
                                                     //                         onPressed: () {
-                                                    //                           homeController.OrderUpdateApiCall("1", homeController.assignOrderList[index].orderId.toString(), "");
+                                                    //                           homeController.OrderUpdateApiCall("1", homeController.assignOrderList[index].detailId.toString(), "");
                                                     //                         },
                                                     //                         child:
                                                     //                             Text(
@@ -1320,7 +1321,7 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                                     //                                       children: [
                                                     //                                         ElevatedButton(
                                                     //                                           onPressed: () {
-                                                    //                                             homeController.OrderUpdateApiCall("2", homeController.assignOrderList[index].orderId.toString(), homeController.reasonController.text);
+                                                    //                                             homeController.OrderUpdateApiCall("2", homeController.assignOrderList[index].detailId.toString(), homeController.reasonController.text);
                                                     //                                             Navigator.pop(context, false);
                                                     //                                           },
                                                     //                                           style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFECF3F9), elevation: 0),
@@ -1367,7 +1368,7 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                                     //                             ),
                                                     //                             onPressed: () {
                                                     //                               homeController.isChange = true.obs;
-                                                    //                               homeController.OrderUpdateApiCall("3", homeController.assignOrderList[index].orderId.toString(), "");
+                                                    //                               homeController.OrderUpdateApiCall("3", homeController.assignOrderList[index].detailId.toString(), "");
                                                     //                               debugPrint("Delivered ");
                                                     //                             },
                                                     //                             child: Text(
@@ -1435,7 +1436,7 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                                     //                                           children: [
                                                     //                                             ElevatedButton(
                                                     //                                               onPressed: () {
-                                                    //                                                 homeController.OrderUpdateApiCall("4", homeController.assignOrderList[index].orderId.toString(), homeController.reasonController.text);
+                                                    //                                                 homeController.OrderUpdateApiCall("4", homeController.assignOrderList[index].detailId.toString(), homeController.reasonController.text);
                                                     //                                                 Navigator.pop(context, false);
                                                     //                                               },
                                                     //                                               style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFECF3F9), elevation: 0),
@@ -1968,7 +1969,7 @@ class _LiveorderPageState extends State<LiveorderPage> {
               //                                                                         ),
               //                                                                         onPressed: () {
               //                                                                           homeController.assignOrderList[index].orderStatus = 1;
-              //                                                                           homeController.OrderUpdateApiCall("1", homeController.assignOrderList[index].orderId.toString(), "");
+              //                                                                           homeController.OrderUpdateApiCall("1", homeController.assignOrderList[index].detailId.toString(), "");
               //                                                                           setState(() {});
               //                                                                         },
               //                                                                         child: Text(
@@ -2037,7 +2038,7 @@ class _LiveorderPageState extends State<LiveorderPage> {
               //                                                                                           ElevatedButton(
               //                                                                                             onPressed: () {
               //                                                                                               homeController.assignOrderList[index].orderStatus = 2;
-              //                                                                                               homeController.OrderUpdateApiCall("2", homeController.assignOrderList[index].orderId.toString(), homeController.reasonController.text);
+              //                                                                                               homeController.OrderUpdateApiCall("2", homeController.assignOrderList[index].detailId.toString(), homeController.reasonController.text);
               //                                                                                               setState(() {});
               //                                                                                               Navigator.pop(context, false);
               //                                                                                             },
@@ -2088,7 +2089,7 @@ class _LiveorderPageState extends State<LiveorderPage> {
               //                                                                             ),
               //                                                                             onPressed: () {
               //                                                                               homeController.assignOrderList[index].orderStatus = 3;
-              //                                                                               homeController.OrderUpdateApiCall("3", homeController.assignOrderList[index].orderId.toString(), "");
+              //                                                                               homeController.OrderUpdateApiCall("3", homeController.assignOrderList[index].detailId.toString(), "");
               //                                                                               setState(() {});
               //                                                                               debugPrint("Delivered ");
               //                                                                             },
@@ -2162,7 +2163,7 @@ class _LiveorderPageState extends State<LiveorderPage> {
               //                                                                                               onPressed: () {
               //                                                                                                 if (formkey.currentState!.validate()) {
               //                                                                                                   homeController.assignOrderList[index].orderStatus = 4;
-              //                                                                                                   homeController.OrderUpdateApiCall("4", homeController.assignOrderList[index].orderId.toString(), homeController.reasonController.text);
+              //                                                                                                   homeController.OrderUpdateApiCall("4", homeController.assignOrderList[index].detailId.toString(), homeController.reasonController.text);
               //                                                                                                   setState(() {});
               //                                                                                                   Navigator.pop(context, false);
               //                                                                                                 }
@@ -2254,7 +2255,7 @@ class _LiveorderPageState extends State<LiveorderPage> {
               //                                                 //                           primary: const Color(0xff6AB04C),
               //                                                 //                         ),
               //                                                 //                         onPressed: () {
-              //                                                 //                           homeController.OrderUpdateApiCall("1", homeController.assignOrderList[index].orderId.toString(), "");
+              //                                                 //                           homeController.OrderUpdateApiCall("1", homeController.assignOrderList[index].detailId.toString(), "");
               //                                                 //                         },
               //                                                 //                         child:
               //                                                 //                             Text(
@@ -2324,7 +2325,7 @@ class _LiveorderPageState extends State<LiveorderPage> {
               //                                                 //                                       children: [
               //                                                 //                                         ElevatedButton(
               //                                                 //                                           onPressed: () {
-              //                                                 //                                             homeController.OrderUpdateApiCall("2", homeController.assignOrderList[index].orderId.toString(), homeController.reasonController.text);
+              //                                                 //                                             homeController.OrderUpdateApiCall("2", homeController.assignOrderList[index].detailId.toString(), homeController.reasonController.text);
               //                                                 //                                             Navigator.pop(context, false);
               //                                                 //                                           },
               //                                                 //                                           style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFECF3F9), elevation: 0),
@@ -2371,7 +2372,7 @@ class _LiveorderPageState extends State<LiveorderPage> {
               //                                                 //                             ),
               //                                                 //                             onPressed: () {
               //                                                 //                               homeController.isChange = true.obs;
-              //                                                 //                               homeController.OrderUpdateApiCall("3", homeController.assignOrderList[index].orderId.toString(), "");
+              //                                                 //                               homeController.OrderUpdateApiCall("3", homeController.assignOrderList[index].detailId.toString(), "");
               //                                                 //                               debugPrint("Delivered ");
               //                                                 //                             },
               //                                                 //                             child: Text(
@@ -2439,7 +2440,7 @@ class _LiveorderPageState extends State<LiveorderPage> {
               //                                                 //                                           children: [
               //                                                 //                                             ElevatedButton(
               //                                                 //                                               onPressed: () {
-              //                                                 //                                                 homeController.OrderUpdateApiCall("4", homeController.assignOrderList[index].orderId.toString(), homeController.reasonController.text);
+              //                                                 //                                                 homeController.OrderUpdateApiCall("4", homeController.assignOrderList[index].detailId.toString(), homeController.reasonController.text);
               //                                                 //                                                 Navigator.pop(context, false);
               //                                                 //                                               },
               //                                                 //                                               style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFECF3F9), elevation: 0),

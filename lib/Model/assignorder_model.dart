@@ -35,6 +35,7 @@ class AssignOrder {
 
 class OrderList {
   String imageName;
+  int detailId;
   int productId;
   int quantity;
   double totalAmount;
@@ -53,6 +54,7 @@ class OrderList {
 
   OrderList({
     required this.imageName,
+    required this.detailId,
     required this.productId,
     required this.quantity,
     required this.totalAmount,
@@ -73,6 +75,7 @@ class OrderList {
 
   factory OrderList.fromJson(Map<String, dynamic> json) => OrderList(
     imageName: json["ImageName"],
+    detailId: json["DetailId"],
     productId: json["ProductId"],
     quantity: json["Quantity"],
     totalAmount: json["TotalAmount"],
@@ -92,6 +95,7 @@ class OrderList {
 
   Map<String, dynamic> toJson() => {
     "ImageName": imageName,
+    "DetailId":detailId,
     "ProductId": productId,
     "Quantity": quantity,
     "TotalAmount": totalAmount,

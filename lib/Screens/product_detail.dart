@@ -206,7 +206,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 onPressed:
                                     () {
                                   homeController.assignOrderList[widget.productIndex].orderStatus = 1;
-                                  homeController.OrderUpdateApiCall("1", homeController.assignOrderList[widget.productIndex].orderId.toString(), "");
+                                  homeController.OrderUpdateApiCall("1", homeController.assignOrderList[widget.productIndex].detailId.toString(), "");
                                   setState(() {});
                                 },
                                 child:
@@ -262,7 +262,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                      onPressed: () {
                                                        if(formkey.currentState!.validate()){
                                                          homeController.assignOrderList[widget.productIndex].orderStatus = 2;
-                                                         homeController.OrderUpdateApiCall("2", homeController.assignOrderList[widget.productIndex].orderId.toString(), homeController.reasonController.text);
+                                                         homeController.OrderUpdateApiCall("2", homeController.assignOrderList[widget.productIndex].detailId.toString(), homeController.reasonController.text);
                                                          setState(() {});
                                                          Navigator.pop(context, false);
                                                        }
@@ -342,7 +342,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 ),
                                 onPressed: () {
                                   homeController.assignOrderList[widget.productIndex].orderStatus = 3;
-                                  homeController.OrderUpdateApiCall("3", homeController.assignOrderList[widget.productIndex].orderId.toString(), "");
+                                  homeController.OrderUpdateApiCall("3", homeController.assignOrderList[widget.productIndex].detailId.toString(), "");
                                   setState(() {});
                                   print("Delivered ");
                                 },
@@ -367,6 +367,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   maximumSize: Size(deviceWidth * 0.4, deviceHeight * 0.06),
                                   minimumSize: Size(deviceWidth * 0.4, deviceHeight * 0.05),
                                 elevation: 8.0,
+
                               ),
 
                               onPressed: () {},
@@ -389,7 +390,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                   onPressed: () {
                                                     if(formkey.currentState!.validate()){
                                                       homeController.assignOrderList[widget.productIndex].orderStatus = 4;
-                                                      homeController.OrderUpdateApiCall("4", homeController.assignOrderList[widget.productIndex].orderId.toString(), homeController.reasonController.text);
+                                                      homeController.OrderUpdateApiCall("4", homeController.assignOrderList[widget.productIndex].detailId.toString(), homeController.reasonController.text);
                                                       setState(() {});
                                                       Navigator.pop(context, false);
                                                     }
