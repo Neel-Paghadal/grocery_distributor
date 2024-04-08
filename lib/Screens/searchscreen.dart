@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -113,20 +114,14 @@ class _SearchScreenState extends State<SearchScreen> {
                             tileColor: Colors.grey.shade50,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(6)),
-                            leading: Image(
+                            leading: CachedNetworkImage(
                               width: deviceWidth * 0.1,
-                              errorBuilder: (BuildContext context, Object exception,
-                                  StackTrace? stackTrace) {
-                                // Custom error widget to display when image fails to load
-                                return const Icon(
-                                  Icons.image,
-                                  size: 45,
-                                );
-                              },
-                              image: NetworkImage(
-                                searchController.searchList[index].productImage
-                                    .toString(),
-                              ),
+                              imageUrl: searchController.searchList[index].productImage
+                                  .toString(),
+                              placeholder: (context, url) =>
+                              const Icon(Icons.image, size: 45),
+                              errorWidget: (context, url, error) =>
+                              const Icon(Icons.error, size: 45),
                             ),
                             title: Text(
                                 searchController.searchList[index].productName,

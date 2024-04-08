@@ -9,4 +9,6 @@ class ConstColour {
   static const Color bgColor  = Colors.white;
   static  Color shimmerBaseColor = Color(0xff99CE02).withOpacity(0.1);
   static const Color french =Color(0xffE4EECB);
+  static const Color greenColor  = Color(0xff378b29);
+  static const Color quantityRemove = Color(0xffF63E3E);
 }

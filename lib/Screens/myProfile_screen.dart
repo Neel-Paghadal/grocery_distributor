@@ -203,10 +203,10 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
 
                               },
                               child:
-                              (myProfileController.userProfileImage == null.obs) ? Image.asset(
+                              (myProfileController.userProfileImage == null.obs && myProfileController.userProfileImage!.value.isEmpty) ? Image.asset(
                                   'assets/Images/mans.png',width: deviceWidth * 0.275,height: deviceHeight * 0.13) : CircleAvatar(
                                 radius: 55,
-                                backgroundImage :  NetworkImage(myProfileController.userProfileImage!.toString()),
+                                backgroundImage :  NetworkImage(myProfileController.userProfileImage.toString()),
                               ),
                             ),
                           ),

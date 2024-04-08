@@ -19,6 +19,7 @@ class ConstPreferences {
   var DISCOUNT = "DISCOUNT";
 
 
+
   Future<void> saveDistributorId(String key, String value) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(key, value);
@@ -68,6 +69,15 @@ class ConstPreferences {
     return prefs.getString(key);
   }
 
+  Future<void> setDistributorWalletAmount(double value) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setDouble("USERWALLETAMOUNT", value);
+  }
+
+  Future<double?> getDistributorWalletAmount() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getDouble("USERWALLETAMOUNT");
+  }
 
   Future<void> setUserData(DistibutorData user) async {
     final prefs = await SharedPreferences.getInstance();

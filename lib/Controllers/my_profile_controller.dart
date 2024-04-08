@@ -40,7 +40,7 @@ class MyProfileController extends GetxController {
 
   void getPrefData() async {
     DistibutorData? distibutorData = await ConstPreferences().getUserData();
-    userProfileImage = distibutorData!.profileImage.obs;
+    userProfileImage!.value = distibutorData!.profileImage.toString();
     // number.value = (await ConstPreferences().ge("mobilenumber"))!;
     name.value = (await ConstPreferences().getDistributorName('DistributorName'))!;
     email.value = (await ConstPreferences().getDistributorEmail('DistributorEmail'))!;
@@ -50,7 +50,9 @@ class MyProfileController extends GetxController {
   }
 
   Future<void> UserDetailApi() async {
+
     String? distributorId = await ConstPreferences().getDistributorId("DistributorId");
+
     final response = await http.post(Uri.parse(ConstApi.distributorDetail),
         body: {
           "Id" : distributorId

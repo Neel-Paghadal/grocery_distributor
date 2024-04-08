@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -551,10 +552,6 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                 backgroundColor: selectedValueIndex == index
                                     ? ConstColour.primaryColor
                                     : ConstColour.cardBgColor,
-                                // minimumSize: Size(deviceWidth * 0.18,
-                                //     deviceHeight * 0.01),
-                                // maximumSize: Size(
-                                //     deviceWidth * 0.3, deviceHeight * 0.02),
                                 elevation: 0.5),
                             onPressed: () {
                               setState(() {
@@ -597,7 +594,6 @@ class _LiveorderPageState extends State<LiveorderPage> {
                   springAnimationDurationInMilliseconds: 1,
                   child: Obx(
                         () => homeController.assignOrderList.isEmpty
-                    // ? Center(child: Text("Order is not Avaliable."))
                         ?  (homeController.isListEmplty.value == true) ?
                         Center(child: Text('No data available',style: TextStyle(color: Colors.black,fontFamily: ConstFont.popinsRegular,fontSize: 18,overflow: TextOverflow.ellipsis,)))
                             : Loaders(
@@ -723,32 +719,15 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                           ),
                                           height: 60,
                                           width: 72,
-                                          child: Image(
+                                          child: CachedNetworkImage(
                                             width: deviceWidth * 0.1,
-                                            errorBuilder:
-                                                (BuildContext context,
-                                                Object exception,
-                                                StackTrace?
-                                                stackTrace) {
-                                              // Custom error widget to display when image fails to load
-                                              return const Icon(
-                                                Icons.image,
-                                                size: 45,
-                                              );
-                                            },
-                                            image: NetworkImage(
-                                              homeController
-                                                  .assignOrderList[
-                                              index]
-                                                  .imageName
-                                                  .toString(),
-                                            ),
+                                            imageUrl: homeController
+                                                .assignOrderList[index]
+                                                .imageName
+                                                .toString(),
+                                            placeholder: (context, url) => const Icon(Icons.image,size: 45),
+                                            errorWidget: (context, url, error) => const Icon(Icons.error,size: 45),
                                           ),
-                                          // child: Image.network(
-                                          //     homeController
-                                          //         .assignOrderList[index]
-                                          //         .imageName
-                                          //         .toString()),
                                         ),
                                         Expanded(
                                           child: Column(

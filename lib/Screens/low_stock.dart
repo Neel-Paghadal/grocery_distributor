@@ -109,7 +109,7 @@ class _lowstockPageState extends State<lowstockPage> {
                                             ),
                                             child: Center(
                                               child: ElevatedButton(
-                                                style: ElevatedButton.styleFrom(primary: Color(0xff6AB04C)),
+                                                style: ElevatedButton.styleFrom(backgroundColor: Color(0xff6AB04C)),
                                                 onPressed: () {},
                                                 child: Text("Add",
                                                   style: TextStyle(
@@ -130,7 +130,7 @@ class _lowstockPageState extends State<lowstockPage> {
                                             ),
                                             child: Center(
                                               child: ElevatedButton(
-                                                style: ElevatedButton.styleFrom(primary: Color(0xffF86C6B)),
+                                                style: ElevatedButton.styleFrom(backgroundColor: Color(0xffF86C6B)),
                                                 onPressed: (){},
                                                 child: Text("Out",
                                                   style: TextStyle(

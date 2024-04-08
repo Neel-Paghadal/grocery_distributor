@@ -406,7 +406,7 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
                                                           ),
                                                           child: Center(
                                                             child: ElevatedButton(
-                                                              style: ElevatedButton.styleFrom(primary: Color(0xff6AB04C)),
+                                                              style: ElevatedButton.styleFrom(backgroundColor: Color(0xff6AB04C)),
                                                               onPressed: () {
                                                                 Get.to(() => BottomBarScreen(),arguments: {homeController.currentIndex = 3});
                                                                 // selectedValueIndex = 1;
@@ -431,7 +431,7 @@ class _OrderdetailsState extends State<OrderdetailsPage> {
                                                           ),
                                                           child: Center(
                                                             child: ElevatedButton(
-                                                              style: ElevatedButton.styleFrom(primary: Color(0xffF86C6B)),
+                                                              style: ElevatedButton.styleFrom(backgroundColor: Color(0xffF86C6B)),
                                                               onPressed: (){},
                                                               child: InkWell(
                                                                 onTap: ()async{
