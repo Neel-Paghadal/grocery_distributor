@@ -12,5 +12,10 @@ class ConstApi {
   static const String distributorDetail = '${baseUrl}DistiButer/DistiButer_EditDataReturn';
   static const String productWisePriceList = '${baseUrl}Stock/Product_Wise_PriceDetail_GetList';
   static const String stockRequestToAdmin = '${baseUrl}Stock/Stock_Request_To_Admin_Insert';
+  static const String lowStockApi = '${baseUrl}Stock/Product_Low_Stock_List';
+  static const String godwonStockApi = '${baseUrl}DistiButer/Get_Distibutor_Godwon_Stock_List';
+  static const String stockRequestListApi = '${baseUrl}Stock/Stock_Request_Status_GetList';
+  static const String distributorProfile = '${baseUrl}DistiButer/Get_Distibutor_Profile_Details';
+  static const String notificationList = '${baseUrl}DistiButer/Get_Distibutor_Notification_List';
 
 }

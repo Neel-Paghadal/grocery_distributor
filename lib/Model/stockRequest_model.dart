@@ -1,6 +1,3 @@
-// To parse this JSON data, do
-//
-//     final stockRequest = stockRequestFromJson(jsonString);
 
 import 'dart:convert';
 

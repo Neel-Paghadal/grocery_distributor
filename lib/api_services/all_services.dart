@@ -5,6 +5,7 @@ import 'package:grocery_distributor/Common/utils.dart';
 import 'package:grocery_distributor/ConstFile/constPreferences.dart';
 import 'package:grocery_distributor/Controllers/home_controller.dart';
 import 'package:grocery_distributor/Controllers/login_controller.dart';
+import 'package:grocery_distributor/Controllers/my_profile_controller.dart';
 import 'package:grocery_distributor/Screens/home_screen.dart';
 import 'package:grocery_distributor/Screens/login_screen.dart';
 import 'package:http/http.dart' as http;
@@ -14,6 +15,7 @@ import '../Model/login_model.dart';
 
 LoginController loginController = Get.put(LoginController());
 HomeController homeController = Get.put(HomeController());
+MyProfileController myProfileController = Get.put(MyProfileController());
 
 
 class Services{
@@ -49,9 +51,9 @@ class Services{
         ConstPreferences().saveDistributorName("DistributorName",Name.toString());
         ConstPreferences().saveDistributorAddress("DistributorAdd",Address.toString());
         ConstPreferences().saveDistributorImage("DistributorImage",DImage.toString());
+        myProfileController.getDistributorProfile();
         final SharedPreferences pref = await SharedPreferences.getInstance();
         pref.setBool("login", true);
-        // Get.to(() => HomeScreen());
         Get.to(() => BottomBarScreen(),arguments: {homeController.currentIndex = 0});
 
         // Get.to(()=> BottomAppBar(),arguments: 1);

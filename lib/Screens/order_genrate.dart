@@ -92,6 +92,15 @@ class _OrderGenrateState extends State<OrderGenrate> {
           "Order Genrate",
           style: TextStyle(color: Colors.black),
         ),
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black,
+          ),
+        ),
         centerTitle: true,
         elevation: 0,
         iconTheme: const IconThemeData(
@@ -393,9 +402,9 @@ class _OrderGenrateState extends State<OrderGenrate> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
-                                        Text(
+                                        const Text(
                                           "Stock Quantity : ",
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             color: Colors.black,
                                             fontFamily: ConstFont.popinsMedium,
                                             fontSize: 15,
