@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 class StockRequestController extends GetxController {
   RxList<RequestList> stockRequestList = <RequestList>[].obs;
   int? messageCode;
-  RxBool isNoRequest = false.obs;
+  RxBool isNoRequest = true.obs;
 
   void fetchStockRequest() async {
     stockRequestList.clear();

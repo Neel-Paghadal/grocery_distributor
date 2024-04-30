@@ -48,7 +48,9 @@ class _StockRequestScreenState extends State<StockRequestScreen> {
         ),
       ),
       body: Obx(() => stockRequestController.stockRequestList.isEmpty
-          ? Loaders(
+          ? stockRequestController.isNoRequest.value == false
+          ? Center(child: Text("No Data Found")) :
+      Loaders(
               items: 8,
               direction: LoaderDirection.ltr,
               builder: Padding(
@@ -82,8 +84,7 @@ class _StockRequestScreenState extends State<StockRequestScreen> {
                 ),
               ),
             )
-          : stockRequestController.isNoRequest.value == false
-              ? Center(child: Text("No Data Found"))
+
               : ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
