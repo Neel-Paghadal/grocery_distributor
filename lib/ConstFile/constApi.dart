@@ -17,5 +17,6 @@ class ConstApi {
   static const String stockRequestListApi = '${baseUrl}Stock/Stock_Request_Status_GetList';
   static const String distributorProfile = '${baseUrl}DistiButer/Get_Distibutor_Profile_Details';
   static const String notificationList = '${baseUrl}DistiButer/Get_Distibutor_Notification_List';
+  static const String distributorWithdrawal = '${baseUrl}DistiButer/DistiButer_Withdrawal_InsertData';
 
 }

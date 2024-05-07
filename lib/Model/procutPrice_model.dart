@@ -38,25 +38,30 @@ class PriceDetail {
 
 class ProductPriceDetail {
   int priceId;
-  String priceDetails;
+  double price;
+  String unit;
   double quantity;
 
   ProductPriceDetail({
     required this.priceId,
-    required this.priceDetails,
+    required this.price,
+    required this.unit,
     required this.quantity,
-
   });
 
   factory ProductPriceDetail.fromJson(Map<String, dynamic> json) => ProductPriceDetail(
     priceId: json["PriceId"],
-    priceDetails: json["PriceDetails"],
+    price: json["Price"],
+    unit: json["Unit"],
     quantity: json["Quantity"],
   );
 
   Map<String, dynamic> toJson() => {
     "PriceId": priceId,
-    "PriceDetails": priceDetails,
+    "Price": price,
+    "Unit": unit,
     "Quantity": quantity,
   };
 }
+
+

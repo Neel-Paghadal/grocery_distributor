@@ -369,7 +369,7 @@ class _OrderGenrateState extends State<OrderGenrate> {
                                         productId,
                                         orderGenrate
                                             .orderPriceList[index].priceId
-                                            .toString(),
+                                            .toString(),index
                                       );
                                     },
                                     trailing: const Icon(
@@ -387,16 +387,27 @@ class _OrderGenrateState extends State<OrderGenrate> {
                                       errorWidget: (context, url, error) =>
                                           const Icon(Icons.error, size: 45),
                                     ),
-                                    title: Text(
-                                        orderGenrate
-                                            .orderPriceList[index].priceDetails,
-                                        style: const TextStyle(
-                                          color: Colors.black,
-                                          fontFamily: ConstFont.popinsMedium,
-                                          fontSize: 16,
-                                        ),
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 2),
+                                    title: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text("₹ ${orderGenrate.orderPriceList[index].price.toString()}",
+                                            style: const TextStyle(
+                                              color: Colors.black,
+                                              fontFamily: ConstFont.popinsMedium,
+                                              fontSize: 16,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 2),
+                                        Text(orderGenrate.orderPriceList[index].unit.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.black,
+                                              fontFamily: ConstFont.popinsMedium,
+                                              fontSize: 16,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 2),
+                                      ],
+                                    ),
                                     subtitle: Row(
                                       mainAxisSize: MainAxisSize.min,
                                       mainAxisAlignment:
@@ -411,9 +422,7 @@ class _OrderGenrateState extends State<OrderGenrate> {
                                           ),
                                         ),
                                         Text(
-                                          orderGenrate
-                                              .orderPriceList[index].quantity
-                                              .toString(),
+                                          orderGenrate.orderPriceList[index].quantity.toString(),
                                           style: const TextStyle(
                                             color: Colors.black,
                                             fontFamily: ConstFont.popinsRegular,

@@ -16,6 +16,16 @@ class Utils {
         textColor: Colors.white,
         fontSize: 8.0);
   }
+  void snackBar(String title,String message){
+
+    Get.snackbar(title, message,
+        reverseAnimationCurve: Curves.bounceIn,
+        forwardAnimationCurve: Curves.bounceInOut,
+        snackPosition: SnackPosition.TOP,
+        duration: const Duration(seconds: 2),
+        colorText: Colors.white,
+        backgroundColor: ConstColour.primaryColor);
+  }
 
   void errorsnackBar(String title,String message){
 

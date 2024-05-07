@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -7,7 +9,6 @@ import 'package:grocery_distributor/ConstFile/constFonts.dart';
 import 'package:grocery_distributor/ConstFile/constPreferences.dart';
 import 'package:grocery_distributor/Model/orderGenrate_model.dart';
 import 'package:grocery_distributor/Model/stockRequest_model.dart';
-import 'package:grocery_distributor/Screens/order_genrate.dart';
 import 'package:http/http.dart' as http;
 
 import '../ConstFile/constColor.dart';
@@ -21,23 +22,40 @@ class OrderGenrateController extends GetxController {
   RxList<ProductPriceDetail> orderPriceList = <ProductPriceDetail>[].obs;
   final _formKey = GlobalKey<FormState>();
 
+  var quantity = ''.obs;
+  var totalAmount = '0.0'.obs;
+
+  void updateValues(String quantityValue, String totalAmountValue) {
+    quantity.value = quantityValue;
+    totalAmount.value = totalAmountValue;
+    // totalAmount.value = totalAmountValue != null ? totalAmountValue : totalAmount.value;
+  }
+
+  String calculateTotalAmount(int quantity, double price) {
+    return (quantity * price).toStringAsFixed(1);
+  }
+
   void showDialogs(
     context,
     String productId,
     String priceId,
+      int index
   ) {
     var deviceHeight = MediaQuery.of(context).size.height;
     var deviceWidth = MediaQuery.of(context).size.width;
     quntityController.clear();
+    totalAmount.value = '0.0';
     showDialog(
       useSafeArea: true,
       barrierDismissible: true,
       context: context,
       builder: (context) => StatefulBuilder(
-        builder: (context, setState) => Dialog(
+        builder: (context, setState) => Obx(
+                () => Dialog(
             elevation: 5.0,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(6)
+            ),
             backgroundColor: Colors.white,
             child: Form(
               key: _formKey,
@@ -46,9 +64,15 @@ class OrderGenrateController extends GetxController {
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(
-                        vertical: deviceHeight * 0.03,
+                        vertical: deviceHeight * 0.02,
                         horizontal: deviceWidth * 0.05),
                     child: TextFormField(
+                      onChanged: (value) {
+                        final quantity = int.tryParse(value.trim()) ?? 0;
+                        final price = orderPriceList.isNotEmpty ? orderPriceList[index].price.toDouble() : 0;
+                        final totalAmount = calculateTotalAmount(quantity, price.toDouble());
+                        updateValues(value, totalAmount);
+                      },
                       controller: quntityController,
                       keyboardType: TextInputType.number,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -82,7 +106,6 @@ class OrderGenrateController extends GetxController {
                             fontFamily: ConstFont.popinsRegular,
                             fontSize: 16,
                             overflow: TextOverflow.ellipsis),
-
                         // prefixIcon: const Icon( CupertinoIcons.search,size: 24,color: ConstColour.primaryColor,)
                       ),
                       validator: (value) {
@@ -97,21 +120,98 @@ class OrderGenrateController extends GetxController {
                     ),
                   ),
                   Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: deviceWidth * 0.05),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Price :",
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                              fontFamily: ConstFont.popinsRegular,
+                              fontWeight: FontWeight.w500,
+                              overflow: TextOverflow.ellipsis),
+                        ),
+                        Text(
+                          "₹ ${orderPriceList[index].price.toString()}",
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                              fontFamily: ConstFont.popinsRegular,
+                              fontWeight: FontWeight.w500,
+                              overflow: TextOverflow.ellipsis),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: deviceWidth * 0.05),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Unit :",
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                              fontFamily: ConstFont.popinsRegular,
+                              fontWeight: FontWeight.w500,
+                              overflow: TextOverflow.ellipsis),
+                        ),
+                        Text(
+                          orderPriceList[index].unit.toString(),
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                              fontFamily: ConstFont.popinsRegular,
+                              fontWeight: FontWeight.w500,
+                              overflow: TextOverflow.ellipsis),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: deviceWidth * 0.05),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Total : ",
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                              fontFamily: ConstFont.popinsRegular,
+                              fontWeight: FontWeight.w500,
+                              overflow: TextOverflow.ellipsis),
+                        ),
+                        Text(
+                          "₹${totalAmount}",
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                              fontFamily: ConstFont.popinsRegular,
+                              fontWeight: FontWeight.w500,
+                              overflow: TextOverflow.ellipsis),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: ConstColour.primaryColor,
-                          maximumSize:
-                              Size(deviceWidth * 0.4, deviceHeight * 0.055),
-                          minimumSize:
-                              Size(deviceWidth * 0.3, deviceHeight * 0.05),
+                          maximumSize: Size(deviceWidth * 0.4, deviceHeight * 0.055),
+                          minimumSize: Size(deviceWidth * 0.3, deviceHeight * 0.05),
                           // backgroundColor: Colors.white
                         ),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             Get.back();
-                            stockRequestToAdmin(
-                                productId, priceId, quntityController.text);
+                            stockRequestToAdmin(productId, priceId, quntityController.text);
                           }
                         },
                         child: const Text(
@@ -121,11 +221,13 @@ class OrderGenrateController extends GetxController {
                               overflow: TextOverflow.ellipsis,
                               fontFamily: ConstFont.popinsMedium,
                               fontSize: 17),
-                        )),
+                        )
+                    ),
                   ),
                 ],
               ),
-            )),
+            ))
+        )
       ),
     ).whenComplete(() {});
   }

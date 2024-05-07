@@ -285,7 +285,7 @@ class _GodownSearchScreenState extends State<GodownSearchScreen> {
                                 ),
                               ),
                               title: Text(
-                                  orderGenrate.orderPriceList[index].priceDetails,
+                                  orderGenrate.orderPriceList[index].price.toString(),
                                   style: const TextStyle(
                                     color: Colors.black,
                                     fontFamily: ConstFont.popinsMedium,

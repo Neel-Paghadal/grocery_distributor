@@ -4,11 +4,9 @@
 
 import 'dart:convert';
 
-StockRequestListModel stockRequestListModelFromJson(String str) =>
-    StockRequestListModel.fromJson(json.decode(str));
+StockRequestListModel stockRequestListModelFromJson(String str) => StockRequestListModel.fromJson(json.decode(str));
 
-String stockRequestListModelToJson(StockRequestListModel data) =>
-    json.encode(data.toJson());
+String stockRequestListModelToJson(StockRequestListModel data) => json.encode(data.toJson());
 
 class StockRequestListModel {
   String message;
@@ -27,25 +25,23 @@ class StockRequestListModel {
     required this.data,
   });
 
-  factory StockRequestListModel.fromJson(Map<String, dynamic> json) =>
-      StockRequestListModel(
-        message: json["Message"],
-        messageCode: json["MessageCode"],
-        status: json["Status"],
-        totalRecord: json["TotalRecord"],
-        recordPageCount: json["RecordPageCount"],
-        data: List<RequestList>.from(
-            json["Data"].map((x) => RequestList.fromJson(x))),
-      );
+  factory StockRequestListModel.fromJson(Map<String, dynamic> json) => StockRequestListModel(
+    message: json["Message"],
+    messageCode: json["MessageCode"],
+    status: json["Status"],
+    totalRecord: json["TotalRecord"],
+    recordPageCount: json["RecordPageCount"],
+    data: List<RequestList>.from(json["Data"].map((x) => RequestList.fromJson(x))),
+  );
 
   Map<String, dynamic> toJson() => {
-        "Message": message,
-        "MessageCode": messageCode,
-        "Status": status,
-        "TotalRecord": totalRecord,
-        "RecordPageCount": recordPageCount,
-        "Data": List<dynamic>.from(data.map((x) => x.toJson())),
-      };
+    "Message": message,
+    "MessageCode": messageCode,
+    "Status": status,
+    "TotalRecord": totalRecord,
+    "RecordPageCount": recordPageCount,
+    "Data": List<dynamic>.from(data.map((x) => x.toJson())),
+  };
 }
 
 class RequestList {
@@ -55,8 +51,8 @@ class RequestList {
   int request;
   int quantity;
   double price;
-  // String productImage;
   String unit;
+  String productImage;
 
   RequestList({
     required this.productId,
@@ -65,29 +61,29 @@ class RequestList {
     required this.request,
     required this.quantity,
     required this.price,
-    // required this.productImage,
     required this.unit,
+    required this.productImage,
   });
 
   factory RequestList.fromJson(Map<String, dynamic> json) => RequestList(
-        productId: json["ProductId"],
-        productName: json["ProductName"],
-        description: json["Description"],
-        request: json["Request"],
-        quantity: json["Quantity"],
-        price: json["Price"],
-        // productImage: json["ProductImage"],
-        unit: json["Unit"],
-      );
+    productId: json["ProductId"],
+    productName: json["ProductName"],
+    description: json["Description"],
+    request: json["Request"],
+    quantity: json["Quantity"],
+    price: json["Price"],
+    unit: json["Unit"],
+    productImage: json["ProductImage"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "ProductId": productId,
-        "ProductName": productName,
-        "Description": description,
-        "Request": request,
-        "Quantity": quantity,
-        "Price": price,
-        // "ProductImage": productImage,
-        "Unit": unit,
-      };
+    "ProductId": productId,
+    "ProductName": productName,
+    "Description": description,
+    "Request": request,
+    "Quantity": quantity,
+    "Price": price,
+    "Unit": unit,
+    "ProductImage": productImage,
+  };
 }

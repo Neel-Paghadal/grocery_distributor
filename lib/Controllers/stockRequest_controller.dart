@@ -33,6 +33,8 @@ class StockRequestController extends GetxController {
 
       if (messageCode == 200) {
         if (responseData.data.isNotEmpty) {
+          // responseData.data.sort((a, b) => DateTime.parse(a.rowNo.toString())
+          //         .compareTo(DateTime.parse(a.rowNo.toString())));
           isNoRequest.value = true;
           stockRequestList.addAll(responseData.data);
         } else {

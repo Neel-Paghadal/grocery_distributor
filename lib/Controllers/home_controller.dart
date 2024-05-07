@@ -129,7 +129,6 @@ class HomeController extends GetxController {
   }
 
 
-
 Future<void> getProductFilterApiCall(int orderType,String toDate,String fromDate,String type) async {
     String? distributorId = await ConstPreferences().getDistributorId("DistributorId");
     debugPrint(distributorId);

@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Common/utils.dart';
 import '../ConstFile/constApi.dart';
+import '../ConstFile/constPreferences.dart';
 
 
 class WalletController extends GetxController{
@@ -14,6 +15,8 @@ class WalletController extends GetxController{
   TextEditingController cardNumberController = TextEditingController();
   TextEditingController expiryController = TextEditingController();
   TextEditingController cvvController = TextEditingController();
+  TextEditingController amountController = TextEditingController();
+  TextEditingController remarkController = TextEditingController();
   RxDouble totalWalletAmount = 0.0.obs;
   RxBool isShowWallet = false.obs;
 
@@ -43,4 +46,30 @@ class WalletController extends GetxController{
     }else{}
   }
 
+  Future<void> WithdrawalApi(String amount, String remark) async {
+    String? distributorId = await ConstPreferences().getDistributorId("DistributorId");
+    final response = await http.post(Uri.parse(ConstApi.distributorWithdrawal),
+        body: {
+          "DistibutorId": distributorId,
+          "Amount": amount,
+          "DistributorRemark": remark
+        });
+    var data = response.body;
+    debugPrint(data.toString());
+
+    if (response.statusCode == 200) {
+      Map<dynamic, dynamic> jsonResponse = json.decode(data);
+      debugPrint(jsonResponse.toString());
+      int messageCode = jsonResponse['MessageCode'];
+      debugPrint(messageCode.toString());
+
+      if (messageCode == 200) {
+        Utils().snackBar("Successfully", "With Draw successfully.");
+        debugPrint("With Draw Successfully");
+      } else {
+        Utils().snackBar("Failed", "Something went wrong.");
+        debugPrint("Error");
+      }
+    } else {}
+  }
 }

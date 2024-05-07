@@ -203,7 +203,8 @@ class _SearchScreenState extends State<SearchScreen> {
                 SizedBox(
                   height: deviceHeight * 0.38,
                   child: Obx(
-                        () => orderGenrate.orderPriceList.isEmpty ? Loaders(
+                        () => orderGenrate.orderPriceList.isEmpty
+                            ? Loaders(
                       items: 5,
                       direction: LoaderDirection.ltr,
                       builder: Padding(
@@ -241,7 +242,8 @@ class _SearchScreenState extends State<SearchScreen> {
                           ],
                         ),
                       ),
-                    ) :  ListView.builder(
+                    )
+                            :  ListView.builder(
                       controller: ScrollController(),
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
@@ -259,7 +261,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             child: ListTile(
                               onTap: () {
                                 Get.back();
-                                orderGenrate.showDialogs(context, productId, orderGenrate.orderPriceList[index].priceId.toString(),);
+                                orderGenrate.showDialogs(context, productId, orderGenrate.orderPriceList[index].priceId.toString(),index);
                               },
                               trailing: const Icon(Icons.add_shopping_cart,color: ConstColour.primaryColor),
                               dense: false,
@@ -281,14 +283,27 @@ class _SearchScreenState extends State<SearchScreen> {
                                       .toString(),
                                 ),
                               ),
-                              title: Text(
-                                  orderGenrate.orderPriceList[index].priceDetails,
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontFamily: ConstFont.popinsMedium,
-                                    fontSize: 16,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,maxLines: 2),
+                              title: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("₹ ${orderGenrate.orderPriceList[index].price.toString()}",
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontFamily: ConstFont.popinsMedium,
+                                        fontSize: 16,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2),
+                                  Text(orderGenrate.orderPriceList[index].unit.toString(),
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontFamily: ConstFont.popinsMedium,
+                                        fontSize: 16,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2),
+                                ],
+                              ),
                               subtitle: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment: MainAxisAlignment.start,
