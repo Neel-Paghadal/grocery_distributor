@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:grocery_distributor/Controllers/stockRequest_controller.dart';
+import 'package:grocery_distributor/api_services/all_services.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 import '../ConstFile/constColor.dart';
 import '../ConstFile/constFonts.dart';
+import '../Controllers/orderGenrate_controller.dart';
 import 'loader.dart';
 
 class StockRequestScreen extends StatefulWidget {
@@ -17,8 +19,9 @@ class StockRequestScreen extends StatefulWidget {
 }
 
 class _StockRequestScreenState extends State<StockRequestScreen> {
-  StockRequestController stockRequestController =
-      Get.put(StockRequestController());
+  StockRequestController stockRequestController = Get.put(StockRequestController());
+  OrderGenrateController orderGenrateController = Get.put(OrderGenrateController());
+
   @override
   void initState() {
     // TODO: implement initState
@@ -160,29 +163,35 @@ class _StockRequestScreenState extends State<StockRequestScreen> {
                                 ),
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 2),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            subtitle: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(stockRequestController.stockRequestList[index].unit.toString(),
-                                  style: TextStyle(
-                                    color: Colors.grey[700]
-                                ),),
-                                Text("Qty : ${stockRequestController.stockRequestList[index].quantity.toString()}",
-                                  style: TextStyle(
-                                    color: Colors.grey[700]
-                                ),),
-                                Row(
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text("MRP : ",
+                                    Text(homeController.removeDecimalValue(stockRequestController.stockRequestList[index].unit.toString()),
                                       style: TextStyle(
                                         color: Colors.grey[700]
                                     ),),
-                                    Text("₹ ${stockRequestController.stockRequestList[index].price.toString()}",
+                                    Text("Qty : ${stockRequestController.stockRequestList[index].quantity.toString()}",
+                                      style: TextStyle(
+                                        color: Colors.grey[700]
+                                    ),),
+                                    Text("₹ ${homeController.formatPrice(stockRequestController.stockRequestList[index].price)}",
                                       style: const TextStyle(
                                         fontSize: 15
-                                    ),),
+                                    ),)
                                   ],
-                                )
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(right: deviceWidth * 0.05),
+                                  child: Text("Total: ₹${stockRequestController.calculateTotalAmount(
+                                      int.tryParse(stockRequestController.stockRequestList[index].quantity.toString()) ?? 0,
+                                      stockRequestController.stockRequestList[index].price).toString()}",
+                                    style: TextStyle(
+                                        color: Colors.grey[700]
+                                    ),),
+                                ),
                               ],
                             ),
                           ),

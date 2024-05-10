@@ -11,12 +11,15 @@ class StockRequestController extends GetxController {
   int? messageCode;
   RxBool isNoRequest = true.obs;
 
+  String calculateTotalAmount(int quantity, double price) {
+    return (quantity * price).toStringAsFixed(0);
+  }
+
   void fetchStockRequest() async {
     stockRequestList.clear();
     String? distributorId =
         await ConstPreferences().getDistributorId("DistributorId");
-    final response =
-        await http.post(Uri.parse(ConstApi.stockRequestListApi), body: {
+    final response = await http.post(Uri.parse(ConstApi.stockRequestListApi), body: {
       "PageIndex": "0",
       "PageSize": "10",
       "Keyword": "",

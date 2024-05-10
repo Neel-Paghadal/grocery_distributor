@@ -6,6 +6,7 @@ import 'package:grocery_distributor/ConstFile/constColor.dart';
 import 'package:grocery_distributor/ConstFile/constFonts.dart';
 import 'package:grocery_distributor/Controllers/orderGenrate_controller.dart';
 import 'package:grocery_distributor/Screens/loader.dart';
+import 'package:grocery_distributor/api_services/all_services.dart';
 
 import '../Controllers/searchScreen_controllers.dart';
 
@@ -285,7 +286,7 @@ class _GodownSearchScreenState extends State<GodownSearchScreen> {
                                 ),
                               ),
                               title: Text(
-                                  orderGenrate.orderPriceList[index].price.toString(),
+                                  homeController.formatPrice(orderGenrate.orderPriceList[index].price),
                                   style: const TextStyle(
                                     color: Colors.black,
                                     fontFamily: ConstFont.popinsMedium,
@@ -311,7 +312,6 @@ class _GodownSearchScreenState extends State<GodownSearchScreen> {
                                       fontSize: 15,
                                     ),
                                     overflow: TextOverflow.ellipsis,
-
                                   ),
                                 ],
                               ),

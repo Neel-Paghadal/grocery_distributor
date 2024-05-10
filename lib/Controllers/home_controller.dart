@@ -47,6 +47,24 @@ class HomeController extends GetxController {
     debugPrint("*****************"+distributorImage.toString());
   }
 
+  String formatPrice(double price) {
+    if (price % 1 == 0) {
+      return price.toStringAsFixed(0);
+    } else {
+      return price.toStringAsFixed(2);
+    }
+  }
+
+
+  String removeDecimalValue(String input) {
+    List<String> parts = input.split(", ");
+    for (int i = 0; i < parts.length; i++) {
+      if (parts[i].contains(".")) {
+        parts[i] = parts[i].split(".")[0] + " " + parts[i].split(" ")[1];
+      }
+    }
+    return parts.join(", ");
+  }
 
 
   Future<void> LiveOrderApiCall() async {

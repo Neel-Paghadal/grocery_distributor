@@ -93,8 +93,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("₹ ${homeController.assignOrderList[widget.productIndex].totalAmount.toString()}",style: TextStyle(fontSize: 16,color: Colors.black,fontFamily: ConstFont.popinsRegular),maxLines: 1,overflow: TextOverflow.ellipsis),
-                        Text( homeController.assignOrderList[widget.productIndex].unitType,style: TextStyle(fontSize: 16,color: Colors.black,fontFamily: ConstFont.popinsRegular),maxLines: 1,overflow: TextOverflow.ellipsis),
+                        Text("₹ ${homeController.formatPrice(homeController.assignOrderList[widget.productIndex].totalAmount)}",
+                            style: TextStyle(fontSize: 16,color: Colors.black,fontFamily: ConstFont.popinsRegular),maxLines: 1,overflow: TextOverflow.ellipsis),
+                        Text(homeController.removeDecimalValue(homeController.assignOrderList[widget.productIndex].unitType),
+                            style: TextStyle(fontSize: 16,color: Colors.black,fontFamily: ConstFont.popinsRegular),maxLines: 1,overflow: TextOverflow.ellipsis),
 
                       ],
                     ),

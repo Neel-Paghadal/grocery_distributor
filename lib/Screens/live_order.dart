@@ -879,7 +879,7 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                                           deviceHeight *
                                                               0.005),
                                                       child: Text(
-                                                        " ${homeController.assignOrderList[index].unitType}",
+                                                        " ${homeController.removeDecimalValue(homeController.assignOrderList[index].unitType)}",
                                                         style: const TextStyle(
                                                             fontSize:
                                                             12,
@@ -900,7 +900,7 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                                               left: deviceWidth *
                                                                   0.01),
                                                           child: Text(
-                                                            "₹ ${homeController.assignOrderList[index].totalAmount}",
+                                                            "₹ ${homeController.formatPrice(homeController.assignOrderList[index].totalAmount)}",
                                                             style: const TextStyle(
                                                                 fontSize:
                                                                 12,

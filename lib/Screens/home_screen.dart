@@ -692,11 +692,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                           0.005),
                                                               child: Text(
                                                                 " " +
-                                                                    homeController
+                                                                    homeController.removeDecimalValue(homeController
                                                                         .assignOrderList[
                                                                             index]
                                                                         .unitType
-                                                                        .toString(),
+                                                                        .toString()),
                                                                 style: const TextStyle(
                                                                     fontSize:
                                                                         12,
@@ -718,10 +718,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                           0.01),
                                                                   child: Text(
                                                                     "₹ " +
-                                                                        homeController
+                                                                        homeController.formatPrice(homeController
                                                                             .assignOrderList[index]
-                                                                            .totalAmount
-                                                                            .toString(),
+                                                                            .totalAmount),
                                                                     style: const TextStyle(
                                                                         fontSize:
                                                                             12,

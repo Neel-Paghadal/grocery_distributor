@@ -25,7 +25,7 @@ class GodownStockController extends GetxController {
     debugPrint("low stock List : $data");
 
     if (response.statusCode == 200) {
-      final responseData = godwonStockModelFromJson(response.body);
+      final responseData = godownStockModelFromJson(response.body);
       debugPrint(responseData.toString());
       messageCode = responseData.messageCode;
       debugPrint("LiveOrder : $messageCode");

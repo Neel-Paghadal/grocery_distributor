@@ -53,6 +53,7 @@ class LowStockList {
   double totalStock;
   double productLowStockSet;
   String unit;
+  double price;
 
   LowStockList({
     required this.productId,
@@ -63,6 +64,7 @@ class LowStockList {
     required this.totalStock,
     required this.productLowStockSet,
     required this.unit,
+    required this.price,
   });
 
   factory LowStockList.fromJson(Map<String, dynamic> json) => LowStockList(
@@ -74,6 +76,7 @@ class LowStockList {
     totalStock: json["TotalStock"],
     productLowStockSet: json["ProductLowStockSet"],
     unit: json["Unit"],
+    price: json["Price"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -85,5 +88,6 @@ class LowStockList {
     "TotalStock": totalStock,
     "ProductLowStockSet": productLowStockSet,
     "Unit": unit,
+    "Price": price,
   };
 }

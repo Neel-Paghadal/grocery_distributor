@@ -5,24 +5,24 @@
 
 import 'dart:convert';
 
-GodwonStockModel godwonStockModelFromJson(String str) => GodwonStockModel.fromJson(json.decode(str));
+GodownStockModel godownStockModelFromJson(String str) => GodownStockModel.fromJson(json.decode(str));
 
-String godwonStockModelToJson(GodwonStockModel data) => json.encode(data.toJson());
+String godownStockModelToJson(GodownStockModel data) => json.encode(data.toJson());
 
-class GodwonStockModel {
+class GodownStockModel {
   String message;
   int messageCode;
   String status;
   List<GodownStockList > data;
 
-  GodwonStockModel({
+  GodownStockModel({
     required this.message,
     required this.messageCode,
     required this.status,
     required this.data,
   });
 
-  factory GodwonStockModel.fromJson(Map<String, dynamic> json) => GodwonStockModel(
+  factory GodownStockModel.fromJson(Map<String, dynamic> json) => GodownStockModel(
     message: json["Message"],
     messageCode: json["MessageCode"],
     status: json["Status"],
@@ -44,6 +44,11 @@ class GodownStockList  {
   double stockIn;
   double stockOut;
   double totalStock;
+  double offerPrice;
+  double price;
+  double unitVal;
+  String unit;
+  double productLowStockSet;
 
   GodownStockList ({
     required this.productId,
@@ -52,6 +57,11 @@ class GodownStockList  {
     required this.stockIn,
     required this.stockOut,
     required this.totalStock,
+    required this.offerPrice,
+    required this.price,
+    required this.unitVal,
+    required this.unit,
+    required this.productLowStockSet,
   });
 
   factory GodownStockList .fromJson(Map<String, dynamic> json) => GodownStockList (
@@ -61,6 +71,11 @@ class GodownStockList  {
     stockIn: json["StockIn"],
     stockOut: json["StockOut"],
     totalStock: json["TotalStock"],
+    offerPrice: json["OfferPrice"],
+    price: json["Price"],
+    unitVal: json["UnitVal"],
+    unit: json["Unit"],
+    productLowStockSet: json["ProductLowStockSet"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -70,5 +85,10 @@ class GodownStockList  {
     "StockIn": stockIn,
     "StockOut": stockOut,
     "TotalStock": totalStock,
+    "OfferPrice": offerPrice,
+    "Price": price,
+    "UnitVal": unitVal,
+    "Unit": unit,
+    "ProductLowStockSet": productLowStockSet,
   };
 }

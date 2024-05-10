@@ -8,6 +8,8 @@ import 'package:grocery_distributor/Controllers/userOrderHistory_controller.dart
 import 'package:grocery_distributor/Screens/godown_stock.dart';
 import 'package:grocery_distributor/Screens/loader.dart';
 import 'package:grocery_distributor/Screens/order_details.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+import '../ConstFile/constColor.dart';
 import '../ConstFile/constFonts.dart';
 import '../Controllers/user_list_controller.dart';
 import 'userDetail.dart';
@@ -31,7 +33,10 @@ class _UserPageState extends State<UserPage> {
     // userListController.allUser = widget.fetchData;
   }
 
-
+  // Future<void> _handleRefresh() async {
+  //   debugPrint("ScreenRefresh");
+  //   return await Future.delayed(const Duration(seconds: 1));
+  // }
 
 
   @override
@@ -60,11 +65,11 @@ class _UserPageState extends State<UserPage> {
         ),
       ),
       body: FutureBuilder<dynamic>(
-    future: userListController.UserListApiCall(),
-    builder: (context, snapshot) {
-    if (snapshot.connectionState == ConnectionState.waiting) {
-    // Display shimmer while waiting for data
-    return Loaders(
+          future: userListController.UserListApiCall(),
+          builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+          // Display shimmer while waiting for data
+          return Loaders(
       items: 10,
       direction: LoaderDirection.ltr,
       builder: Padding(
@@ -135,16 +140,16 @@ class _UserPageState extends State<UserPage> {
       ],
         ),
       ),
-    );
-    } else if (snapshot.hasError) {
-    // Handle error
-    return Center(child: Text('Error: ${snapshot.error}',style: TextStyle(color: Colors.black,fontFamily: ConstFont.popinsRegular,fontSize: 18,overflow: TextOverflow.ellipsis,),));
-    } else if (snapshot.hasData && snapshot.data!.isEmpty) {
-    // Display "No data available" message
-    return Center(child: Text('No data available',style: TextStyle(color: Colors.black,fontFamily: ConstFont.popinsRegular,fontSize: 18,overflow: TextOverflow.ellipsis,)));
-    } else if (snapshot.hasData) {
-    // Display the fetched data
-    return  Obx(
+          );
+          } else if (snapshot.hasError) {
+          // Handle error
+          return Center(child: Text('Error: ${snapshot.error}',style: TextStyle(color: Colors.black,fontFamily: ConstFont.popinsRegular,fontSize: 18,overflow: TextOverflow.ellipsis,),));
+          } else if (snapshot.hasData && snapshot.data!.isEmpty) {
+          // Display "No data available" message
+          return Center(child: Text('No data available',style: TextStyle(color: Colors.black,fontFamily: ConstFont.popinsRegular,fontSize: 18,overflow: TextOverflow.ellipsis,)));
+          } else if (snapshot.hasData) {
+          // Display the fetched data
+          return  Obx(
       () =>  ListView.builder(
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
@@ -211,13 +216,13 @@ class _UserPageState extends State<UserPage> {
         );
       })
 
-    );
-    } else {
-    // This is a fallback in case something unexpected happens
-    return Center(child: Text('Unexpected error',style: TextStyle(color: Colors.black,fontFamily: ConstFont.popinsRegular,fontSize: 18,overflow: TextOverflow.ellipsis,)));
-    }
-    },
-    )
+          );
+          } else {
+          // This is a fallback in case something unexpected happens
+          return Center(child: Text('Unexpected error',style: TextStyle(color: Colors.black,fontFamily: ConstFont.popinsRegular,fontSize: 18,overflow: TextOverflow.ellipsis,)));
+          }
+          },
+          )
 
 
     );

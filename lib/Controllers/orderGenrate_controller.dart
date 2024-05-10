@@ -9,6 +9,7 @@ import 'package:grocery_distributor/ConstFile/constFonts.dart';
 import 'package:grocery_distributor/ConstFile/constPreferences.dart';
 import 'package:grocery_distributor/Model/orderGenrate_model.dart';
 import 'package:grocery_distributor/Model/stockRequest_model.dart';
+import 'package:grocery_distributor/api_services/all_services.dart';
 import 'package:http/http.dart' as http;
 
 import '../ConstFile/constColor.dart';
@@ -32,7 +33,7 @@ class OrderGenrateController extends GetxController {
   }
 
   String calculateTotalAmount(int quantity, double price) {
-    return (quantity * price).toStringAsFixed(1);
+    return (quantity * price).toStringAsFixed(0);
   }
 
   void showDialogs(
@@ -44,7 +45,7 @@ class OrderGenrateController extends GetxController {
     var deviceHeight = MediaQuery.of(context).size.height;
     var deviceWidth = MediaQuery.of(context).size.width;
     quntityController.clear();
-    totalAmount.value = '0.0';
+    totalAmount.value = '0';
     showDialog(
       useSafeArea: true,
       barrierDismissible: true,
@@ -135,7 +136,7 @@ class OrderGenrateController extends GetxController {
                               overflow: TextOverflow.ellipsis),
                         ),
                         Text(
-                          "₹ ${orderPriceList[index].price.toString()}",
+                          "₹ ${homeController.formatPrice(orderPriceList[index].price)}",
                           style: TextStyle(
                               fontSize: 15,
                               color: Colors.black,
@@ -161,7 +162,7 @@ class OrderGenrateController extends GetxController {
                               overflow: TextOverflow.ellipsis),
                         ),
                         Text(
-                          orderPriceList[index].unit.toString(),
+                          homeController.removeDecimalValue(orderPriceList[index].unit.toString()),
                           style: TextStyle(
                               fontSize: 15,
                               color: Colors.black,

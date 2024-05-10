@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:grocery_distributor/Screens/wallet/wallet_payment_screen.dart';
+import 'package:grocery_distributor/api_services/all_services.dart';
 import '../../Common/utils.dart';
 import '../../ConstFile/constColor.dart';
 import '../../ConstFile/constFonts.dart';
@@ -79,7 +80,7 @@ class _WalletScreenState extends State<WalletScreen> {
                             children: [
                               Text(
                                 "₹ " +
-                                    "${walletController.totalWalletAmount.value == 0.0 ? "0.0" : walletController.totalWalletAmount.value.toString()}",
+                                    "${homeController.formatPrice(walletController.totalWalletAmount.value == 0.0 ? 0.0 : walletController.totalWalletAmount.value)}",
                                 style: const TextStyle(
                                     fontFamily: ConstFont.popinsMedium,
                                     fontSize: 20,

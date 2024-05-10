@@ -6,6 +6,7 @@ import 'package:grocery_distributor/ConstFile/constColor.dart';
 import 'package:grocery_distributor/ConstFile/constFonts.dart';
 import 'package:grocery_distributor/Controllers/orderGenrate_controller.dart';
 import 'package:grocery_distributor/Screens/loader.dart';
+import 'package:grocery_distributor/api_services/all_services.dart';
 
 import '../Controllers/searchScreen_controllers.dart';
 
@@ -286,7 +287,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               title: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("₹ ${orderGenrate.orderPriceList[index].price.toString()}",
+                                  Text("₹ ${homeController.formatPrice(orderGenrate.orderPriceList[index].price)}",
                                       style: const TextStyle(
                                         color: Colors.black,
                                         fontFamily: ConstFont.popinsMedium,
@@ -294,7 +295,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                       ),
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 2),
-                                  Text(orderGenrate.orderPriceList[index].unit.toString(),
+                                  Text(homeController.removeDecimalValue(orderGenrate.orderPriceList[index].unit.toString()),
                                       style: const TextStyle(
                                         color: Colors.black,
                                         fontFamily: ConstFont.popinsMedium,
@@ -316,7 +317,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                       fontSize: 15,
                                     ),
                                   ) , Text(
-                                    orderGenrate.orderPriceList[index].quantity.toString(),
+                                    homeController.formatPrice(orderGenrate.orderPriceList[index].quantity),
                                     style: const TextStyle(
                                       color: Colors.black,
                                       fontFamily: ConstFont.popinsRegular,
