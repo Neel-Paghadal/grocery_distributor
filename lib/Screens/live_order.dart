@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:grocery_distributor/Common/utils.dart';
 import 'package:intl/intl.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import '../ConstFile/constColor.dart';
@@ -20,8 +21,6 @@ class LiveorderPage extends StatefulWidget {
 }
 
 class _LiveorderPageState extends State<LiveorderPage> {
-
-
   int? selectedValueIndex = 0;
   DateTime _selectedDate = DateTime.now();
   DateTime selectedDate = DateTime.now();
@@ -33,9 +32,14 @@ class _LiveorderPageState extends State<LiveorderPage> {
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now();
 
-  var startdate = DateTime.now().add(Duration(hours: -TimeOfDay.now().hour, minutes: -TimeOfDay.now().minute)).millisecondsSinceEpoch.obs;
+  var startdate = DateTime.now()
+      .add(Duration(
+          hours: -TimeOfDay.now().hour, minutes: -TimeOfDay.now().minute))
+      .millisecondsSinceEpoch
+      .obs;
   DateTime now = DateTime.now();
-  var enddate = DateTime.now().add(const Duration(hours: 1)).millisecondsSinceEpoch.obs;
+  var enddate =
+      DateTime.now().add(const Duration(hours: 1)).millisecondsSinceEpoch.obs;
 
   HomeController homeController = Get.put(HomeController());
   final _random = Random();
@@ -48,423 +52,417 @@ class _LiveorderPageState extends State<LiveorderPage> {
     super.initState();
     homeController.orderType = 1;
     status = 0;
-    enddate = DateTime.now().add(const Duration(hours: 1)).millisecondsSinceEpoch.obs;
-    startdate = DateTime.now().add(Duration(hours: -TimeOfDay.now().hour, minutes: -TimeOfDay.now().minute)).millisecondsSinceEpoch.obs;
+    enddate =
+        DateTime.now().add(const Duration(hours: 1)).millisecondsSinceEpoch.obs;
+    startdate = DateTime.now()
+        .add(Duration(
+            hours: -TimeOfDay.now().hour, minutes: -TimeOfDay.now().minute))
+        .millisecondsSinceEpoch
+        .obs;
     homeController.isFilterApplyed = false.obs;
   }
 
-
   int status = 0;
 
-    void _showDialog(context) {
-    var deviceHeight = MediaQuery
-        .of(context)
-        .size
-        .height;
-    var deviceWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
+  void _showDialog(context) {
+    status = 0;
+    var deviceHeight = MediaQuery.of(context).size.height;
+    var deviceWidth = MediaQuery.of(context).size.width;
 
     showDialog(
       useSafeArea: true,
       barrierDismissible: true,
       context: context,
-      builder: (context) =>
-          StatefulBuilder(
-            builder: (context, setState) =>
-                Dialog(
-                    child: Column(
+      builder: (context) => StatefulBuilder(
+        builder: (context, setState) => Dialog(
+            child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text("   Select Filter",
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.black,
+                        fontFamily: ConstFont.popinsMedium)),
+                IconButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    icon: const Icon(
+                      Icons.cancel,
+                      color: Colors.black,
+                      size: 24,
+                    ))
+              ],
+            ),
+            Divider(height: deviceHeight * 0.01, color: Colors.grey.shade200),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: deviceWidth * 0.05, right: deviceWidth * 0.12),
+                  child: Text(
+                    "From Date :     ",
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontFamily: ConstFont.popinsMedium,
+                        overflow: TextOverflow.ellipsis),
+                  ),
+                ),
+                Text(
+                  "To Date :     ",
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontFamily: ConstFont.popinsMedium,
+                      overflow: TextOverflow.ellipsis),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Card(
+                  color: ConstColour.cardBgColor,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      right: deviceWidth * 0.02,
+                    ),
+                    child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Row(
-
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text("   Select Filter", style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.black,
-                                fontFamily: ConstFont.popinsMedium)),
-                            IconButton(onPressed: () {
-                              Get.back();
+                        IconButton(
+                            onPressed: () async {
+                              final DateTime? pickedDate = await showDatePicker(
+                                context: Get.context!,
+                                initialDate: _startDate,
+                                firstDate: DateTime(2000),
+                                lastDate: DateTime(2050),
+                                builder: (context, child) {
+                                  return Theme(
+                                    data: Theme.of(context).copyWith(
+                                      colorScheme: const ColorScheme.light(
+                                        primary: ConstColour.primaryColor,
+                                        // header background color
+                                        onPrimary: Colors.black,
+                                        // header text color
+                                        onSurface:
+                                            Colors.black, // body text color
+                                      ),
+                                      // textButtonTheme: TextButtonThemeData(
+                                      //   style: TextButton.styleFrom(
+                                      //     foregroundColor: Colors.red, // button text color
+                                      //   ),
+                                      // ),
+                                    ),
+                                    child: child!,
+                                  );
+                                },
+                              );
+                              if (pickedDate != null) {
+                                startdate.value =
+                                    pickedDate.millisecondsSinceEpoch;
+                                setState(() {
+                                  _startDate = pickedDate;
+                                  endDate = startDate;
+                                });
+                              }
+                              debugPrint(
+                                  DateFormat('yyyy-MM-dd').format(_startDate));
+                              debugPrint("millisecond$startDate");
                             },
-                                icon: const Icon(
-                                  Icons.cancel, color: Colors.black, size: 24,))
-                          ],
-                        ),
-                        Divider(height: deviceHeight * 0.01,
-                            color: Colors.grey.shade200),
-
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: deviceWidth * 0.05,
-                                  right: deviceWidth * 0.12),
-                              child: Text(
-                                "From Date :     ",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontFamily: ConstFont.popinsMedium,
-                                    overflow: TextOverflow.ellipsis),
-                              ),
-                            ),
-                            Text(
-                              "To Date :     ",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: ConstFont.popinsMedium,
-                                  overflow: TextOverflow.ellipsis),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-
-                            Card(
-                              color: ConstColour.cardBgColor,
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                  right: deviceWidth * 0.02,),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-
-                                  children: [
-
-                                    IconButton(
-                                        onPressed: () async {
-                                          final DateTime? pickedDate = await showDatePicker(
-                                            context: Get.context!,
-                                            initialDate: _startDate,
-                                            firstDate: DateTime(2000),
-                                            lastDate: DateTime(2050),
-                                            builder: (context, child) {
-                                              return Theme(
-                                                data: Theme.of(context)
-                                                    .copyWith(
-                                                  colorScheme: const ColorScheme
-                                                      .light(
-                                                    primary: ConstColour
-                                                        .primaryColor,
-                                                    // header background color
-                                                    onPrimary: Colors.black,
-                                                    // header text color
-                                                    onSurface: Colors
-                                                        .black, // body text color
-                                                  ),
-                                                  // textButtonTheme: TextButtonThemeData(
-                                                  //   style: TextButton.styleFrom(
-                                                  //     foregroundColor: Colors.red, // button text color
-                                                  //   ),
-                                                  // ),
-                                                ),
-                                                child: child!,
-                                              );
-                                            },
-                                          );
-                                          if (pickedDate != null) {
-                                            startdate.value = pickedDate
-                                                .millisecondsSinceEpoch;
-                                            setState(() {
-                                              _startDate = pickedDate;
-                                              endDate = startDate;
-                                            });
-                                          }
-                                          debugPrint(
-                                              DateFormat('yyyy-MM-dd').format(
-                                                  _startDate));
-                                          debugPrint("millisecond$startDate");
-                                        },
-                                        icon: const Icon(
-                                            Icons.calendar_month_rounded)),
-                                    Text(DateFormat('dd-MM-yyyy').format(
-                                        DateTime.fromMillisecondsSinceEpoch(
-                                            startdate.value))),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Card(
-                              color: ConstColour.cardBgColor,
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                  right: deviceWidth * 0.02,),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-
-                                    IconButton(
-                                        onPressed: () async {
-                                          final DateTime? pickedDate = await showDatePicker(
-                                            context: Get.context!,
-                                            initialDate: _endDate,
-                                            firstDate: DateTime(2000),
-                                            lastDate: DateTime(2050),
-                                            builder: (context, child) {
-                                              return Theme(
-                                                data: Theme.of(context)
-                                                    .copyWith(
-                                                  colorScheme: const ColorScheme
-                                                      .light(
-                                                    primary: ConstColour
-                                                        .primaryColor,
-                                                    // header background color
-                                                    onPrimary: Colors.black,
-                                                    // header text color
-                                                    onSurface: Colors
-                                                        .black, // body text color
-                                                  ),
-                                                  // textButtonTheme: TextButtonThemeData(
-                                                  //   style: TextButton.styleFrom(
-                                                  //     foregroundColor: Colors.red, // button text color
-                                                  //   ),
-                                                  // ),
-                                                ),
-                                                child: child!,
-                                              );
-                                            },
-                                          );
-                                          if (pickedDate != null) {
-                                            enddate.value = pickedDate
-                                                .add(const Duration(
-                                                hours: 23, minutes: 59))
-                                                .millisecondsSinceEpoch;
-                                            setState(() {
-                                              _endDate = pickedDate;
-                                            });
-                                          }
-                                          debugPrint(
-                                              DateFormat('yyyy-MM-dd').format(
-                                                  _endDate));
-                                          debugPrint("millisecond$enddate");
-                                          // getDateFromUser();
-                                        },
-                                        icon: const Icon(
-                                            Icons.calendar_month_rounded)),
-                                    Text(DateFormat('dd-MM-yyyy').format(
-                                        DateTime.fromMillisecondsSinceEpoch(
-                                            enddate.value)))
-                                  ],
-                                ),
-                              ),
-                            ),
-
-                          ],
-                        ),
-                        SizedBox(height: deviceHeight * 0.01,),
-
-                          Padding(
-                            padding: EdgeInsets.only(left: deviceWidth * 0.02,
-                                right: deviceWidth * 0.02),
-                            child: Column(
-                              children: [
-                                RadioListTile(
-                                  dense: true,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(11),
-                                      side: const BorderSide(color: Colors.black)
-                                  ),
-                                  activeColor: ConstColour.primaryColor,
-                                  title: const Text("Accept", style: TextStyle(
-                                      color: Colors.black,
-                                      overflow: TextOverflow.ellipsis,
-                                      fontFamily: ConstFont.popinsRegular,
-                                      fontSize: 14
-                                  ), maxLines: 2, textAlign: TextAlign.center),
-                                  value: 1,
-                                  groupValue: status,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      status = value!.toInt();
-                                    });
-                                  },
-                                ),
-                                SizedBox(height: deviceHeight * 0.01,),
-
-                                RadioListTile(
-                                  dense: true,
-
-                                  activeColor: ConstColour.primaryColor,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(11),
-                                      side: const BorderSide(color: Colors.black)
-                                  ),
-                                  title: const Text("Reject", style: TextStyle(
-                                      color: Colors.black,
-                                      overflow: TextOverflow.ellipsis,
-                                      fontFamily: ConstFont.popinsRegular,
-                                      fontSize: 14
-                                  ),
-                                    maxLines: 2,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  value: 2,
-                                  groupValue: status,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      status = value!.toInt();
-                                    });
-                                  },
-                                ),
-                                SizedBox(height: deviceHeight * 0.01,),
-
-                                RadioListTile(
-                                  dense: true,
-
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(11),
-                                      side: const BorderSide(color: Colors.black)
-                                  ),
-                                  activeColor: ConstColour.primaryColor,
-                                  title: const Text("Delivered", style: TextStyle(
-                                      color: Colors.black,
-                                      overflow: TextOverflow.ellipsis,
-                                      fontFamily: ConstFont.popinsRegular,
-                                      fontSize: 14
-                                  ),
-                                    maxLines: 2,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  value: 3,
-                                  groupValue: status,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      status = value!.toInt();
-                                    });
-                                  },
-                                ),
-                                SizedBox(height: deviceHeight * 0.01,),
-
-                                RadioListTile(
-                                  dense: true,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(11),
-                                      side: const BorderSide(color: Colors.black)
-                                  ),
-                                  activeColor: ConstColour.primaryColor,
-                                  title: const Text(
-                                    "Not Delivered", style: TextStyle(
-                                    color: Colors.black,
-                                    overflow: TextOverflow.ellipsis,
-                                    fontFamily: ConstFont.popinsRegular,
-                                    fontSize: 14,
-                                  ),
-                                    textAlign: TextAlign.center,
-                                    maxLines: 2,
-                                  ),
-                                  value: 4,
-                                  groupValue: status,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      status = value!.toInt();
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-
-                        SizedBox(height: deviceHeight * 0.01,),
-
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: ConstColour.primaryColor,
-                                  maximumSize: Size(
-                                      deviceWidth * 0.4, deviceHeight * 0.055),
-                                  minimumSize: Size(
-                                      deviceWidth * 0.3, deviceHeight * 0.05),
-                                  // backgroundColor: Colors.white
-                                ),
-                                onPressed: () {
-                                  homeController.getProductFilterApiCall(
-                                    status, DateFormat('yyyy-MM-dd').format(
-                                      _endDate), DateFormat('yyyy-MM-dd')
-                                      .format(_startDate), homeController
-                                      .orderType.toString(),);
-                                  homeController.isFilterApplyed = true.obs;
-                                  Get.back();
-                                },
-                                child: const Text(
-                                  "Apply",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      overflow: TextOverflow.ellipsis,
-                                      fontFamily: ConstFont.popinsMedium,
-                                      fontSize: 17
-                                  ),
-                                )),
-                            ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: ConstColour.primaryColor,
-                                  maximumSize:
-                                  Size(deviceWidth * 0.4, deviceHeight * 0.055),
-                                  minimumSize: Size(
-                                      deviceWidth * 0.3, deviceHeight * 0.05),
-                                  // backgroundColor: Colors.white
-                                ),
-                                onPressed: () {
-                                  status = 0;
-                                  enddate = DateTime
-                                      .now()
-                                      .add(const Duration(hours: 1))
-                                      .millisecondsSinceEpoch
-                                      .obs;
-                                  startdate = DateTime
-                                      .now()
-                                      .add(Duration(hours: -TimeOfDay
-                                      .now()
-                                      .hour, minutes: -TimeOfDay
-                                      .now()
-                                      .minute))
-                                      .millisecondsSinceEpoch
-                                      .obs;
-                                  homeController.isFilterApplyed = false.obs;
-                                  // _startDate = DateTime.now();
-                                  // _endDate = DateTime.now();
-                                  setState(() {});
-                                  Get.back();
-                                },
-                                child: const Text(
-                                  "Clear All",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      overflow: TextOverflow.ellipsis,
-                                      fontFamily: ConstFont.popinsMedium,
-                                      fontSize: 17
-                                  ),
-                                ))
-                          ],
-                        ),
-
-                        SizedBox(height: deviceHeight * 0.01,),
-
+                            icon: const Icon(Icons.calendar_month_rounded)),
+                        Text(DateFormat('dd-MM-yyyy').format(
+                            DateTime.fromMillisecondsSinceEpoch(
+                                startdate.value))),
                       ],
+                    ),
+                  ),
+                ),
+                Card(
+                  color: ConstColour.cardBgColor,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      right: deviceWidth * 0.02,
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                            onPressed: () async {
+                              final DateTime? pickedDate = await showDatePicker(
+                                context: Get.context!,
+                                initialDate: _endDate,
+                                firstDate: DateTime(2000),
+                                lastDate: DateTime(2050),
+                                builder: (context, child) {
+                                  return Theme(
+                                    data: Theme.of(context).copyWith(
+                                      colorScheme: const ColorScheme.light(
+                                        primary: ConstColour.primaryColor,
+                                        // header background color
+                                        onPrimary: Colors.black,
+                                        // header text color
+                                        onSurface:
+                                            Colors.black, // body text color
+                                      ),
+                                      // textButtonTheme: TextButtonThemeData(
+                                      //   style: TextButton.styleFrom(
+                                      //     foregroundColor: Colors.red, // button text color
+                                      //   ),
+                                      // ),
+                                    ),
+                                    child: child!,
+                                  );
+                                },
+                              );
+                              if (pickedDate != null) {
+                                enddate.value = pickedDate
+                                    .add(const Duration(hours: 23, minutes: 59))
+                                    .millisecondsSinceEpoch;
+                                setState(() {
+                                  _endDate = pickedDate;
+                                });
+                              }
+                              debugPrint(
+                                  DateFormat('yyyy-MM-dd').format(_endDate));
+                              debugPrint("millisecond$enddate");
+                              // getDateFromUser();
+                            },
+                            icon: const Icon(Icons.calendar_month_rounded)),
+                        Text(DateFormat('dd-MM-yyyy').format(
+                            DateTime.fromMillisecondsSinceEpoch(enddate.value)))
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: deviceHeight * 0.01,
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                  left: deviceWidth * 0.02, right: deviceWidth * 0.02),
+              child: Column(
+                children: [
+                  RadioListTile(
+                    dense: true,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(11),
+                        side: const BorderSide(color: Colors.black)),
+                    activeColor: ConstColour.primaryColor,
+                    title: const Text("Accept",
+                        style: TextStyle(
+                            color: Colors.black,
+                            overflow: TextOverflow.ellipsis,
+                            fontFamily: ConstFont.popinsRegular,
+                            fontSize: 14),
+                        maxLines: 2,
+                        textAlign: TextAlign.center),
+                    value: 1,
+                    groupValue: status,
+                    onChanged: (value) {
+                      setState(() {
+                        status = value!.toInt();
+                      });
+                    },
+                  ),
+                  SizedBox(
+                    height: deviceHeight * 0.01,
+                  ),
+                  RadioListTile(
+                    dense: true,
+                    activeColor: ConstColour.primaryColor,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(11),
+                        side: const BorderSide(color: Colors.black)),
+                    title: const Text(
+                      "Reject",
+                      style: TextStyle(
+                          color: Colors.black,
+                          overflow: TextOverflow.ellipsis,
+                          fontFamily: ConstFont.popinsRegular,
+                          fontSize: 14),
+                      maxLines: 2,
+                      textAlign: TextAlign.center,
+                    ),
+                    value: 2,
+                    groupValue: status,
+                    onChanged: (value) {
+                      setState(() {
+                        status = value!.toInt();
+                      });
+                    },
+                  ),
+                  SizedBox(
+                    height: deviceHeight * 0.01,
+                  ),
+                  RadioListTile(
+                    dense: true,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(11),
+                        side: const BorderSide(color: Colors.black)),
+                    activeColor: ConstColour.primaryColor,
+                    title: const Text(
+                      "Delivered",
+                      style: TextStyle(
+                          color: Colors.black,
+                          overflow: TextOverflow.ellipsis,
+                          fontFamily: ConstFont.popinsRegular,
+                          fontSize: 14),
+                      maxLines: 2,
+                      textAlign: TextAlign.center,
+                    ),
+                    value: 3,
+                    groupValue: status,
+                    onChanged: (value) {
+                      setState(() {
+                        status = value!.toInt();
+                      });
+                    },
+                  ),
+                  SizedBox(
+                    height: deviceHeight * 0.01,
+                  ),
+                  RadioListTile(
+                    dense: true,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(11),
+                        side: const BorderSide(color: Colors.black)),
+                    activeColor: ConstColour.primaryColor,
+                    title: const Text(
+                      "Not Delivered",
+                      style: TextStyle(
+                        color: Colors.black,
+                        overflow: TextOverflow.ellipsis,
+                        fontFamily: ConstFont.popinsRegular,
+                        fontSize: 14,
+                      ),
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                    ),
+                    value: 4,
+                    groupValue: status,
+                    onChanged: (value) {
+                      setState(() {
+                        status = value!.toInt();
+                      });
+                    },
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: deviceHeight * 0.01,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: ConstColour.primaryColor,
+                      maximumSize:
+                          Size(deviceWidth * 0.4, deviceHeight * 0.055),
+                      minimumSize: Size(deviceWidth * 0.3, deviceHeight * 0.05),
+                      // backgroundColor: Colors.white
+                    ),
+                    onPressed: () {
+                      if (status == 0) {
+                        Utils().snackBar("Please select a filter option.", "");
+                      } else {
+                        homeController.getProductFilterApiCall(
+                          status,
+                          DateFormat('yyyy-MM-dd').format(_endDate),
+                          DateFormat('yyyy-MM-dd').format(_startDate),
+                          homeController.orderType.toString(),
+                        );
+                        homeController.isFilterApplyed = true.obs;
+                        Get.back();
+                      }
+                      /*homeController.getProductFilterApiCall(
+                        status,
+                        DateFormat('yyyy-MM-dd').format(_endDate),
+                        DateFormat('yyyy-MM-dd').format(_startDate),
+                        homeController.orderType.toString(),
+                      );
+                      homeController.isFilterApplyed = true.obs;
+                      Get.back();*/
+                    },
+                    child: const Text(
+                      "Apply",
+                      style: TextStyle(
+                          color: Colors.black,
+                          overflow: TextOverflow.ellipsis,
+                          fontFamily: ConstFont.popinsMedium,
+                          fontSize: 17),
                     )),
-          ),
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: ConstColour.primaryColor,
+                      maximumSize:
+                          Size(deviceWidth * 0.4, deviceHeight * 0.055),
+                      minimumSize: Size(deviceWidth * 0.3, deviceHeight * 0.05),
+                      // backgroundColor: Colors.white
+                    ),
+                    onPressed: () {
+                      status = 0;
+                      enddate = DateTime.now()
+                          .add(const Duration(hours: 1))
+                          .millisecondsSinceEpoch
+                          .obs;
+                      startdate = DateTime.now()
+                          .add(Duration(
+                              hours: -TimeOfDay.now().hour,
+                              minutes: -TimeOfDay.now().minute))
+                          .millisecondsSinceEpoch
+                          .obs;
+                      homeController.isFilterApplyed = false.obs;
+                      // _startDate = DateTime.now();
+                      // _endDate = DateTime.now();
+                      setState(() {});
+                      Get.back();
+                    },
+                    child: const Text(
+                      "Clear All",
+                      style: TextStyle(
+                          color: Colors.black,
+                          overflow: TextOverflow.ellipsis,
+                          fontFamily: ConstFont.popinsMedium,
+                          fontSize: 17),
+                    ))
+              ],
+            ),
+            SizedBox(
+              height: deviceHeight * 0.01,
+            ),
+          ],
+        )),
+      ),
     ).whenComplete(() {
-      homeController.AssignOrderApiCall( homeController.orderType.toString(),homeController.distributorId.toString());
+      homeController.AssignOrderApiCall(homeController.orderType.toString(),
+          homeController.distributorId.toString());
       setState(() {});
     });
   }
 
-
-
-
-
-  Future<void> _handleRefresh() async{
-    if(homeController.isFilterApplyed.value == true){
-      homeController.getProductFilterApiCall(status, DateFormat('yyyy-MM-dd').format(_endDate), DateFormat('yyyy-MM-dd').format(_startDate),homeController.orderType.toString(),);
-    }else{
-      homeController.AssignOrderApiCall( homeController.orderType.toString(),homeController.distributorId.toString());
+  Future<void> _handleRefresh() async {
+    if (homeController.isFilterApplyed.value == true) {
+      homeController.getProductFilterApiCall(
+        status,
+        DateFormat('yyyy-MM-dd').format(_endDate),
+        DateFormat('yyyy-MM-dd').format(_startDate),
+        homeController.orderType.toString(),
+      );
+    } else {
+      homeController.AssignOrderApiCall(homeController.orderType.toString(),
+          homeController.distributorId.toString());
     }
     debugPrint("ScreenRefresh");
     return await Future.delayed(Duration(seconds: 1));
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -489,12 +487,14 @@ class _LiveorderPageState extends State<LiveorderPage> {
             () => Tooltip(
               message: "Filter",
               child: IconButton(
-                  onPressed: () async {
-
-                      _showDialog(context);
-
-                  },
-                icon: Icon(homeController.isFilterApplyed.value == true ? Icons.filter_alt_off_rounded : Icons.filter_alt_rounded,color: Colors.black),
+                onPressed: () async {
+                  _showDialog(context);
+                },
+                icon: Icon(
+                    homeController.isFilterApplyed.value == true
+                        ? Icons.filter_alt_off_rounded
+                        : Icons.filter_alt_rounded,
+                    color: Colors.black),
               ),
             ),
           )
@@ -512,7 +512,6 @@ class _LiveorderPageState extends State<LiveorderPage> {
           padding: EdgeInsets.symmetric(horizontal: deviceWidth * 0.02),
           child: Column(
             children: [
-
               Padding(
                 padding: EdgeInsets.only(
                     top: deviceHeight * 0.01, left: deviceWidth * 0.02),
@@ -533,7 +532,7 @@ class _LiveorderPageState extends State<LiveorderPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: SizedBox(
                   height: deviceHeight * 0.03,
-                  width : double.infinity,
+                  width: double.infinity,
                   child: Obx(
                     () => ListView.builder(
                       shrinkWrap: true,
@@ -542,8 +541,8 @@ class _LiveorderPageState extends State<LiveorderPage> {
                       itemCount: homeController.liveOrderList.length,
                       itemBuilder: (context, index) {
                         return Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: deviceWidth * 0.02),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: deviceWidth * 0.02),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
@@ -555,19 +554,27 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                 elevation: 0.5),
                             onPressed: () {
                               setState(() {
-                                homeController.orderType = homeController.liveOrderList[index].id;
+                                homeController.orderType =
+                                    homeController.liveOrderList[index].id;
                                 selectedValueIndex = index;
                                 debugPrint(selectedValueIndex.toString());
-                                if(homeController.isFilterApplyed.value == true){
-                                  homeController.getProductFilterApiCall(status, DateFormat('yyyy-MM-dd').format(_endDate), DateFormat('yyyy-MM-dd').format(_startDate),homeController.orderType.toString(),);
-                                }else{
-                                  homeController.AssignOrderApiCall( homeController.orderType.toString(),homeController.distributorId.toString());
+                                if (homeController.isFilterApplyed.value ==
+                                    true) {
+                                  homeController.getProductFilterApiCall(
+                                    status,
+                                    DateFormat('yyyy-MM-dd').format(_endDate),
+                                    DateFormat('yyyy-MM-dd').format(_startDate),
+                                    homeController.orderType.toString(),
+                                  );
+                                } else {
+                                  homeController.AssignOrderApiCall(
+                                      homeController.orderType.toString(),
+                                      homeController.distributorId.toString());
                                 }
                               });
                             },
                             child: Text(
-                              homeController
-                                  .liveOrderList[index].filterType,
+                              homeController.liveOrderList[index].filterType,
                               style: TextStyle(
                                   fontSize: 10,
                                   color: selectedValueIndex == index
@@ -583,7 +590,6 @@ class _LiveorderPageState extends State<LiveorderPage> {
                 ),
               ),
 
-
               Flexible(
                 child: LiquidPullToRefresh(
                   color: Colors.white,
@@ -593,886 +599,906 @@ class _LiveorderPageState extends State<LiveorderPage> {
                   backgroundColor: ConstColour.primaryColor,
                   springAnimationDurationInMilliseconds: 1,
                   child: Obx(
-                        () => homeController.assignOrderList.isEmpty
-                        ?  (homeController.isListEmplty.value == true) ?
-                        Center(child: Text('No data available',style: TextStyle(color: Colors.black,fontFamily: ConstFont.popinsRegular,fontSize: 18,overflow: TextOverflow.ellipsis,)))
+                    () => homeController.assignOrderList.isEmpty
+                        ? (homeController.isListEmplty.value == true)
+                            ? Center(
+                                child: Text('No data available',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: ConstFont.popinsRegular,
+                                      fontSize: 18,
+                                      overflow: TextOverflow.ellipsis,
+                                    )))
                             : Loaders(
-                      items: 10,
-                      direction: LoaderDirection.ltr,
-                      builder:  Padding(
-                        padding: EdgeInsets.only(
-                            right: deviceWidth * 0.01),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment:
-                          CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              crossAxisAlignment:
-                              CrossAxisAlignment.start,
-                              mainAxisAlignment:
-                              MainAxisAlignment.start,
-                              children: [
-                                Column(
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: deviceWidth * 0.018),
-                                      child: const Icon(
-                                        Icons.image,
-                                        size: 80,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          top: deviceHeight * 0.01,
-                                          left: deviceWidth * 0.02),
-                                      child: Container(
-                                        color: Colors.grey,
-                                        width: deviceWidth * 0.6,
-                                        height: deviceHeight * 0.01,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          top: deviceHeight * 0.02,
-                                          left: deviceWidth * 0.02),
-                                      child: Container(
-                                        color: Colors.grey,
-                                        width: deviceWidth * 0.6,
-                                        height: deviceHeight * 0.01,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          top: deviceHeight * 0.02,
-                                          left: deviceWidth * 0.02,
-                                          bottom:
-                                          deviceHeight * 0.02),
-                                      child: Container(
-                                        color: Colors.grey,
-                                        width: deviceWidth * 0.6,
-                                        height: deviceHeight * 0.01,
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                        : ListView.builder(
-                      controller: ScrollController(),
-                      scrollDirection: Axis.vertical,
-                      itemCount:
-                      homeController.assignOrderList.length,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            Get.to(() => ProductDetailPage(
-                              productIndex: index,
-                            ));
-                            debugPrint(
-                                "productId${homeController.assignOrderList[index].productId}");
-                          },
-                          child: Card(
-                              // color: ConstColour.cardBgColor,
-                              color: Colors.white,
-                              elevation: 5.0,
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                    left: deviceWidth * 0.01,
-                                    bottom: deviceHeight * 0.01,
-                                    right: deviceWidth * 0.01,
-                                    top: deviceHeight * 0.01),
-                                child: Column(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.center,
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                      //mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: StickyColors
-                                                .colors[
-                                            _random.nextInt(15)],
-                                          ),
-                                          height: 60,
-                                          width: 72,
-                                          child: CachedNetworkImage(
-                                            width: deviceWidth * 0.1,
-                                            imageUrl: homeController
-                                                .assignOrderList[index]
-                                                .imageName
-                                                .toString(),
-                                            placeholder: (context, url) => const Icon(Icons.image,size: 45),
-                                            errorWidget: (context, url, error) => const Icon(Icons.error,size: 45),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment
-                                                .start,
+                                items: 10,
+                                direction: LoaderDirection.ltr,
+                                builder: Padding(
+                                  padding: EdgeInsets.only(
+                                      right: deviceWidth * 0.01),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Column(
                                             crossAxisAlignment:
-                                            CrossAxisAlignment
-                                                .start,
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
                                             children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceBetween,
-                                                children: [
-                                                  Padding(
-                                                    padding: EdgeInsets.only(
-                                                        left:
-                                                        deviceWidth *
-                                                            0.02),
-                                                    child: SizedBox(
-                                                      width:
-                                                      deviceWidth *
-                                                          0.45,
-                                                      child: Text(
-                                                        homeController
-                                                            .assignOrderList[
-                                                        index]
-                                                            .productName,
-                                                        overflow:
-                                                        TextOverflow
-                                                            .ellipsis,
-                                                        style: const TextStyle(
-                                                            fontSize:
-                                                            14,
-                                                            fontFamily:
-                                                            ConstFont
-                                                                .popinsRegular,
-                                                            color: Colors
-                                                                .black,
-                                                            fontWeight:
-                                                            FontWeight
-                                                                .bold),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceAround,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                        EdgeInsets
-                                                            .only(
-                                                          left:
-                                                          deviceHeight *
-                                                              0.01,
-                                                        ),
-                                                        child: Row(
-                                                          children: [
-                                                            const Text(
-                                                              "Quantity : ",
-                                                              style:
-                                                              TextStyle(
-                                                                fontSize:
-                                                                12,
-                                                                //fontWeight: FontWeight.bold,
-                                                                fontFamily:
-                                                                ConstFont.popinsRegular,
-                                                                color:
-                                                                Colors.black,
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              homeController
-                                                                  .assignOrderList[index]
-                                                                  .quantity
-                                                                  .toString(),
-                                                              style:
-                                                              const TextStyle(
-                                                                fontSize:
-                                                                12,
-                                                                //fontWeight: FontWeight.bold,
-                                                                fontFamily:
-                                                                ConstFont.popinsMedium,
-                                                                color:
-                                                                Colors.black,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
                                               Padding(
                                                 padding: EdgeInsets.only(
-                                                    left:
-                                                    deviceHeight *
-                                                        0.01),
-                                                child: Row(
-                                                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    Image.asset(
-                                                        "assets/Icons/pin.png",
-                                                        width:
-                                                        deviceWidth *
-                                                            0.04),
-                                                    Expanded(
-                                                      child: Text(
-                                                        " ${homeController.assignOrderList[index].address}",
-                                                        overflow:
-                                                        TextOverflow
-                                                            .ellipsis,
-                                                        maxLines: 2,
-                                                        style: const TextStyle(
-                                                            letterSpacing:
-                                                            1.0,
-                                                            fontSize:
-                                                            10,
-                                                            fontFamily:
-                                                            ConstFont
-                                                                .popinsRegular,
-                                                            color: Colors
-                                                                .black),
-                                                      ),
-                                                    ),
-                                                  ],
+                                                    left: deviceWidth * 0.018),
+                                                child: const Icon(
+                                                  Icons.image,
+                                                  size: 80,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsets.only(
+                                                    top: deviceHeight * 0.01,
+                                                    left: deviceWidth * 0.02),
+                                                child: Container(
+                                                  color: Colors.grey,
+                                                  width: deviceWidth * 0.6,
+                                                  height: deviceHeight * 0.01,
                                                 ),
                                               ),
                                               Padding(
                                                 padding: EdgeInsets.only(
-                                                    left:
-                                                    deviceWidth *
-                                                        0.01,
-                                                    top:
-                                                    deviceHeight *
-                                                        0.005),
+                                                    top: deviceHeight * 0.02,
+                                                    left: deviceWidth * 0.02),
+                                                child: Container(
+                                                  color: Colors.grey,
+                                                  width: deviceWidth * 0.6,
+                                                  height: deviceHeight * 0.01,
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.only(
+                                                    top: deviceHeight * 0.02,
+                                                    left: deviceWidth * 0.02,
+                                                    bottom:
+                                                        deviceHeight * 0.02),
+                                                child: Container(
+                                                  color: Colors.grey,
+                                                  width: deviceWidth * 0.6,
+                                                  height: deviceHeight * 0.01,
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                        : ListView.builder(
+                            controller: ScrollController(),
+                            scrollDirection: Axis.vertical,
+                            itemCount: homeController.assignOrderList.length,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () {
+                                  Get.to(() => ProductDetailPage(
+                                        productIndex: index,
+                                      ));
+                                  debugPrint(
+                                      "productId${homeController.assignOrderList[index].productId}");
+                                },
+                                child: Card(
+                                    // color: ConstColour.cardBgColor,
+                                    color: Colors.white,
+                                    elevation: 5.0,
+                                    child: Padding(
+                                      padding: EdgeInsets.only(
+                                          left: deviceWidth * 0.01,
+                                          bottom: deviceHeight * 0.01,
+                                          right: deviceWidth * 0.01,
+                                          top: deviceHeight * 0.01),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            //mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  color: StickyColors.colors[
+                                                      _random.nextInt(15)],
+                                                ),
+                                                height: 60,
+                                                width: 72,
+                                                child: CachedNetworkImage(
+                                                  width: deviceWidth * 0.1,
+                                                  imageUrl: homeController
+                                                      .assignOrderList[index]
+                                                      .imageName
+                                                      .toString(),
+                                                  placeholder: (context, url) =>
+                                                      const Icon(Icons.image,
+                                                          size: 45),
+                                                  errorWidget: (context, url,
+                                                          error) =>
+                                                      const Icon(Icons.error,
+                                                          size: 45),
+                                                ),
+                                              ),
+                                              Expanded(
                                                 child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment
-                                                      .start,
+                                                      CrossAxisAlignment.start,
                                                   children: [
-                                                    Padding(
-                                                      padding: EdgeInsets.only(
-                                                          bottom:
-                                                          deviceHeight *
-                                                              0.005),
-                                                      child: Text(
-                                                        " ${homeController.removeDecimalValue(homeController.assignOrderList[index].unitType)}",
-                                                        style: const TextStyle(
-                                                            fontSize:
-                                                            12,
-                                                            fontFamily:
-                                                            ConstFont
-                                                                .popinsRegular,
-                                                            color: Colors
-                                                                .black),
-                                                      ),
-                                                    ),
                                                     Row(
                                                       mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
                                                       children: [
                                                         Padding(
                                                           padding: EdgeInsets.only(
-                                                              left: deviceWidth *
-                                                                  0.01),
-                                                          child: Text(
-                                                            "₹ ${homeController.formatPrice(homeController.assignOrderList[index].totalAmount)}",
-                                                            style: const TextStyle(
-                                                                fontSize:
-                                                                12,
-                                                                fontWeight: FontWeight
-                                                                    .w700,
-                                                                fontFamily: ConstFont
-                                                                    .popinsRegular,
-                                                                color:
-                                                                Colors.black),
+                                                              left:
+                                                                  deviceWidth *
+                                                                      0.02),
+                                                          child: SizedBox(
+                                                            width: deviceWidth *
+                                                                0.45,
+                                                            child: Text(
+                                                              homeController
+                                                                  .assignOrderList[
+                                                                      index]
+                                                                  .productName,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              style: const TextStyle(
+                                                                  fontSize: 14,
+                                                                  fontFamily:
+                                                                      ConstFont
+                                                                          .popinsRegular,
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
                                                           ),
                                                         ),
-
-                                                        // change
-
-                                                        homeController
-                                                            .assignOrderList[
-                                                        index]
-                                                            .orderStatus ==
-                                                            0
-                                                            ? Padding(
-                                                          padding:
-                                                          EdgeInsets.only(
-                                                            left:
-                                                            deviceWidth * 0.01,
-                                                          ),
-                                                          child:
-                                                          Row(
-                                                            children: [
-                                                              Padding(
-                                                                padding: EdgeInsets.only(left: deviceWidth * 0.01),
-                                                                child: Container(
-                                                                  height: 25,
-                                                                  width: 90,
-                                                                  decoration: BoxDecoration(
-                                                                    borderRadius: BorderRadius.circular(1),
-                                                                  ),
-                                                                  child: Center(
-                                                                    child: ElevatedButton(
-                                                                      style: ElevatedButton.styleFrom(
-                                                                        backgroundColor: const Color(0xff6AB04C),
-                                                                      ),
-                                                                      onPressed: () {
-                                                                        homeController.assignOrderList[index].orderStatus = 1;
-                                                                        homeController.OrderUpdateApiCall("1", homeController.assignOrderList[index].detailId.toString(), "");
-                                                                        setState(() {});
-                                                                      },
-                                                                      child: Text(
-                                                                        "Accept",
-                                                                        style: TextStyle(
-                                                                          fontFamily: ConstFont.popinsRegular,
-                                                                          color: SelectedValueIndex == 1 ? Colors.black : Colors.white,
-                                                                          //color: Colors.white
-                                                                        ),
-                                                                      ),
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceAround,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .only(
+                                                                left:
+                                                                    deviceHeight *
+                                                                        0.01,
+                                                              ),
+                                                              child: Row(
+                                                                children: [
+                                                                  const Text(
+                                                                    "Quantity : ",
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontSize:
+                                                                          12,
+                                                                      //fontWeight: FontWeight.bold,
+                                                                      fontFamily:
+                                                                          ConstFont
+                                                                              .popinsRegular,
+                                                                      color: Colors
+                                                                          .black,
                                                                     ),
                                                                   ),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets.only(left: deviceWidth * 0.01, right: deviceWidth * 0.01),
-                                                                child: Container(
-                                                                  height: 25,
-                                                                  width: 75,
-                                                                  decoration: BoxDecoration(
-                                                                    borderRadius: BorderRadius.circular(1),
-                                                                  ),
-                                                                  child: Center(
-                                                                    child: ElevatedButton(
-                                                                      style: ElevatedButton.styleFrom(backgroundColor: const Color(0xffF86C6B)),
-                                                                      onPressed: () {},
-                                                                      child: InkWell(
-                                                                        onTap: () async {
-                                                                          homeController.reasonController.clear();
-                                                                          final result = await showDialog(
-                                                                              context: context,
-                                                                              builder: (BuildContextcontext) {
-                                                                                return AlertDialog(
-                                                                                  shape: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
-                                                                                  backgroundColor: Colors.white,
-                                                                                  content: Form(
-                                                                                    key: formkey,
-                                                                                    child: TextFormField(
-                                                                                      controller: homeController.reasonController,
-                                                                                      decoration: InputDecoration(
-                                                                                        fillColor: const Color(0xFF0926C),
-                                                                                        filled: true,
-                                                                                        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: const BorderSide(color: Colors.black)),
-                                                                                        border: OutlineInputBorder(
-                                                                                          borderRadius: BorderRadius.circular(10),
-                                                                                        ),
-                                                                                        enabledBorder: OutlineInputBorder(
-                                                                                          borderRadius: BorderRadius.circular(10),
-                                                                                        ),
-                                                                                        hintStyle: const TextStyle(fontFamily: ConstFont.popinsRegular, fontSize: 15),
-                                                                                        hintText: "Reason for Reject ",
-                                                                                      ),
-                                                                                      validator: (value) {
-                                                                                        if (value!.isEmpty) {
-                                                                                          return "Enter Proper Reason";
-                                                                                        }
-                                                                                        return null;
-                                                                                      },
-                                                                                    ),
-                                                                                  ),
-                                                                                  title: const Text("Enter Your Reason Why Product Not Delivered", style: TextStyle(fontFamily: ConstFont.popinsRegular)),
-                                                                                  actions: [
-                                                                                    Row(
-                                                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                                                      children: [
-                                                                                        ElevatedButton(
-                                                                                          onPressed: () {
-                                                                                            homeController.assignOrderList[index].orderStatus = 2;
-                                                                                            homeController.OrderUpdateApiCall("2", homeController.assignOrderList[index].detailId.toString(), homeController.reasonController.text);
-                                                                                            setState(() {});
-                                                                                            Navigator.pop(context, false);
-                                                                                          },
-                                                                                          style: ElevatedButton.styleFrom(backgroundColor: ConstColour.primaryColor, elevation: 0),
-                                                                                          child: const Text(
-                                                                                            "Submit",
-                                                                                            style: TextStyle(fontSize: 20, color: Colors.white),
-                                                                                          ),
-                                                                                        ),
-                                                                                      ],
-                                                                                    ),
-                                                                                  ],
-                                                                                );
-                                                                              });
-                                                                        },
-                                                                        child: const Text(
-                                                                          "Reject",
-                                                                          style: TextStyle(fontFamily: ConstFont.popinsRegular, color: Colors.white),
-                                                                        ),
-                                                                      ),
+                                                                  Text(
+                                                                    homeController
+                                                                        .assignOrderList[
+                                                                            index]
+                                                                        .quantity
+                                                                        .toString(),
+                                                                    style:
+                                                                        const TextStyle(
+                                                                      fontSize:
+                                                                          12,
+                                                                      //fontWeight: FontWeight.bold,
+                                                                      fontFamily:
+                                                                          ConstFont
+                                                                              .popinsMedium,
+                                                                      color: Colors
+                                                                          .black,
                                                                     ),
                                                                   ),
-                                                                ),
+                                                                ],
                                                               ),
-                                                            ],
-                                                          ),
-                                                        )
-                                                            : (homeController.assignOrderList[index].orderStatus != 3 &&
-                                                            homeController.assignOrderList[index].orderStatus != 4)
-                                                            ? Padding(
-                                                          padding: EdgeInsets.only(
-                                                            left: deviceWidth * 0.01,
-                                                          ),
-                                                          child: Row(
-                                                            children: [
-                                                              Padding(
-                                                                padding: EdgeInsets.only(left: deviceWidth * 0.01, right: deviceWidth * 0.01),
-                                                                child: Container(
-                                                                  height: 25,
-                                                                  width: deviceWidth * 0.21,
-                                                                  decoration: BoxDecoration(
-                                                                    borderRadius: BorderRadius.circular(1),
-                                                                  ),
-                                                                  child: Center(
-                                                                    child: ElevatedButton(
-                                                                      style: ElevatedButton.styleFrom(
-                                                                        backgroundColor: const Color(0xff6AB04C),
-                                                                      ),
-                                                                      onPressed: () {
-                                                                        homeController.assignOrderList[index].orderStatus = 3;
-                                                                        homeController.OrderUpdateApiCall("3", homeController.assignOrderList[index].detailId.toString(), "");
-                                                                        setState(() {});
-                                                                        debugPrint("Delivered ");
-                                                                      },
-                                                                      child: Text(
-                                                                        "Delivered",
-                                                                        style: TextStyle(
-                                                                          fontFamily: ConstFont.popinsRegular,
-                                                                          fontSize: 9,
-                                                                          color: SelectedValueIndex == 1 ? Colors.black : Colors.white,
-                                                                          //color: Colors.white
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Container(
-                                                                height: deviceHeight * 0.035,
-                                                                width: deviceWidth * 0.26,
-                                                                decoration: BoxDecoration(
-                                                                  borderRadius: BorderRadius.circular(1),
-                                                                ),
-                                                                child: Center(
-                                                                  child: ElevatedButton(
-                                                                    style: ElevatedButton.styleFrom(
-                                                                      // primary: const Color(0xffF86C6B)
-                                                                        maximumSize: Size(deviceWidth * 0.25, deviceHeight * 0.035),
-                                                                        minimumSize: Size(deviceWidth * 0.2, deviceHeight * 0.03),
-                                                                        backgroundColor: Colors.white),
-                                                                    onPressed: () {},
-                                                                    child: InkWell(
-                                                                      onTap: () async {
-                                                                        homeController.reasonController.clear();
-                                                                        final result = await showDialog(
-                                                                            context: context,
-                                                                            builder: (BuildContext context) {
-                                                                              return AlertDialog(
-                                                                                shape: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
-                                                                                backgroundColor: Colors.white,
-                                                                                content: Form(
-                                                                                  key: formkey,
-                                                                                  child: TextFormField(
-                                                                                    controller: homeController.reasonController,
-                                                                                    decoration: InputDecoration(
-                                                                                      fillColor: const Color(0xFF0926C),
-                                                                                      filled: true,
-                                                                                      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: const BorderSide(color: Colors.black)),
-                                                                                      border: OutlineInputBorder(
-                                                                                        borderRadius: BorderRadius.circular(10),
-                                                                                      ),
-                                                                                      enabledBorder: OutlineInputBorder(
-                                                                                        borderRadius: BorderRadius.circular(10),
-                                                                                      ),
-                                                                                      hintStyle: const TextStyle(fontFamily: ConstFont.popinsRegular, fontSize: 15),
-                                                                                      hintText: "Reason for Not Deliver",
-                                                                                    ),
-                                                                                    validator: (value) {
-                                                                                      if (value!.isEmpty) {
-                                                                                        return "Why Not Deliver";
-                                                                                      }
-                                                                                      return null;
-                                                                                    },
-                                                                                  ),
-                                                                                ),
-                                                                                title: const Text("Enter Your Reason Why Product Not Delivered", style: TextStyle(fontFamily: ConstFont.popinsRegular)),
-                                                                                actions: [
-                                                                                  Row(
-                                                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                                                    children: [
-                                                                                      ElevatedButton(
-                                                                                        onPressed: () {
-                                                                                          if (formkey.currentState!.validate()) {
-                                                                                            homeController.assignOrderList[index].orderStatus = 4;
-                                                                                            homeController.OrderUpdateApiCall("4", homeController.assignOrderList[index].detailId.toString(), homeController.reasonController.text);
-                                                                                            setState(() {});
-                                                                                            Navigator.pop(context, false);
-                                                                                          }
-                                                                                        },
-                                                                                        style: ElevatedButton.styleFrom(
-                                                                                          backgroundColor: ConstColour.primaryColor,
-                                                                                        ),
-                                                                                        child: const Text(
-                                                                                          "Submit",
-                                                                                          style: TextStyle(fontSize: 20, color: Colors.white),
-                                                                                        ),
-                                                                                      ),
-                                                                                    ],
-                                                                                  ),
-                                                                                ],
-                                                                              );
-                                                                            });
-                                                                      },
-                                                                      child: const Text(
-                                                                        "Not Delivered",
-                                                                        style: TextStyle(
-                                                                          fontFamily: ConstFont.popinsMedium,
-                                                                          color: Colors.red,
-                                                                          fontSize: 9,
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        )
-                                                            : Text(
-                                                          (homeController.assignOrderList[index].orderStatus == 3) ? "Delivered" : "Not Delivered",
-                                                          style: TextStyle(
-                                                            color: (homeController.assignOrderList[index].orderStatus == 2 || homeController.assignOrderList[index].orderStatus == 4) ? Colors.red : Colors.green,
-                                                            fontSize: 12,
-                                                          ),
+                                                            )
+                                                          ],
                                                         ),
                                                       ],
                                                     ),
-                                                    // Row(
-                                                    //   mainAxisAlignment:
-                                                    //       MainAxisAlignment
-                                                    //           .spaceBetween,
-                                                    //   children: [
-                                                    //     Padding(
-                                                    //       padding: EdgeInsets.only(
-                                                    //           left: deviceWidth *
-                                                    //               0.01),
-                                                    //       child: Text(
-                                                    //         homeController
-                                                    //             .assignOrderList[
-                                                    //                 index]
-                                                    //             .totalAmount
-                                                    //             .toString(),
-                                                    //         style: const TextStyle(
-                                                    //             fontSize: 12,
-                                                    //             fontFamily: ConstFont
-                                                    //                 .popinsMedium,
-                                                    //             color:
-                                                    //                 Colors.black),
-                                                    //       ),
-                                                    //     ),
-                                                    //     homeController.assignOrderList[index].orderStatus == 0
-                                                    //         ?
-                                                    //     Padding(
-                                                    //             padding:
-                                                    //                 EdgeInsets.only(
-                                                    //               left: deviceWidth * 0.01,
-                                                    //             ),
-                                                    //             child: Row(
-                                                    //               //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                    //               children: [
-                                                    //                 Padding(
-                                                    //                   padding: EdgeInsets.only(
-                                                    //                       left: deviceWidth * 0.01),
-                                                    //                   child:
-                                                    //                       Container(
-                                                    //                     height: 25,
-                                                    //                     width: 90,
-                                                    //                     decoration: BoxDecoration(
-                                                    //                       borderRadius: BorderRadius.circular(1),
-                                                    //                     ),
-                                                    //                     child: Center(
-                                                    //                       child: ElevatedButton(
-                                                    //                         style: ElevatedButton.styleFrom(
-                                                    //                           primary: const Color(0xff6AB04C),
-                                                    //                         ),
-                                                    //                         onPressed: () {
-                                                    //                           homeController.OrderUpdateApiCall("1", homeController.assignOrderList[index].detailId.toString(), "");
-                                                    //                         },
-                                                    //                         child:
-                                                    //                             Text(
-                                                    //                           "Accept",
-                                                    //                           style:
-                                                    //                               TextStyle(
-                                                    //                             fontFamily: ConstFont.popinsRegular,
-                                                    //                             color: SelectedValueIndex == 1 ? Colors.black : Colors.white,
-                                                    //                             //color: Colors.white
-                                                    //                           ),
-                                                    //                         ),
-                                                    //                       ),
-                                                    //                     ),
-                                                    //                   ),
-                                                    //                 ),
-                                                    //                 Padding(
-                                                    //                   padding: EdgeInsets.only(
-                                                    //                       left: deviceWidth * 0.01,
-                                                    //                       right: deviceWidth * 0.01),
-                                                    //                   child:
-                                                    //                       Container(
-                                                    //                     height: 25,
-                                                    //                     width: 75,
-                                                    //                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(1),
-                                                    //                     ),
-                                                    //                     child: Center(
-                                                    //                       child:
-                                                    //                       ElevatedButton(
-                                                    //                         style: ElevatedButton.styleFrom(primary: const Color(0xffF86C6B)),
-                                                    //                         onPressed: () {},
-                                                    //                         child: InkWell(
-                                                    //                           onTap: () async {
-                                                    //                             homeController.reasonController.clear();
-                                                    //                             final result = await showDialog(
-                                                    //                                 context: context,
-                                                    //                                 builder: (BuildContextcontext) {
-                                                    //                                   return AlertDialog(
-                                                    //                                     shape: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
-                                                    //                                     backgroundColor: const Color(0xFFECF3F9),
-                                                    //                                     title: Form(
-                                                    //                                       key: formkey,
-                                                    //                                       child: TextFormField(
-                                                    //                                         controller: homeController.reasonController,
-                                                    //                                         decoration: InputDecoration(
-                                                    //                                           fillColor: const Color(0xFF0926C),
-                                                    //                                           filled: true,
-                                                    //                                           focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: const BorderSide(color: Colors.black)),
-                                                    //                                           border: OutlineInputBorder(
-                                                    //                                             borderRadius: BorderRadius.circular(10),
-                                                    //                                           ),
-                                                    //                                           enabledBorder: OutlineInputBorder(
-                                                    //                                             borderRadius: BorderRadius.circular(10),
-                                                    //                                           ),
-                                                    //                                           hintStyle: const TextStyle(fontFamily: ConstFont.popinsRegular, fontSize: 15),
-                                                    //                                           hintText: "Reason for Reject ",
-                                                    //                                         ),
-                                                    //                                         validator: (value) {
-                                                    //                                           if (value!.isEmpty) {
-                                                    //                                             return "Propar Reason";
-                                                    //                                           }
-                                                    //                                           return null;
-                                                    //                                         },
-                                                    //                                       ),
-                                                    //                                     ),
-                                                    //                                     content: Row(
-                                                    //                                       mainAxisAlignment: MainAxisAlignment.center,
-                                                    //                                       children: [
-                                                    //                                         ElevatedButton(
-                                                    //                                           onPressed: () {
-                                                    //                                             homeController.OrderUpdateApiCall("2", homeController.assignOrderList[index].detailId.toString(), homeController.reasonController.text);
-                                                    //                                             Navigator.pop(context, false);
-                                                    //                                           },
-                                                    //                                           style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFECF3F9), elevation: 0),
-                                                    //                                           child: const Text(
-                                                    //                                             "Submit",
-                                                    //                                             style: TextStyle(fontSize: 20, color: Colors.black),
-                                                    //                                           ),
-                                                    //                                         ),
-                                                    //                                       ],
-                                                    //                                     ),
-                                                    //                                   );
-                                                    //                                 });
-                                                    //                           },
-                                                    //                           child: const Text(
-                                                    //                             "Reject",
-                                                    //                             style: TextStyle(fontFamily: ConstFont.popinsRegular, color: Colors.white),
-                                                    //                           ),
-                                                    //                         ),
-                                                    //                       ),
-                                                    //                     ),
-                                                    //                   ),
-                                                    //                 ),
-                                                    //               ],
-                                                    //             ),
-                                                    //           )
-                                                    //         : (homeController.assignOrderList[index].orderStatus == 3 &&
-                                                    //                 homeController.assignOrderList[index].orderStatus == 4)
-                                                    //             ? Padding(
-                                                    //                 padding: EdgeInsets.only(
-                                                    //                   left: deviceWidth * 0.01,
-                                                    //                 ),
-                                                    //                 child: Row(
-                                                    //                   children: [
-                                                    //                     Padding(
-                                                    //                       padding: EdgeInsets.only(left: deviceWidth * 0.01),
-                                                    //                       child: Container(
-                                                    //                         height: 25,
-                                                    //                         width: 90,
-                                                    //                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(1),),
-                                                    //                         child: Center(
-                                                    //                           child: ElevatedButton(
-                                                    //                             style: ElevatedButton.styleFrom(
-                                                    //                               primary: const Color(0xff6AB04C),
-                                                    //                             ),
-                                                    //                             onPressed: () {
-                                                    //                               homeController.isChange = true.obs;
-                                                    //                               homeController.OrderUpdateApiCall("3", homeController.assignOrderList[index].detailId.toString(), "");
-                                                    //                               debugPrint("Delivered ");
-                                                    //                             },
-                                                    //                             child: Text(
-                                                    //                               "Delivered",
-                                                    //                               style: TextStyle(
-                                                    //                                 fontFamily: ConstFont.popinsRegular,
-                                                    //                                 color: SelectedValueIndex == 1 ? Colors.black : Colors.white,
-                                                    //                                 //color: Colors.white
-                                                    //                               ),
-                                                    //                             ),
-                                                    //                           ),
-                                                    //                         ),
-                                                    //                       ),
-                                                    //                     ),
-                                                    //                     Padding(
-                                                    //                       padding: EdgeInsets.only(
-                                                    //                           left: deviceWidth * 0.01,
-                                                    //                           right: deviceWidth * 0.01),
-                                                    //                       child: Container(
-                                                    //                             height: 25,
-                                                    //                             width: 75,
-                                                    //                         decoration: BoxDecoration(
-                                                    //                           borderRadius: BorderRadius.circular(1),
-                                                    //                         ),
-                                                    //                         child: Center(
-                                                    //                           child: ElevatedButton(
-                                                    //                             style: ElevatedButton.styleFrom(primary: const Color(0xffF86C6B)),
-                                                    //                             onPressed: () {},
-                                                    //                             child: InkWell(
-                                                    //                               onTap: () async {
-                                                    //                                 homeController.reasonController.clear();
-                                                    //                                 final result = await showDialog(
-                                                    //                                     context: context,
-                                                    //                                     builder: (BuildContextcontext) {
-                                                    //                                       return AlertDialog(
-                                                    //                                         shape: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
-                                                    //                                         backgroundColor: const Color(0xFFECF3F9),
-                                                    //                                         title: Form(
-                                                    //                                           key: formkey,
-                                                    //                                           child: TextFormField(
-                                                    //                                             controller: homeController.reasonController,
-                                                    //                                             decoration: InputDecoration(
-                                                    //                                               fillColor: const Color(0xFF0926C),
-                                                    //                                               filled: true,
-                                                    //                                               focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: const BorderSide(color: Colors.black)),
-                                                    //                                               border: OutlineInputBorder(
-                                                    //                                                 borderRadius: BorderRadius.circular(10),
-                                                    //                                               ),
-                                                    //                                               enabledBorder: OutlineInputBorder(
-                                                    //                                                 borderRadius: BorderRadius.circular(10),
-                                                    //                                               ),
-                                                    //                                               hintStyle: const TextStyle(fontFamily: ConstFont.popinsRegular, fontSize: 15),
-                                                    //                                               hintText: "Reason for Not Deliver ",
-                                                    //                                             ),
-                                                    //                                             validator: (value) {
-                                                    //                                               if (value!.isEmpty) {
-                                                    //                                                 return "Why Not Deliver";
-                                                    //                                               }
-                                                    //                                               return null;
-                                                    //                                             },
-                                                    //                                           ),
-                                                    //                                         ),
-                                                    //                                         content: Row(
-                                                    //                                           mainAxisAlignment: MainAxisAlignment.center,
-                                                    //                                           children: [
-                                                    //                                             ElevatedButton(
-                                                    //                                               onPressed: () {
-                                                    //                                                 homeController.OrderUpdateApiCall("4", homeController.assignOrderList[index].detailId.toString(), homeController.reasonController.text);
-                                                    //                                                 Navigator.pop(context, false);
-                                                    //                                               },
-                                                    //                                               style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFECF3F9), elevation: 0),
-                                                    //                                               child: const Text(
-                                                    //                                                 "Submit",
-                                                    //                                                 style: TextStyle(fontSize: 20, color: Colors.black),
-                                                    //                                               ),
-                                                    //                                             ),
-                                                    //                                           ],
-                                                    //                                         ),
-                                                    //                                       );
-                                                    //                                     });
-                                                    //                               },
-                                                    //                               child: const Text(
-                                                    //                                 "Not Delivered",
-                                                    //                                 style: TextStyle(fontFamily: ConstFont.popinsRegular, color: Colors.white),
-                                                    //                               ),
-                                                    //                             ),
-                                                    //                           ),
-                                                    //                         ),
-                                                    //                       ),
-                                                    //                     ),
-                                                    //                   ],
-                                                    //                 ),
-                                                    //               )
-                                                    //             : Text(
-                                                    //                 (homeController.assignOrderList[index].orderStatus == 3)
-                                                    //                     ? "Deliverd"
-                                                    //                     : "Not Delivered",
-                                                    //                 style: TextStyle(
-                                                    //                     color: (homeController.assignOrderList[index].orderStatus == 2 || homeController.assignOrderList[index].orderStatus == 4 )  ? Colors.red : Colors.green,fontSize: 12,
-                                                    //
-                                                    //                     fontWeight: homeController.assignOrderList[index].orderStatus == 3
-                                                    //                         ? FontWeight.bold
-                                                    //                         : FontWeight.w500),
-                                                    //               ),
-                                                    //   ],
-                                                    // ),
+                                                    Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left: deviceHeight *
+                                                              0.01),
+                                                      child: Row(
+                                                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          Image.asset(
+                                                              "assets/Icons/pin.png",
+                                                              width:
+                                                                  deviceWidth *
+                                                                      0.04),
+                                                          Expanded(
+                                                            child: Text(
+                                                              " ${homeController.assignOrderList[index].address}",
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              maxLines: 2,
+                                                              style: const TextStyle(
+                                                                  letterSpacing:
+                                                                      1.0,
+                                                                  fontSize: 10,
+                                                                  fontFamily:
+                                                                      ConstFont
+                                                                          .popinsRegular,
+                                                                  color: Colors
+                                                                      .black),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left: deviceWidth *
+                                                              0.01,
+                                                          top: deviceHeight *
+                                                              0.005),
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Padding(
+                                                            padding: EdgeInsets.only(
+                                                                bottom:
+                                                                    deviceHeight *
+                                                                        0.005),
+                                                            child: Text(
+                                                              " ${homeController.removeDecimalValue(homeController.assignOrderList[index].unitType)}",
+                                                              style: const TextStyle(
+                                                                  fontSize: 12,
+                                                                  fontFamily:
+                                                                      ConstFont
+                                                                          .popinsRegular,
+                                                                  color: Colors
+                                                                      .black),
+                                                            ),
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              Padding(
+                                                                padding: EdgeInsets.only(
+                                                                    left: deviceWidth *
+                                                                        0.01),
+                                                                child: Text(
+                                                                  "₹ ${homeController.formatPrice(homeController.assignOrderList[index].totalAmount)}",
+                                                                  style: const TextStyle(
+                                                                      fontSize:
+                                                                          12,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      fontFamily:
+                                                                          ConstFont
+                                                                              .popinsRegular,
+                                                                      color: Colors
+                                                                          .black),
+                                                                ),
+                                                              ),
+
+                                                              // change
+
+                                                              homeController
+                                                                          .assignOrderList[
+                                                                              index]
+                                                                          .orderStatus ==
+                                                                      0
+                                                                  ? Padding(
+                                                                      padding:
+                                                                          EdgeInsets
+                                                                              .only(
+                                                                        left: deviceWidth *
+                                                                            0.01,
+                                                                      ),
+                                                                      child:
+                                                                          Row(
+                                                                        children: [
+                                                                          Padding(
+                                                                            padding:
+                                                                                EdgeInsets.only(left: deviceWidth * 0.01),
+                                                                            child:
+                                                                                Container(
+                                                                              height: 25,
+                                                                              width: 90,
+                                                                              decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.circular(1),
+                                                                              ),
+                                                                              child: Center(
+                                                                                child: ElevatedButton(
+                                                                                  style: ElevatedButton.styleFrom(
+                                                                                    backgroundColor: const Color(0xff6AB04C),
+                                                                                  ),
+                                                                                  onPressed: () {
+                                                                                    homeController.assignOrderList[index].orderStatus = 1;
+                                                                                    homeController.OrderUpdateApiCall("1", homeController.assignOrderList[index].detailId.toString(), "");
+                                                                                    setState(() {});
+                                                                                  },
+                                                                                  child: Text(
+                                                                                    "Accept",
+                                                                                    style: TextStyle(
+                                                                                      fontFamily: ConstFont.popinsRegular,
+                                                                                      color: SelectedValueIndex == 1 ? Colors.black : Colors.white,
+                                                                                      //color: Colors.white
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          Padding(
+                                                                            padding:
+                                                                                EdgeInsets.only(left: deviceWidth * 0.01, right: deviceWidth * 0.01),
+                                                                            child:
+                                                                                Container(
+                                                                              height: 25,
+                                                                              width: 75,
+                                                                              decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.circular(1),
+                                                                              ),
+                                                                              child: Center(
+                                                                                child: ElevatedButton(
+                                                                                  style: ElevatedButton.styleFrom(backgroundColor: const Color(0xffF86C6B)),
+                                                                                  onPressed: () {},
+                                                                                  child: InkWell(
+                                                                                    onTap: () async {
+                                                                                      homeController.reasonController.clear();
+                                                                                      final result = await showDialog(
+                                                                                          context: context,
+                                                                                          builder: (BuildContextcontext) {
+                                                                                            return AlertDialog(
+                                                                                              shape: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
+                                                                                              backgroundColor: Colors.white,
+                                                                                              content: Form(
+                                                                                                key: formkey,
+                                                                                                child: TextFormField(
+                                                                                                  controller: homeController.reasonController,
+                                                                                                  decoration: InputDecoration(
+                                                                                                    fillColor: const Color(0xFF0926C),
+                                                                                                    filled: true,
+                                                                                                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: const BorderSide(color: Colors.black)),
+                                                                                                    border: OutlineInputBorder(
+                                                                                                      borderRadius: BorderRadius.circular(10),
+                                                                                                    ),
+                                                                                                    enabledBorder: OutlineInputBorder(
+                                                                                                      borderRadius: BorderRadius.circular(10),
+                                                                                                    ),
+                                                                                                    hintStyle: const TextStyle(fontFamily: ConstFont.popinsRegular, fontSize: 15),
+                                                                                                    hintText: "Reason for Reject ",
+                                                                                                  ),
+                                                                                                  validator: (value) {
+                                                                                                    if (value!.isEmpty) {
+                                                                                                      return "Enter Proper Reason";
+                                                                                                    }
+                                                                                                    return null;
+                                                                                                  },
+                                                                                                ),
+                                                                                              ),
+                                                                                              title: const Text("Enter Your Reason Why Product Not Delivered", style: TextStyle(fontFamily: ConstFont.popinsRegular)),
+                                                                                              actions: [
+                                                                                                Row(
+                                                                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                  children: [
+                                                                                                    ElevatedButton(
+                                                                                                      onPressed: () {
+                                                                                                        homeController.assignOrderList[index].orderStatus = 2;
+                                                                                                        homeController.OrderUpdateApiCall("2", homeController.assignOrderList[index].detailId.toString(), homeController.reasonController.text);
+                                                                                                        setState(() {});
+                                                                                                        Navigator.pop(context, false);
+                                                                                                      },
+                                                                                                      style: ElevatedButton.styleFrom(backgroundColor: ConstColour.primaryColor, elevation: 0),
+                                                                                                      child: const Text(
+                                                                                                        "Submit",
+                                                                                                        style: TextStyle(fontSize: 20, color: Colors.white),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ],
+                                                                                                ),
+                                                                                              ],
+                                                                                            );
+                                                                                          });
+                                                                                    },
+                                                                                    child: const Text(
+                                                                                      "Reject",
+                                                                                      style: TextStyle(fontFamily: ConstFont.popinsRegular, color: Colors.white),
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    )
+                                                                  : (homeController.assignOrderList[index].orderStatus !=
+                                                                              3 &&
+                                                                          homeController.assignOrderList[index].orderStatus !=
+                                                                              4)
+                                                                      ? Padding(
+                                                                          padding:
+                                                                              EdgeInsets.only(
+                                                                            left:
+                                                                                deviceWidth * 0.01,
+                                                                          ),
+                                                                          child:
+                                                                              Row(
+                                                                            children: [
+                                                                              Padding(
+                                                                                padding: EdgeInsets.only(left: deviceWidth * 0.01, right: deviceWidth * 0.01),
+                                                                                child: Container(
+                                                                                  height: 25,
+                                                                                  width: deviceWidth * 0.21,
+                                                                                  decoration: BoxDecoration(
+                                                                                    borderRadius: BorderRadius.circular(1),
+                                                                                  ),
+                                                                                  child: Center(
+                                                                                    child: ElevatedButton(
+                                                                                      style: ElevatedButton.styleFrom(
+                                                                                        backgroundColor: const Color(0xff6AB04C),
+                                                                                      ),
+                                                                                      onPressed: () {
+                                                                                        homeController.assignOrderList[index].orderStatus = 3;
+                                                                                        homeController.OrderUpdateApiCall("3", homeController.assignOrderList[index].detailId.toString(), "");
+                                                                                        setState(() {});
+                                                                                        debugPrint("Delivered ");
+                                                                                      },
+                                                                                      child: Text(
+                                                                                        "Delivered",
+                                                                                        style: TextStyle(
+                                                                                          fontFamily: ConstFont.popinsRegular,
+                                                                                          fontSize: 9,
+                                                                                          color: SelectedValueIndex == 1 ? Colors.black : Colors.white,
+                                                                                          //color: Colors.white
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                              Container(
+                                                                                height: deviceHeight * 0.035,
+                                                                                width: deviceWidth * 0.26,
+                                                                                decoration: BoxDecoration(
+                                                                                  borderRadius: BorderRadius.circular(1),
+                                                                                ),
+                                                                                child: Center(
+                                                                                  child: ElevatedButton(
+                                                                                    style: ElevatedButton.styleFrom(
+                                                                                        // primary: const Color(0xffF86C6B)
+                                                                                        maximumSize: Size(deviceWidth * 0.25, deviceHeight * 0.035),
+                                                                                        minimumSize: Size(deviceWidth * 0.2, deviceHeight * 0.03),
+                                                                                        backgroundColor: Colors.white),
+                                                                                    onPressed: () {},
+                                                                                    child: InkWell(
+                                                                                      onTap: () async {
+                                                                                        homeController.reasonController.clear();
+                                                                                        final result = await showDialog(
+                                                                                            context: context,
+                                                                                            builder: (BuildContext context) {
+                                                                                              return AlertDialog(
+                                                                                                shape: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
+                                                                                                backgroundColor: Colors.white,
+                                                                                                content: Form(
+                                                                                                  key: formkey,
+                                                                                                  child: TextFormField(
+                                                                                                    controller: homeController.reasonController,
+                                                                                                    decoration: InputDecoration(
+                                                                                                      fillColor: const Color(0xFF0926C),
+                                                                                                      filled: true,
+                                                                                                      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: const BorderSide(color: Colors.black)),
+                                                                                                      border: OutlineInputBorder(
+                                                                                                        borderRadius: BorderRadius.circular(10),
+                                                                                                      ),
+                                                                                                      enabledBorder: OutlineInputBorder(
+                                                                                                        borderRadius: BorderRadius.circular(10),
+                                                                                                      ),
+                                                                                                      hintStyle: const TextStyle(fontFamily: ConstFont.popinsRegular, fontSize: 15),
+                                                                                                      hintText: "Reason for Not Deliver",
+                                                                                                    ),
+                                                                                                    validator: (value) {
+                                                                                                      if (value!.isEmpty) {
+                                                                                                        return "Why Not Deliver";
+                                                                                                      }
+                                                                                                      return null;
+                                                                                                    },
+                                                                                                  ),
+                                                                                                ),
+                                                                                                title: const Text("Enter Your Reason Why Product Not Delivered", style: TextStyle(fontFamily: ConstFont.popinsRegular)),
+                                                                                                actions: [
+                                                                                                  Row(
+                                                                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                    children: [
+                                                                                                      ElevatedButton(
+                                                                                                        onPressed: () {
+                                                                                                          if (formkey.currentState!.validate()) {
+                                                                                                            homeController.assignOrderList[index].orderStatus = 4;
+                                                                                                            homeController.OrderUpdateApiCall("4", homeController.assignOrderList[index].detailId.toString(), homeController.reasonController.text);
+                                                                                                            setState(() {});
+                                                                                                            Navigator.pop(context, false);
+                                                                                                          }
+                                                                                                        },
+                                                                                                        style: ElevatedButton.styleFrom(
+                                                                                                          backgroundColor: ConstColour.primaryColor,
+                                                                                                        ),
+                                                                                                        child: const Text(
+                                                                                                          "Submit",
+                                                                                                          style: TextStyle(fontSize: 20, color: Colors.white),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ],
+                                                                                                  ),
+                                                                                                ],
+                                                                                              );
+                                                                                            });
+                                                                                      },
+                                                                                      child: const Text(
+                                                                                        "Not Delivered",
+                                                                                        style: TextStyle(
+                                                                                          fontFamily: ConstFont.popinsMedium,
+                                                                                          color: Colors.red,
+                                                                                          fontSize: 9,
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        )
+                                                                      : Text(
+                                                                          (homeController.assignOrderList[index].orderStatus == 3)
+                                                                              ? "Delivered"
+                                                                              : "Not Delivered",
+                                                                          style:
+                                                                              TextStyle(
+                                                                            color: (homeController.assignOrderList[index].orderStatus == 2 || homeController.assignOrderList[index].orderStatus == 4)
+                                                                                ? Colors.red
+                                                                                : Colors.green,
+                                                                            fontSize:
+                                                                                12,
+                                                                          ),
+                                                                        ),
+                                                            ],
+                                                          ),
+                                                          // Row(
+                                                          //   mainAxisAlignment:
+                                                          //       MainAxisAlignment
+                                                          //           .spaceBetween,
+                                                          //   children: [
+                                                          //     Padding(
+                                                          //       padding: EdgeInsets.only(
+                                                          //           left: deviceWidth *
+                                                          //               0.01),
+                                                          //       child: Text(
+                                                          //         homeController
+                                                          //             .assignOrderList[
+                                                          //                 index]
+                                                          //             .totalAmount
+                                                          //             .toString(),
+                                                          //         style: const TextStyle(
+                                                          //             fontSize: 12,
+                                                          //             fontFamily: ConstFont
+                                                          //                 .popinsMedium,
+                                                          //             color:
+                                                          //                 Colors.black),
+                                                          //       ),
+                                                          //     ),
+                                                          //     homeController.assignOrderList[index].orderStatus == 0
+                                                          //         ?
+                                                          //     Padding(
+                                                          //             padding:
+                                                          //                 EdgeInsets.only(
+                                                          //               left: deviceWidth * 0.01,
+                                                          //             ),
+                                                          //             child: Row(
+                                                          //               //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                          //               children: [
+                                                          //                 Padding(
+                                                          //                   padding: EdgeInsets.only(
+                                                          //                       left: deviceWidth * 0.01),
+                                                          //                   child:
+                                                          //                       Container(
+                                                          //                     height: 25,
+                                                          //                     width: 90,
+                                                          //                     decoration: BoxDecoration(
+                                                          //                       borderRadius: BorderRadius.circular(1),
+                                                          //                     ),
+                                                          //                     child: Center(
+                                                          //                       child: ElevatedButton(
+                                                          //                         style: ElevatedButton.styleFrom(
+                                                          //                           primary: const Color(0xff6AB04C),
+                                                          //                         ),
+                                                          //                         onPressed: () {
+                                                          //                           homeController.OrderUpdateApiCall("1", homeController.assignOrderList[index].detailId.toString(), "");
+                                                          //                         },
+                                                          //                         child:
+                                                          //                             Text(
+                                                          //                           "Accept",
+                                                          //                           style:
+                                                          //                               TextStyle(
+                                                          //                             fontFamily: ConstFont.popinsRegular,
+                                                          //                             color: SelectedValueIndex == 1 ? Colors.black : Colors.white,
+                                                          //                             //color: Colors.white
+                                                          //                           ),
+                                                          //                         ),
+                                                          //                       ),
+                                                          //                     ),
+                                                          //                   ),
+                                                          //                 ),
+                                                          //                 Padding(
+                                                          //                   padding: EdgeInsets.only(
+                                                          //                       left: deviceWidth * 0.01,
+                                                          //                       right: deviceWidth * 0.01),
+                                                          //                   child:
+                                                          //                       Container(
+                                                          //                     height: 25,
+                                                          //                     width: 75,
+                                                          //                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(1),
+                                                          //                     ),
+                                                          //                     child: Center(
+                                                          //                       child:
+                                                          //                       ElevatedButton(
+                                                          //                         style: ElevatedButton.styleFrom(primary: const Color(0xffF86C6B)),
+                                                          //                         onPressed: () {},
+                                                          //                         child: InkWell(
+                                                          //                           onTap: () async {
+                                                          //                             homeController.reasonController.clear();
+                                                          //                             final result = await showDialog(
+                                                          //                                 context: context,
+                                                          //                                 builder: (BuildContextcontext) {
+                                                          //                                   return AlertDialog(
+                                                          //                                     shape: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
+                                                          //                                     backgroundColor: const Color(0xFFECF3F9),
+                                                          //                                     title: Form(
+                                                          //                                       key: formkey,
+                                                          //                                       child: TextFormField(
+                                                          //                                         controller: homeController.reasonController,
+                                                          //                                         decoration: InputDecoration(
+                                                          //                                           fillColor: const Color(0xFF0926C),
+                                                          //                                           filled: true,
+                                                          //                                           focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: const BorderSide(color: Colors.black)),
+                                                          //                                           border: OutlineInputBorder(
+                                                          //                                             borderRadius: BorderRadius.circular(10),
+                                                          //                                           ),
+                                                          //                                           enabledBorder: OutlineInputBorder(
+                                                          //                                             borderRadius: BorderRadius.circular(10),
+                                                          //                                           ),
+                                                          //                                           hintStyle: const TextStyle(fontFamily: ConstFont.popinsRegular, fontSize: 15),
+                                                          //                                           hintText: "Reason for Reject ",
+                                                          //                                         ),
+                                                          //                                         validator: (value) {
+                                                          //                                           if (value!.isEmpty) {
+                                                          //                                             return "Propar Reason";
+                                                          //                                           }
+                                                          //                                           return null;
+                                                          //                                         },
+                                                          //                                       ),
+                                                          //                                     ),
+                                                          //                                     content: Row(
+                                                          //                                       mainAxisAlignment: MainAxisAlignment.center,
+                                                          //                                       children: [
+                                                          //                                         ElevatedButton(
+                                                          //                                           onPressed: () {
+                                                          //                                             homeController.OrderUpdateApiCall("2", homeController.assignOrderList[index].detailId.toString(), homeController.reasonController.text);
+                                                          //                                             Navigator.pop(context, false);
+                                                          //                                           },
+                                                          //                                           style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFECF3F9), elevation: 0),
+                                                          //                                           child: const Text(
+                                                          //                                             "Submit",
+                                                          //                                             style: TextStyle(fontSize: 20, color: Colors.black),
+                                                          //                                           ),
+                                                          //                                         ),
+                                                          //                                       ],
+                                                          //                                     ),
+                                                          //                                   );
+                                                          //                                 });
+                                                          //                           },
+                                                          //                           child: const Text(
+                                                          //                             "Reject",
+                                                          //                             style: TextStyle(fontFamily: ConstFont.popinsRegular, color: Colors.white),
+                                                          //                           ),
+                                                          //                         ),
+                                                          //                       ),
+                                                          //                     ),
+                                                          //                   ),
+                                                          //                 ),
+                                                          //               ],
+                                                          //             ),
+                                                          //           )
+                                                          //         : (homeController.assignOrderList[index].orderStatus == 3 &&
+                                                          //                 homeController.assignOrderList[index].orderStatus == 4)
+                                                          //             ? Padding(
+                                                          //                 padding: EdgeInsets.only(
+                                                          //                   left: deviceWidth * 0.01,
+                                                          //                 ),
+                                                          //                 child: Row(
+                                                          //                   children: [
+                                                          //                     Padding(
+                                                          //                       padding: EdgeInsets.only(left: deviceWidth * 0.01),
+                                                          //                       child: Container(
+                                                          //                         height: 25,
+                                                          //                         width: 90,
+                                                          //                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(1),),
+                                                          //                         child: Center(
+                                                          //                           child: ElevatedButton(
+                                                          //                             style: ElevatedButton.styleFrom(
+                                                          //                               primary: const Color(0xff6AB04C),
+                                                          //                             ),
+                                                          //                             onPressed: () {
+                                                          //                               homeController.isChange = true.obs;
+                                                          //                               homeController.OrderUpdateApiCall("3", homeController.assignOrderList[index].detailId.toString(), "");
+                                                          //                               debugPrint("Delivered ");
+                                                          //                             },
+                                                          //                             child: Text(
+                                                          //                               "Delivered",
+                                                          //                               style: TextStyle(
+                                                          //                                 fontFamily: ConstFont.popinsRegular,
+                                                          //                                 color: SelectedValueIndex == 1 ? Colors.black : Colors.white,
+                                                          //                                 //color: Colors.white
+                                                          //                               ),
+                                                          //                             ),
+                                                          //                           ),
+                                                          //                         ),
+                                                          //                       ),
+                                                          //                     ),
+                                                          //                     Padding(
+                                                          //                       padding: EdgeInsets.only(
+                                                          //                           left: deviceWidth * 0.01,
+                                                          //                           right: deviceWidth * 0.01),
+                                                          //                       child: Container(
+                                                          //                             height: 25,
+                                                          //                             width: 75,
+                                                          //                         decoration: BoxDecoration(
+                                                          //                           borderRadius: BorderRadius.circular(1),
+                                                          //                         ),
+                                                          //                         child: Center(
+                                                          //                           child: ElevatedButton(
+                                                          //                             style: ElevatedButton.styleFrom(primary: const Color(0xffF86C6B)),
+                                                          //                             onPressed: () {},
+                                                          //                             child: InkWell(
+                                                          //                               onTap: () async {
+                                                          //                                 homeController.reasonController.clear();
+                                                          //                                 final result = await showDialog(
+                                                          //                                     context: context,
+                                                          //                                     builder: (BuildContextcontext) {
+                                                          //                                       return AlertDialog(
+                                                          //                                         shape: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
+                                                          //                                         backgroundColor: const Color(0xFFECF3F9),
+                                                          //                                         title: Form(
+                                                          //                                           key: formkey,
+                                                          //                                           child: TextFormField(
+                                                          //                                             controller: homeController.reasonController,
+                                                          //                                             decoration: InputDecoration(
+                                                          //                                               fillColor: const Color(0xFF0926C),
+                                                          //                                               filled: true,
+                                                          //                                               focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: const BorderSide(color: Colors.black)),
+                                                          //                                               border: OutlineInputBorder(
+                                                          //                                                 borderRadius: BorderRadius.circular(10),
+                                                          //                                               ),
+                                                          //                                               enabledBorder: OutlineInputBorder(
+                                                          //                                                 borderRadius: BorderRadius.circular(10),
+                                                          //                                               ),
+                                                          //                                               hintStyle: const TextStyle(fontFamily: ConstFont.popinsRegular, fontSize: 15),
+                                                          //                                               hintText: "Reason for Not Deliver ",
+                                                          //                                             ),
+                                                          //                                             validator: (value) {
+                                                          //                                               if (value!.isEmpty) {
+                                                          //                                                 return "Why Not Deliver";
+                                                          //                                               }
+                                                          //                                               return null;
+                                                          //                                             },
+                                                          //                                           ),
+                                                          //                                         ),
+                                                          //                                         content: Row(
+                                                          //                                           mainAxisAlignment: MainAxisAlignment.center,
+                                                          //                                           children: [
+                                                          //                                             ElevatedButton(
+                                                          //                                               onPressed: () {
+                                                          //                                                 homeController.OrderUpdateApiCall("4", homeController.assignOrderList[index].detailId.toString(), homeController.reasonController.text);
+                                                          //                                                 Navigator.pop(context, false);
+                                                          //                                               },
+                                                          //                                               style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFECF3F9), elevation: 0),
+                                                          //                                               child: const Text(
+                                                          //                                                 "Submit",
+                                                          //                                                 style: TextStyle(fontSize: 20, color: Colors.black),
+                                                          //                                               ),
+                                                          //                                             ),
+                                                          //                                           ],
+                                                          //                                         ),
+                                                          //                                       );
+                                                          //                                     });
+                                                          //                               },
+                                                          //                               child: const Text(
+                                                          //                                 "Not Delivered",
+                                                          //                                 style: TextStyle(fontFamily: ConstFont.popinsRegular, color: Colors.white),
+                                                          //                               ),
+                                                          //                             ),
+                                                          //                           ),
+                                                          //                         ),
+                                                          //                       ),
+                                                          //                     ),
+                                                          //                   ],
+                                                          //                 ),
+                                                          //               )
+                                                          //             : Text(
+                                                          //                 (homeController.assignOrderList[index].orderStatus == 3)
+                                                          //                     ? "Deliverd"
+                                                          //                     : "Not Delivered",
+                                                          //                 style: TextStyle(
+                                                          //                     color: (homeController.assignOrderList[index].orderStatus == 2 || homeController.assignOrderList[index].orderStatus == 4 )  ? Colors.red : Colors.green,fontSize: 12,
+                                                          //
+                                                          //                     fontWeight: homeController.assignOrderList[index].orderStatus == 3
+                                                          //                         ? FontWeight.bold
+                                                          //                         : FontWeight.w500),
+                                                          //               ),
+                                                          //   ],
+                                                          // ),
+                                                        ],
+                                                      ),
+                                                    )
                                                   ],
                                                 ),
                                               )
                                             ],
-                                          ),
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              )),
-                        );
-                      },
-                    ),
+                                          )
+                                        ],
+                                      ),
+                                    )),
+                              );
+                            },
+                          ),
                   ),
                 ),
               )
-
-
 
               // FutureBuilder<dynamic>(
               //   future:  homeController.AssignOrderApiCall(homeController.orderType.toString(),homeController.distributorId.toString()),
@@ -2496,5 +2522,4 @@ class _LiveorderPageState extends State<LiveorderPage> {
       ),
     );
   }
-
 }

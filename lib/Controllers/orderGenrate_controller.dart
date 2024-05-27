@@ -51,8 +51,8 @@ class OrderGenrateController extends GetxController {
       barrierDismissible: true,
       context: context,
       builder: (context) => StatefulBuilder(
-        builder: (context, setState) => Obx(
-                () => Dialog(
+        builder: (context, setState) =>
+            Obx(() => Dialog(
             elevation: 5.0,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(6)
