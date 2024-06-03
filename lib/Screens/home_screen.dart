@@ -483,7 +483,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemBuilder: (context, index) {
                                 return InkWell(
                                   onTap: () {
-                                    homeController.showAlarmDialog(index: index, title: '', body: '', );
+                                    homeController.showAlarmDialog(index: index, title: '', body: '', imageUrl: '');
                                     // Get.to(() => ProductDetailPage(
                                     //   productIndex: index,
                                     // ));

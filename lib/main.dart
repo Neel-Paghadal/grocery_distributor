@@ -39,7 +39,7 @@ const AndroidNotificationChannel channel = AndroidNotificationChannel(
       String userID = message.data.toString().split(':')[1].trim().replaceAll('}', '');
       print(userID+" userID");
       // homeController.showAlarmDialog(index: index);
-      homeController.showAlarmDialog(index: index, title: message.notification!.title.toString(), body: message.notification!.body.toString());
+      homeController.showAlarmDialog(index: index, title: message.notification!.title.toString(), body: message.notification!.body.toString(), imageUrl: message.notification!.android!.imageUrl.toString());
       // detailController.userId = userID;
       // detailController.detailCall(detailController.userId);
       // Get.to(()=>const NotificationDetailScreen());
@@ -146,18 +146,19 @@ class _MyAppState extends State<MyApp> {
           notification.body,
           NotificationDetails(
             android: AndroidNotificationDetails(
-              channel.id, channel.name,
+              channel.id,
+              channel.name,
               channelDescription: channel.description,
-              importance: Importance.high,
+              importance: Importance.max,
               largeIcon: largeIconBitmap,
               channelShowBadge: true,
-              color: Colors.blue,
+              // color: Colors.blue,
               playSound: true,
               enableVibration: true,
               ongoing: true,
               styleInformation: bigPictureStyleInformation,
               // icon: '@mipmap/ic_launcher',
-              icon: '@drawable/wallpaper_icon',
+              icon: '@drawable/wallpaper',
               // icon: '@drawable/wallpaper',
             ),
           ));
@@ -224,8 +225,9 @@ class _MyAppState extends State<MyApp> {
             ongoing: true,
             priority: Priority.high,
             styleInformation: bigPictureStyleInformation,
+            icon: '@drawable/wallpaper',
             // icon: '@mipmap/ic_launcher',
-            icon: '@drawable/wallpaper_icon',
+            // icon: '@drawable/wallpaper_icon',
             /*"0",
             channel.name,
             channelDescription: channel.description,

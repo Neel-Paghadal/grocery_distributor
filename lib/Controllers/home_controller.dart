@@ -213,7 +213,7 @@ class HomeController extends GetxController {
 
   Future<void> showAlarmDialog(
       /*String title, String body, *//*int index*/
-      {required String title, required String body, required int index}) async {
+      {required String imageUrl, required String title, required String body, required int index}) async {
     await playAlarmTone();
     Timer(Duration(seconds: 30), () {
       audioPlayer.stop();
@@ -248,7 +248,7 @@ class HomeController extends GetxController {
                     width: deviceWidth * 0.4,
                     child: CachedNetworkImage(
                       width: deviceWidth * 0.1,
-                      imageUrl: homeController.assignOrderList[index].imageName.toString(),
+                      imageUrl: /*imageUrl,*/homeController.assignOrderList[index].imageName.toString(),
                       placeholder: (context, url) => const Icon(Icons.image, size: 45),
                       errorWidget: (context, url, error) => const Icon(Icons.error, size: 45),
                     ),
@@ -283,8 +283,7 @@ class HomeController extends GetxController {
                                 width: deviceWidth * 0.04),
                             Expanded(
                               child: Text(
-                                " " +
-                                    homeController.assignOrderList[index].address.toString(),
+                                " " + homeController.assignOrderList[index].address.toString(),
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 2,
                                 style: const TextStyle(
@@ -311,8 +310,7 @@ class HomeController extends GetxController {
                                 color: Colors.black,
                               ),
                             ),
-                            Text(
-                              homeController.assignOrderList[index].quantity.toString(),
+                            Text(homeController.assignOrderList[index].quantity.toString(),
                               style: const TextStyle(
                                 fontSize: 14,
                                 // fontWeight: FontWeight.bold,
@@ -326,8 +324,7 @@ class HomeController extends GetxController {
                       Padding(
                         padding: EdgeInsets.only(left: deviceWidth * 0.02),
                         child: Text(
-                          " " +
-                              homeController.removeDecimalValue(homeController.assignOrderList[index].unitType.toString()),
+                          " " + homeController.removeDecimalValue(homeController.assignOrderList[index].unitType.toString()),
                           style: const TextStyle(
                               fontSize: 12,
                               fontFamily: ConstFont.popinsRegular,
