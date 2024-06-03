@@ -1,147 +1,191 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
-import 'package:grocery_distributor/ConstFile/constPreferences.dart';
-import 'package:grocery_distributor/Controllers/home_controller.dart';
-import 'package:grocery_distributor/api_services/all_services.dart';
+import 'package:flutter/material.dart';
+
+import '../ConstFile/constPreferences.dart';
 
 class PushNotificationService {
-  // DetailController detailController = Get.put(DetailController());
 
-  int index = 0;
 
-  Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  Future<void> _firebaseMessagingBackgroundHandler(
+      RemoteMessage message) async {
     await Firebase.initializeApp();
-    print('Title:  ${message.notification!.title}');
-    print('Body:  ${message.notification!.body}');
-    // print('imageurl: ${message.notification!.android!.imageUrl.toString()}');
-    print('payload:  ${message.data}');
-    if (message.data.containsKey('userID')) {
-      String userID = message.data['userID'];
-      print('$userID userID');
-      // homeController.showAlarmDialog(index: index);
-      homeController.showAlarmDialog(index: index, title: message.notification!.title.toString(), body: message.notification!.body.toString());
-    } else {
-      print('userID key not found in the message data');
-    }
-    /*String userID = message.data.toString().split(':')[1].trim().replaceAll('}', '');
-    print(userID+" userID");*/
-    // detailController.userId = userID;
-    // detailController.detailCall(detailController.userId);
-    // Get.to(()=>const NotificationDetailScreen());
+    debugPrint('Title:  ${message.notification!.title}');
+    debugPrint('Body:  ${message.notification!.body}');
+    debugPrint('payload:  ${message.data}');
+    String userID =
+    message.data.toString().split(':')[1].trim().replaceAll('}', '');
+    debugPrint("$userID userID");
   }
 
-  /*Future<void> sendMessage(String targetUserId, String title, String body,) async {
-    await FirebaseFirestore.instance.collection('messages').add({
-      'to': targetUserId,
-      'title': title,
-      'body': body,
-      'timestamp': FieldValue.serverTimestamp(),
-    });
-  }*/
-
-  // Future<void> initNotifications() async {
-  //   await _fcm.requestPermission();
-  //   final fCMToken  = await _fcm.getToken();
-  //   debugPrint('Token $fCMToken');
-  //   if(fCMToken!.isNotEmpty){
-  //     ConstPreferences().setFcmToken(fCMToken);
-  //   }
-  //   // initialize();
-  //   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  // }
-
   void handleNotification() async {
-    FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? message) {
+    FirebaseMessaging.instance
+        .getInitialMessage()
+        .then((RemoteMessage? message) {
       if (message != null) {
-        // Handle the initial notification when the app is opened from a terminated state
         _handleMessage(message);
       }
     });
   }
 
   void _handleMessage(RemoteMessage message) {
-    print('Handling message: $message');
+    debugPrint('Handling message: $message');
     // Extract user ID from the message data
     String userID = message.data.toString().split(':')[1].trim().replaceAll('}', '');
-    print(userID+" userID");
-    // detailController.userId = userID;
-    // detailController.detailCall(detailController.userId);
-    // Get.to(()=>const NotificationDetailScreen());
+    debugPrint("$userID userID");
+
   }
 
-  Future<void> initialize() async {
-    // await Firebase.initializeApp();
-    // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      print('Got a message whilst in the foreground!');
-      print('Message Title: ${message.notification?.title}');
-      print('Message Body: ${message.notification?.body}');
-      print('Message data: ${message.data}');
-      try {
-        if (message.data.containsKey('userID')) {
-          String userID = message.data['userID'];
-          print('$userID userID');
-          // detailController.userId = userID;
-          // detailController.detailCall(detailController.userId);
-          // Get.to(()=>const NotificationDetailScreen());
-        } else {
-          print('userID key not found in the message data');
-        }
-      } catch (e) {
-        print('Error parsing distributorID: $e');
-      }
+  Future initialize() async {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      debugPrint('Got a message whilst in the foreground!');
+      debugPrint('Message Body: ${message.notification?.body}');
+      debugPrint('Message Title: ${message.notification?.title}');
+      // String userID = message.data.toString().split(':')[1].trim().replaceAll('}', '');
+      // debugPrint("$userID userID");
+      debugPrint('Message data: ${message.data}');
 
       if (message.notification != null) {
-        print('Message also contained a notification: ${message.notification}');
-        // await audioPlayer.play(AssetSource('assets/ringtone.mp3'));
-
-        // homeController.showAlarmDialog(index: index);
-        homeController.showAlarmDialog(index: index, title: message.notification!.title.toString(), body: message.notification!.body.toString());
+        debugPrint('Message also contained a notification: ${message.notification}');
       }
     });
-
-    /*FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print('Got a message whilst in the foreground!');
-      print('Message Body: ${message.notification?.body}');
-      print('Message Title: ${message.notification?.title}');
-      // print('Message image: ${message.notification?.android!.imageUrl.toString()}');
-      String userID = message.data.toString().split(':')[1].trim().replaceAll('}', '');
-      print(userID+" userID");
-      // detailController.userId = userID;
-      // detailController.detailCall(detailController.userId);
-      // Get.to(()=>const NotificationDetailScreen());
-      print('Message data: ${message.data}');
-
-      if (message.notification != null) {
-        print('Message also contained a notification: ${message.notification}');
-
-      }
-    });*/
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print("Background message: $message");
-      RemoteNotification? notification = message.notification;
-
-      if (notification != null) {
-        // homeController.showAlarmDialog(index: index);
-        homeController.showAlarmDialog(index: index, title: notification.title.toString(), body: notification.body.toString());
-      }
-
+      debugPrint("Background message: $message");
       String userID = message.data.toString().split(':')[1].trim().replaceAll('}', '');
-      print(userID+" userID");
-      // detailController.userId = userID;
-      // detailController.detailCall(detailController.userId);
-      // Get.to(()=>const NotificationDetailScreen());
+      debugPrint("$userID userID");
+
     });
   }
 
-  // Future<String?> getToken() async {
-  //   String? token = await _fcm.getToken();
-  //   print('Token: $token');
-  //   return token;
-  // }
+// Future<String?> getToken() async {
+//   String? token = await _fcm.getToken();
+//   debugPrint('Token: $token');
+//   return token;
+// }
 }
+
+
+
+
+
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
+// import 'package:flutter/cupertino.dart';
+// import 'package:flutter_callkit_incoming/entities/entities.dart';
+// import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
+// import 'package:get/get.dart';
+// import 'package:grocery_distributor/ConstFile/constPreferences.dart';
+// import 'package:grocery_distributor/Controllers/home_controller.dart';
+// import 'package:grocery_distributor/api_services/all_services.dart';
+//
+// class PushNotificationService {
+//
+//   int index = 0;
+//
+//   Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+//     await Firebase.initializeApp();
+//     print('Title:  ${message.notification!.title}');
+//     print('Body:  ${message.notification!.body}');
+//     print('payload:  ${message.data}');
+//     if (message.data.containsKey('userID')) {
+//       String userID = message.data['userID'];
+//       print('$userID userID');
+//     } else {
+//       print('userID key not found in the message data');
+//     }
+//
+//   }
+//
+//
+//
+//
+//   void handleNotification() async {
+//     FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? message) {
+//       if (message != null) {
+//         // Handle the initial notification when the app is opened from a terminated state
+//         _handleMessage(message);
+//       }
+//     });
+//   }
+//
+//   void _handleMessage(RemoteMessage message) {
+//     print('Handling message: $message');
+//     // Extract user ID from the message data
+//     String userID = message.data.toString().split(':')[1].trim().replaceAll('}', '');
+//     print(userID+" userID");
+//
+//   }
+//
+//
+//
+//   Future initialize() async {
+//     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+//       debugPrint('Got a message whilst in the foreground!');
+//       debugPrint('Message Body: ${message.notification?.body}');
+//       debugPrint('Message Title: ${message.notification?.title}');
+//       debugPrint('Message Data: ${ message.data}');
+//       String userID = message.data.toString().split(':')[1].trim().replaceAll('}', '');
+//       debugPrint("$userID userID");
+//       debugPrint('Message data: ${message.data}');
+//
+//       if (message.notification != null) {
+//         debugPrint('Message also contained a notification: ${message.notification}');
+//       }
+//     });
+//
+//     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+//       debugPrint("Background message: $message");
+//       String userID = message.data.toString().split(':')[1].trim().replaceAll('}', '');
+//       debugPrint("$userID userID");
+//
+//     });
+//   }
+//
+//
+//
+//
+//   // Future<void> initialize() async {
+//   //
+//   //
+//   //   FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+//   //     print('Got a message whilst in the foreground!');
+//   //     print('Message Title: ${message.notification?.title}');
+//   //     print('Message Body: ${message.notification?.body}');
+//   //     print('Message data: ${message.data}');
+//   //     try {
+//   //       if (message.data.containsKey('userID')) {
+//   //         String userID = message.data['userID'];
+//   //         print('$userID userID');
+//   //
+//   //       } else {
+//   //         print('userID key not found in the message data');
+//   //       }
+//   //     } catch (e) {
+//   //       print('Error parsing distributorID: $e');
+//   //     }
+//   //
+//   //     if (message.notification != null) {
+//   //       print('Message also contained a notification: ${message.notification}');
+//   //     }
+//   //
+//   //   });
+//   //
+//   //   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+//   //     print("Background message: $message");
+//   //     RemoteNotification? notification = message.notification;
+//   //
+//   //     if (notification != null) {
+//   //       homeController.showAlarmDialog(index: index, title: notification.title.toString(), body: notification.body.toString(), imageUrl: '');
+//   //     }
+//   //
+//   //     String userID = message.data.toString().split(':')[1].trim().replaceAll('}', '');
+//   //     print(userID+" userID");
+//   //   });
+//   // }
+//
+//
+//
+//
+// }

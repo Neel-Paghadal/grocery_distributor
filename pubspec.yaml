@@ -57,6 +57,7 @@ dependencies:
   firebase_analytics: ^10.8.8
   cloud_firestore: ^4.15.8
   audioplayers: ^5.2.1
+  flutter_callkit_incoming: ^2.0.4+1
 #  android_alarm_manager_plus: ^4.0.3
 
 

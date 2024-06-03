@@ -1,7 +1,5 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:grocery_distributor/Controllers/notification_controller.dart';
 import '../ConstFile/constFonts.dart';
 import 'loader.dart';
@@ -20,6 +18,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    notificationController.isNoNewNotification.value = true;
     notificationController.getNotification();
   }
   @override
@@ -32,7 +31,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
           onPressed: () {
             Get.back();
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
             color: Colors.black,
           ),
@@ -46,7 +45,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
         ),
       ),
       body: Obx(() => notificationController.notificationList.isEmpty
-          ? Loaders(
+          ?    notificationController.isNoNewNotification.value == false
+          ? const Center(child: Text("No Notification Found")) : Loaders(
               items: 8,
               direction: LoaderDirection.ltr,
               builder: Padding(
@@ -80,8 +80,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 ),
               ),
             )
-          : notificationController.isNoNewNotification.value == false
-              ? Center(child: Text("No Data Found"))
               : ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
@@ -100,7 +98,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           tileColor: Colors.grey.shade50,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(6)),
-                          leading: Icon(Icons.calendar_month_outlined),
+                          leading: const Icon(Icons.calendar_month_outlined),
                           title: Text(
                               notificationController
                                   .notificationList[index].message

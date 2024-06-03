@@ -136,8 +136,7 @@ class HomeController extends GetxController {
     } else {}
   }
 
-  Future<void> OrderUpdateApiCall(
-      String orderStatusId, String orderid, String reason) async {
+  Future<void> OrderUpdateApiCall(String orderStatusId, String orderid, String reason) async {
     String? distributorId =
         await ConstPreferences().getDistributorId("DistributorId");
     final response =
@@ -161,8 +160,7 @@ class HomeController extends GetxController {
     } else {}
   }
 
-  Future<void> getProductFilterApiCall(
-      int orderType, String toDate, String fromDate, String type) async {
+  Future<void> getProductFilterApiCall(int orderType, String toDate, String fromDate, String type) async {
     String? distributorId =
         await ConstPreferences().getDistributorId("DistributorId");
     debugPrint(distributorId);

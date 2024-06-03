@@ -1,11 +1,9 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grocery_distributor/ConstFile/constColor.dart';
 import 'package:grocery_distributor/ConstFile/constFonts.dart';
 import 'package:grocery_distributor/Screens/loader.dart';
-import 'package:grocery_distributor/Screens/product_detail.dart';
 
 import '../Controllers/userOrderHistory_controller.dart';
 
