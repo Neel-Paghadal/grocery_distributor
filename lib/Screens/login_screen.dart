@@ -28,6 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
     loginController.emailController.clear();
     loginController.passController.clear();
+    // loginController.initializeFCM();
   }
 
   final _formKey = GlobalKey<FormState>();
@@ -48,9 +49,24 @@ class _LoginScreenState extends State<LoginScreen> {
         return false;
       },
       child: Scaffold(
-        bottomNavigationBar: BottomButton(
-          onPressed: () {
-
+        bottomNavigationBar: loginController.isLoading.value == true
+            ? Container(
+          width: double.infinity,
+          height: deviceHeight * 0.05,
+          decoration: BoxDecoration(
+              color: ConstColour.primaryColor,
+              borderRadius: BorderRadius.circular(11)
+          ),
+          child: Center(
+            child: CircularProgressIndicator(
+              color: Colors.white,
+            ),
+          ),
+        )
+            : BottomButton(
+          onPressed: () async {
+            await loginController.generateToken();
+            print("generateToken");
             userId = loginController.emailController.text;
             password = loginController.passController.text;
             // Get.to(() => GodownPage());

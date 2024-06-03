@@ -18,5 +18,6 @@ class ConstApi {
   static const String distributorProfile = '${baseUrl}DistiButer/Get_Distibutor_Profile_Details';
   static const String notificationList = '${baseUrl}DistiButer/Get_Distibutor_Notification_List';
   static const String distributorWithdrawal = '${baseUrl}DistiButer/DistiButer_Withdrawal_InsertData';
+  static const String sendToken = '${baseUrl}DistiButer/Distibutor_Token_UpdateData';
 
 }

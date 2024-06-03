@@ -365,6 +365,7 @@ class _OrderGenrateState extends State<OrderGenrate> {
                                   child: ListTile(
                                     onTap: () {
                                       Get.back();
+                                      // homeController.showAlarmDialog(index);
                                       orderGenrate.showDialogs(
                                         context,
                                         productId,

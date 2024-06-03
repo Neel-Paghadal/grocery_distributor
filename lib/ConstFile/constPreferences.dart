@@ -18,7 +18,15 @@ class ConstPreferences {
   var PINCODE = "PINCODE";
   var DISCOUNT = "DISCOUNT";
 
+  Future<void> setFcmToken(String value) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('FCMTOKEN', value);
+  }
 
+  Future<String?> getFcmToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('FCMTOKEN');
+  }
 
   Future<void> saveDistributorId(String key, String value) async {
     final prefs = await SharedPreferences.getInstance();

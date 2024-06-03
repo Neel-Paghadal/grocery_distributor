@@ -33,7 +33,7 @@ class NotificationController extends GetxController {
         } else {
           isNoNewNotification.value = false;
         }
-        debugPrint("user data Get Successfully");
+        debugPrint("notification data Get Successfully");
       } else {
         debugPrint("Error");
       }

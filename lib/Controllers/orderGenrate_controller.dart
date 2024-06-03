@@ -189,7 +189,7 @@ class OrderGenrateController extends GetxController {
                               overflow: TextOverflow.ellipsis),
                         ),
                         Text(
-                          "₹${totalAmount}",
+                          "₹ ${totalAmount}",
                           style: TextStyle(
                               fontSize: 15,
                               color: Colors.black,

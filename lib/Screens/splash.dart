@@ -39,9 +39,8 @@ class _SplashScreenState extends State<SplashScreen> {
   checkPref() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
     if (pref.getBool("login") == true) {
-
+      Get.to(() => const HomeScreen());
       Get.to(() => BottomBarScreen(),arguments: {homeController.currentIndex = 0});
-      // Get.to(() => const HomeScreen());
       setState(() {
       });
 

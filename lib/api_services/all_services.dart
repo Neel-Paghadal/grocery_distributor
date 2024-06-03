@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grocery_distributor/Common/BottomBarScreen.dart';
@@ -52,20 +54,56 @@ class Services{
         ConstPreferences().saveDistributorAddress("DistributorAdd",Address.toString());
         ConstPreferences().saveDistributorImage("DistributorImage",DImage.toString());
         myProfileController.getDistributorProfile();
+        sendTokenCall();
         final SharedPreferences pref = await SharedPreferences.getInstance();
         pref.setBool("login", true);
+        // myProfileController.getDistributorProfile();
+        Get.to(() => const HomeScreen());
         Get.to(() => BottomBarScreen(),arguments: {homeController.currentIndex = 0});
 
         // Get.to(()=> BottomAppBar(),arguments: 1);
       }else{
         Utils().toastMessage("Invalid Email & Password");
-
       }
     } else {
       return null;
     }
   }
 
+
+  Future<void> sendTokenCall() async {
+    String? distributorId = await ConstPreferences().getDistributorId('DistributorId');
+    String? token = await ConstPreferences().getFcmToken();
+    debugPrint("Distributor_Id  $distributorId");
+    final Map<String, String> headers = {
+      'Content-Type': 'application/json',
+    };
+
+    final Map<String, dynamic> body = {
+      "UserId": distributorId,
+      "Token": token
+    };
+
+    try {
+      final http.Response response = await http.post(
+        Uri.parse(ConstApi.sendToken),
+        headers: headers,
+        body: jsonEncode(body),
+      );
+
+      if (response.statusCode == 200) {
+        debugPrint(response.body.toString());
+        debugPrint('Response Token : ${response.body}');
+      } else {
+        // Handle unsuccessful login
+        debugPrint('Response: ${response.body}');
+      }
+    } catch (e) {
+      Utils().errorsnackBar("Error", e.toString());
+      // Handle network or other errors
+      debugPrint('Error during login: $e');
+    }
+  }
 
 
 

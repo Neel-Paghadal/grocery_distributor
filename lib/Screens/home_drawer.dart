@@ -262,9 +262,10 @@ class _HomeDrawerState extends State<HomeDrawer> {
               color: ConstColour.primaryColor,
             ),
             onTap: () {
-              Get.back();
+              /*Get.back();
               ConstPreferences().clearPreferences();
-              Get.to(() => LoginScreen());
+              Get.to(() => LoginScreen());*/
+              showAlertDialog(context);
             },
             title: const Text(
               "Log Out",
@@ -277,6 +278,44 @@ class _HomeDrawerState extends State<HomeDrawer> {
           ),
         ],
       ),
+    );
+  }
+
+  showAlertDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      title: const Text("Logout"),
+      content: const Text("Are You Sure Want to Log Out"),
+      actions: [
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              backgroundColor: ConstColour.primaryColor),
+          onPressed: () {
+            ConstPreferences().clearPreferences();
+            Get.to(() => LoginScreen());
+          },
+          child: const Text(
+            "Yes",
+            style: TextStyle(color: ConstColour.bgColor),
+          ),
+        ),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(backgroundColor: ConstColour.bgColor),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text(
+            "No",
+            style: TextStyle(color: Colors.black),
+          ),
+        ),
+      ],
+    );
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

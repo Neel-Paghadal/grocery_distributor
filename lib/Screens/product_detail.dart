@@ -71,22 +71,25 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                        ),
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(width:  deviceWidth * 0.6,
-                          child: Text( homeController.assignOrderList[widget.productIndex].productName,style: TextStyle(fontSize: 16,color: Colors.black,fontFamily: ConstFont.popinsMedium),maxLines: 1,overflow: TextOverflow.ellipsis)),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Text("Quantity : ",style: TextStyle(fontSize: 16,color: Colors.black,fontFamily: ConstFont.popinsRegular),maxLines: 1,overflow: TextOverflow.ellipsis),
-                            Text( homeController.assignOrderList[widget.productIndex].quantity.toString(),style: TextStyle(fontSize: 16,color: Colors.black,fontFamily: ConstFont.popinsMedium),maxLines: 1,overflow: TextOverflow.ellipsis),
-                          ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(width:  deviceWidth * 0.6,
+                            child: Text( homeController.assignOrderList[widget.productIndex].productName,style: TextStyle(fontSize: 16,color: Colors.black,fontFamily: ConstFont.popinsMedium),maxLines: 1,overflow: TextOverflow.ellipsis)),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Text("Quantity : ",style: TextStyle(fontSize: 16,color: Colors.black,fontFamily: ConstFont.popinsRegular),maxLines: 1,overflow: TextOverflow.ellipsis),
+                              Text( homeController.assignOrderList[widget.productIndex].quantity.toString(),style: TextStyle(fontSize: 16,color: Colors.black,fontFamily: ConstFont.popinsMedium),maxLines: 1,overflow: TextOverflow.ellipsis),
+                            ],
+                          ),
                         ),
-                      ),
 
-                    ],
+                      ],
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),

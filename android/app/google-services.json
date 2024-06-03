@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "48406197561",
+    "project_id": "aayuplus-b646b",
+    "storage_bucket": "aayuplus-b646b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:48406197561:android:d221fafa9a4302126a64e8",
+        "android_client_info": {
+          "package_name": "com.aayuplus.ditributor"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDa0L3z3bFNSmwgYXcucNZVZu_MbLSRGAo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:48406197561:android:05fed1c88dc6a2f36a64e8",
+        "android_client_info": {
+          "package_name": "com.example.grocery_user"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDa0L3z3bFNSmwgYXcucNZVZu_MbLSRGAo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
