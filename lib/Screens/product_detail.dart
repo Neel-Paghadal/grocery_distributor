@@ -7,8 +7,8 @@ import 'package:grocery_distributor/ConstFile/constFonts.dart';
 import 'package:grocery_distributor/Controllers/home_controller.dart';
 
 class ProductDetailPage extends StatefulWidget {
-   int productIndex;
-   ProductDetailPage({required this.productIndex});
+  int productIndex;
+  ProductDetailPage({required this.productIndex});
 
   @override
   State<ProductDetailPage> createState() => _ProductDetailPageState();
@@ -19,7 +19,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   List<int> SelectedValueIndex = [1, 2, 3, 4, 5];
   final formkey = GlobalKey<FormState>();
 
-
   @override
   Widget build(BuildContext context) {
     debugPrint("rebuild");
@@ -27,113 +26,155 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     final deviceWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-        appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.black),
-          automaticallyImplyLeading: true,
-          elevation: 0,
-          backgroundColor: Colors.white,
-          centerTitle: true,
-          title: const Text(
-            "Order Detail",
-            style: TextStyle(color: Colors.black),
-          ),
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
+        automaticallyImplyLeading: true,
+        elevation: 0,
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        title: const Text(
+          "Order Detail",
+          style: TextStyle(color: Colors.black),
         ),
+      ),
       body: SingleChildScrollView(
         controller: ScrollController(),
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
-              ListView.builder(
-                itemCount: 1,
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                controller: ScrollController(),
-                itemBuilder: (context, index) {
+            ListView.builder(
+              itemCount: 1,
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
+              controller: ScrollController(),
+              itemBuilder: (context, index) {
                 return Column(
-                  crossAxisAlignment:  CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: ConstColour.cardBgColor,
-                      ),
-                      height: deviceHeight * 0.25,
-                       child:   Image(
-                         width: deviceWidth * 2.0,
-                         errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                           // Custom error widget to display when image fails to load
-                           return Icon(Icons.image,size: 45,);
-                         },
-                         image:  NetworkImage(
-                           homeController.assignOrderList[widget.productIndex].imageName,),
-                       ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(width:  deviceWidth * 0.6,
-                            child: Text( homeController.assignOrderList[widget.productIndex].productName,style: TextStyle(fontSize: 16,color: Colors.black,fontFamily: ConstFont.popinsMedium),maxLines: 1,overflow: TextOverflow.ellipsis)),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              Text("Quantity : ",style: TextStyle(fontSize: 16,color: Colors.black,fontFamily: ConstFont.popinsRegular),maxLines: 1,overflow: TextOverflow.ellipsis),
-                              Text( homeController.assignOrderList[widget.productIndex].quantity.toString(),style: TextStyle(fontSize: 16,color: Colors.black,fontFamily: ConstFont.popinsMedium),maxLines: 1,overflow: TextOverflow.ellipsis),
-                            ],
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: ConstColour.cardBgColor,
+                        ),
+                        height: deviceHeight * 0.25,
+                        child: Image(
+                          width: deviceWidth * 2.0,
+                          errorBuilder: (BuildContext context, Object exception,
+                              StackTrace? stackTrace) {
+                            // Custom error widget to display when image fails to load
+                            return Icon(
+                              Icons.image,
+                              size: 45,
+                            );
+                          },
+                          image: NetworkImage(
+                            homeController
+                                .assignOrderList[widget.productIndex].imageName,
                           ),
                         ),
-
-                      ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("₹ ${homeController.formatPrice(homeController.assignOrderList[widget.productIndex].totalAmount)}",
-                            style: TextStyle(fontSize: 16,color: Colors.black,fontFamily: ConstFont.popinsRegular),maxLines: 1,overflow: TextOverflow.ellipsis),
-                        Text(homeController.removeDecimalValue(homeController.assignOrderList[widget.productIndex].unitType),
-                            style: TextStyle(fontSize: 16,color: Colors.black,fontFamily: ConstFont.popinsRegular),maxLines: 1,overflow: TextOverflow.ellipsis),
-
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                              width: deviceWidth * 0.6,
+                              child: Text(
+                                  homeController
+                                      .assignOrderList[widget.productIndex]
+                                      .productName,
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                      fontFamily: ConstFont.popinsMedium),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis)),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Text("Quantity : ",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.black,
+                                        fontFamily: ConstFont.popinsRegular),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis),
+                                Text(
+                                    homeController
+                                        .assignOrderList[widget.productIndex]
+                                        .quantity
+                                        .toString(),
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.black,
+                                        fontFamily: ConstFont.popinsMedium),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                              "₹ ${homeController.formatPrice(homeController.assignOrderList[widget.productIndex].totalAmount)}",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.black,
+                                  fontFamily: ConstFont.popinsRegular),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis),
+                          Text(
+                              homeController.removeDecimalValue(homeController
+                                  .assignOrderList[widget.productIndex]
+                                  .unitType),
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.black,
+                                  fontFamily: ConstFont.popinsRegular),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis),
+                        ],
+                      ),
+                    ),
 
                     Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: ListTile(
-                        tileColor: ConstColour.cardBgColor,
-                         title : Padding(
-                           padding: EdgeInsets.only(
-                               top: deviceHeight * 0.02,
-                               left: deviceWidth * 0.03),
-                           child: Text("Product Description",
-                               style: TextStyle(
-                                   fontSize: 16,
-                                   fontFamily:
-                                   ConstFont.popinsMedium)),
-                         ),
-                        subtitle: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Text(
-                            homeController
-                                .assignOrderList[widget.productIndex].discription
-                                .toString(),
-                            softWrap: true,
-                            style: const TextStyle(
-                                color: Colors.black87,
-                                fontSize: 13,
-                                fontFamily:
-                                ConstFont.popinsRegular),
+                          tileColor: ConstColour.cardBgColor,
+                          title: Padding(
+                            padding: EdgeInsets.only(
+                                top: deviceHeight * 0.02,
+                                left: deviceWidth * 0.03),
+                            child: Text("Product Description",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: ConstFont.popinsMedium)),
                           ),
-                        )
-                      ),
+                          subtitle: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Text(
+                              homeController
+                                  .assignOrderList[widget.productIndex]
+                                  .discription
+                                  .toString(),
+                              softWrap: true,
+                              style: const TextStyle(
+                                  color: Colors.black87,
+                                  fontSize: 13,
+                                  fontFamily: ConstFont.popinsRegular),
+                            ),
+                          )),
                     ),
                     // Padding(
                     //   padding:
@@ -186,287 +227,388 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     //     ),
                     //   ),
                     // ),
-                    homeController.assignOrderList[widget.productIndex].orderStatus == 0
-                        ?
-                    Padding(padding: EdgeInsets.only(
-                      left: deviceWidth * 0.01,top: deviceHeight * 0.05),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: deviceWidth *
-                                    0.01),
-                            child:
-                            Center(
-                              child:
-                              ElevatedButton(
-                                style:
-                                ElevatedButton.styleFrom(
-                  maximumSize: Size(deviceWidth * 0.4, deviceHeight * 0.06),
-                  minimumSize: Size(deviceWidth * 0.4, deviceHeight * 0.05),
-                                  backgroundColor: const Color(0xff6AB04C),
-                                  elevation: 8.0,
-                                ),
-                                onPressed:
-                                    () {
-                                  homeController.assignOrderList[widget.productIndex].orderStatus = 1;
-                                  homeController.OrderUpdateApiCall("1", homeController.assignOrderList[widget.productIndex].detailId.toString(), "");
-                                  setState(() {});
-                                },
-                                child:
-                                Text(
-                                  "Accept",
-                                  style:
-                                  TextStyle(
-                                    fontFamily: ConstFont.popinsRegular,
-                                    color: SelectedValueIndex == 1 ? Colors.black : Colors.white,
-                                    //color: Colors.white
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: deviceWidth *
-                                    0.01,
-                                right: deviceWidth *
-                                    0.01),
-                            child:
-                            Center(
-                              child:
-                              ElevatedButton(
-                                style:
-                                ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xffF86C6B),
-                                    maximumSize: Size(deviceWidth * 0.4, deviceHeight * 0.06),
-                                    minimumSize: Size(deviceWidth * 0.4, deviceHeight * 0.05),
-                                  elevation: 8.0,
-
-                                ),
-
-                                onPressed:
-                                    () {},
-                                child:
-                                InkWell(
-                                  onTap:
-                                      () async {
-                                    homeController.reasonController.clear();
-                                    final result = await showDialog(
-                                        context: context,
-                                        builder: (BuildContextcontext) {
-                                          return AlertDialog(
-                                            shape: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
-                                            backgroundColor: Colors.white,
-                                             actions: [
-                                               Row(
-                                                 mainAxisAlignment: MainAxisAlignment.center,
-                                                 children: [
-                                                   ElevatedButton(
-                                                     onPressed: () {
-                                                       if(formkey.currentState!.validate()){
-                                                         homeController.assignOrderList[widget.productIndex].orderStatus = 2;
-                                                         homeController.OrderUpdateApiCall("2", homeController.assignOrderList[widget.productIndex].detailId.toString(), homeController.reasonController.text);
-                                                         setState(() {});
-                                                         Navigator.pop(context, false);
-                                                       }
-
-                                                     },
-                                                     style: ElevatedButton.styleFrom(backgroundColor: ConstColour.primaryColor, elevation: 0),
-                                                     child: const Text( "Submit", style: TextStyle(fontSize: 20, color: Colors.white,fontFamily: ConstFont.popinsRegular,),),
-                                                   ),
-                                                 ],
-                                               )
-                                             ],
-                                            title   :   Text("Enter Your Reason Why Product Not Delivered",style: TextStyle(
-                                                fontFamily: ConstFont.popinsRegular
-                                            )),
-
-                                            content: Form(
-                                              key: formkey,
-                                              child: TextFormField(
-                                                controller: homeController.reasonController,
-                                                decoration: InputDecoration(
-                                                  fillColor: const Color(0xFF0926C),
-                                                  filled: true,
-                                                  focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: const BorderSide(color: Colors.black)),
-                                                  border: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.circular(10),
-                                                  ),
-                                                  enabledBorder: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.circular(10),
-                                                  ),
-                                                  hintStyle: const TextStyle(fontFamily: ConstFont.popinsRegular, fontSize: 15),
-                                                  hintText: "Reason for Reject ",
-                                                ),
-                                                validator: (value) {
-                                                  if (value!.isEmpty) {
-                                                    return "Enter Propar Reason";
-                                                  }
-                                                  return null;
-                                                },
-                                              ),
-                                            ),
-
-                                          );
-                                        });
-                                  },
-                                  child:
-                                  const Text(
-                                    "Reject",
-                                    style: TextStyle(fontFamily: ConstFont.popinsRegular, color: Colors.white),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                        :
-                    (homeController.assignOrderList[widget.productIndex].orderStatus !=  3 &&
-                        homeController.assignOrderList[widget.productIndex].orderStatus != 4)
+                    homeController.assignOrderList[widget.productIndex]
+                                .orderStatus == 0
                         ? Padding(
-                      padding: EdgeInsets.only( left:deviceWidth *  0.01,top: deviceHeight * 0.05),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Padding(
-                            padding:
-                            EdgeInsets.only(left: deviceWidth * 0.01),
-                            child: Center(
-                              child:
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xff6AB04C),
-                                  maximumSize: Size(deviceWidth * 0.4, deviceHeight * 0.06),
-                                  minimumSize: Size(deviceWidth * 0.4, deviceHeight * 0.05),
-                                  elevation: 8.0,
-
-                                ),
-                                onPressed: () {
-                                  homeController.assignOrderList[widget.productIndex].orderStatus = 3;
-                                  homeController.OrderUpdateApiCall("3", homeController.assignOrderList[widget.productIndex].detailId.toString(), "");
-                                  setState(() {});
-                                  print("Delivered ");
-                                },
-                                child: Text(
-                                  "Delivered",
-                                  style: TextStyle(
-                                    fontFamily: ConstFont.popinsRegular,
-                                    fontSize: 16,
-                                    color: SelectedValueIndex == 1 ? Colors.black : Colors.white,
-                                    //color: Colors.white
+                            padding: EdgeInsets.only(
+                                left: deviceWidth * 0.01,
+                                top: deviceHeight * 0.05),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Padding(
+                                  padding:
+                                      EdgeInsets.only(left: deviceWidth * 0.01),
+                                  child: Center(
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        maximumSize: Size(deviceWidth * 0.4,
+                                            deviceHeight * 0.06),
+                                        minimumSize: Size(deviceWidth * 0.4,
+                                            deviceHeight * 0.05),
+                                        backgroundColor:
+                                            const Color(0xff6AB04C),
+                                        elevation: 8.0,
+                                      ),
+                                      onPressed: () {
+                                        homeController
+                                            .assignOrderList[
+                                                widget.productIndex]
+                                            .orderStatus = 1;
+                                        homeController.OrderUpdateApiCall(
+                                            "1",
+                                            homeController
+                                                .assignOrderList[
+                                                    widget.productIndex]
+                                                .detailId
+                                                .toString(),
+                                            "");
+                                        setState(() {});
+                                      },
+                                      child: Text(
+                                        "Accept",
+                                        style: TextStyle(
+                                          fontFamily: ConstFont.popinsRegular,
+                                          color: SelectedValueIndex == 1
+                                              ? Colors.black
+                                              : Colors.white,
+                                          //color: Colors.white
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
-                          ),
-                          Center(
-                            child:
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                // primary: const Color(0xffF86C6B)
-                                  backgroundColor: Colors.white,
-                                  maximumSize: Size(deviceWidth * 0.4, deviceHeight * 0.06),
-                                  minimumSize: Size(deviceWidth * 0.4, deviceHeight * 0.05),
-                                elevation: 8.0,
-
-                              ),
-
-                              onPressed: () {},
-                              child: InkWell(
-                                onTap: () async {
-                                  homeController.reasonController.clear();
-                                  final result = await showDialog(
-                                      context: context,
-                                      builder: (BuildContextcontext) {
-                                        return AlertDialog(
-                                          shape: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
-                                          // backgroundColor: const Color(0xFFECF3F9),
-                                          backgroundColor: Colors.white,
-                                          actions: [
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                ElevatedButton(
-
-                                                  onPressed: () {
-                                                    if(formkey.currentState!.validate()){
-                                                      homeController.assignOrderList[widget.productIndex].orderStatus = 4;
-                                                      homeController.OrderUpdateApiCall("4", homeController.assignOrderList[widget.productIndex].detailId.toString(), homeController.reasonController.text);
-                                                      setState(() {});
-                                                      Navigator.pop(context, false);
-                                                    }
-
-                                                  },
-                                                  style: ElevatedButton.styleFrom(backgroundColor: ConstColour.primaryColor, elevation: 0),
-                                                  child: const Text( "Submit", style: TextStyle(fontSize: 20, color: Colors.white,fontFamily: ConstFont.popinsRegular,),),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                         title   :   Text("Enter Your Reason Why Product Not Delivered",style: TextStyle(
-                                           fontFamily: ConstFont.popinsRegular
-                                         )),
-
-                                            content :    Form(
-                                              key: formkey,
-                                              child: TextFormField(
-                                                controller: homeController.reasonController,
-                                                decoration: InputDecoration(
-                                                  fillColor: const Color(0xFF0926C),
-                                                  filled: true,
-                                                  focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: const BorderSide(color: Colors.black)),
-                                                  border: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.circular(10),
+                                Padding(
+                                  padding: EdgeInsets.only(left: deviceWidth * 0.01, right: deviceWidth * 0.01),
+                                  child: Center(
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(backgroundColor: const Color(0xffF86C6B),
+                                        maximumSize: Size(deviceWidth * 0.4,
+                                            deviceHeight * 0.06),
+                                        minimumSize: Size(deviceWidth * 0.4,
+                                            deviceHeight * 0.05),
+                                        elevation: 8.0,),
+                                      onPressed: () {},
+                                      child: InkWell(
+                                        onTap: () async {
+                                          homeController.reasonController.clear();
+                                          final result = await showDialog(
+                                              context: context,
+                                              builder: (BuildContextcontext) {
+                                                return AlertDialog(
+                                                  shape: OutlineInputBorder(
+                                                      borderRadius: BorderRadius.circular(16.0)),
+                                                  backgroundColor: Colors.white,
+                                                  actions: [
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ElevatedButton(
+                                                          onPressed: () {
+                                                            if (formkey.currentState!.validate()) {
+                                                              homeController.assignOrderList[widget.productIndex].orderStatus = 2;
+                                                              homeController.OrderUpdateApiCall("2", homeController.assignOrderList[widget.productIndex].detailId.toString(), homeController.reasonController.text);
+                                                              setState(() {});
+                                                              Navigator.pop(context, false);
+                                                            }
+                                                          },
+                                                          style: ElevatedButton.styleFrom(backgroundColor: ConstColour.primaryColor, elevation: 0),
+                                                          child: const Text(
+                                                            "Submit",
+                                                            style: TextStyle(fontSize: 20, color: Colors.white,fontFamily: ConstFont.popinsRegular),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    )
+                                                  ],
+                                                  title: Text("Enter Your Reason Why Product Reject", style: TextStyle(fontFamily: ConstFont.popinsRegular)),
+                                                  content: Form(
+                                                    key: formkey,
+                                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                                    child: TextFormField(
+                                                      controller: homeController.reasonController,
+                                                      decoration: InputDecoration(
+                                                        fillColor: const Color(0xFF0926C),
+                                                        filled: true,
+                                                        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: const BorderSide(color: Colors.black)),
+                                                        border: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(10),
+                                                        ),
+                                                        enabledBorder: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(10),
+                                                        ),
+                                                        hintStyle: const TextStyle(fontFamily: ConstFont.popinsRegular, fontSize: 15),
+                                                        hintText: "Reason for Reject ",
+                                                      ),
+                                                      validator: (value) {
+                                                        if (value!.isEmpty) {
+                                                          return "Enter Proper Reason";
+                                                        }
+                                                        return null;
+                                                      },
+                                                    ),
                                                   ),
-                                                  enabledBorder: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.circular(10),
-                                                  ),
-                                                  hintStyle: const TextStyle(fontFamily: ConstFont.popinsRegular, fontSize: 15),
-                                                  hintText: "Reason for Not Deliver",
-                                                ),
-                                                validator: (value) {
-                                                  if (value!.isEmpty) {
-                                                    return "Enter Your Reason Why Product Not Delivered";
-                                                  }
-                                                  return null;
-                                                },
-                                              ),
-                                            )
-
-                                        );
-                                      });
-                                },
-                                child: const Text(
-                                  "Not Delivered",
-                                  style: TextStyle(fontFamily: ConstFont.popinsMedium, color: Colors.red,
-                                    fontSize: 16,
+                                                );
+                                              });
+                                        },
+                                        child: const Text(
+                                          "Reject",
+                                          style: TextStyle(fontFamily: ConstFont.popinsRegular, color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
-                          ),
-                        ],
-                      ),
-                    )
-                        : Padding(
+                          )
+                        : homeController.assignOrderList[widget.productIndex].orderStatus == 2
+                        ? Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Center(
-                            child: Text(
-                      (homeController.assignOrderList[widget.productIndex].orderStatus == 3)
-                              ? "Delivered"
-                              : "Not Delivered",
-                      style: TextStyle(
-                            color: (homeController.assignOrderList[index].orderStatus == 2 || homeController.assignOrderList[widget.productIndex].orderStatus == 4 )  ? Colors.red : Colors.green,fontSize: 20,
-                      ),
-                    ),
+                            child: Text("Rejected",
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontSize: 20,
+                              ),
+                            ),
                           ),
-                        ),
-                ],);
-              },)
+                        )
+                        : (homeController.assignOrderList[widget.productIndex].orderStatus != 3 &&
+                                homeController.assignOrderList[widget.productIndex].orderStatus != 4)
+                            ? Padding(
+                                padding: EdgeInsets.only(
+                                    left: deviceWidth * 0.01,
+                                    top: deviceHeight * 0.05),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          left: deviceWidth * 0.01),
+                                      child: Center(
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor:
+                                                const Color(0xff6AB04C),
+                                            maximumSize: Size(deviceWidth * 0.4,
+                                                deviceHeight * 0.06),
+                                            minimumSize: Size(deviceWidth * 0.4,
+                                                deviceHeight * 0.05),
+                                            elevation: 8.0,
+                                          ),
+                                          onPressed: () {
+                                            homeController
+                                                .assignOrderList[
+                                                    widget.productIndex]
+                                                .orderStatus = 3;
+                                            homeController.OrderUpdateApiCall(
+                                                "3",
+                                                homeController
+                                                    .assignOrderList[
+                                                        widget.productIndex]
+                                                    .detailId
+                                                    .toString(),
+                                                "");
+                                            setState(() {});
+                                            print("Delivered ");
+                                          },
+                                          child: Text(
+                                            "Delivered",
+                                            style: TextStyle(
+                                              fontFamily:
+                                                  ConstFont.popinsRegular,
+                                              fontSize: 16,
+                                              color: SelectedValueIndex == 1
+                                                  ? Colors.black
+                                                  : Colors.white,
+                                              //color: Colors.white
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Center(
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          // primary: const Color(0xffF86C6B)
+                                          backgroundColor: Colors.white,
+                                          maximumSize: Size(deviceWidth * 0.4,
+                                              deviceHeight * 0.06),
+                                          minimumSize: Size(deviceWidth * 0.4,
+                                              deviceHeight * 0.05),
+                                          elevation: 8.0,
+                                        ),
+                                        onPressed: () {},
+                                        child: InkWell(
+                                          onTap: () async {
+                                            homeController.reasonController.clear();
+                                            final result = await showDialog(
+                                                context: context,
+                                                builder: (BuildContextcontext) {
+                                                  return AlertDialog(
+                                                      shape: OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      16.0)),
+                                                      // backgroundColor: const Color(0xFFECF3F9),
+                                                      backgroundColor:
+                                                          Colors.white,
+                                                      actions: [
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            ElevatedButton(
+                                                              onPressed: () {
+                                                                if (formkey
+                                                                    .currentState!
+                                                                    .validate()) {
+                                                                  homeController
+                                                                      .assignOrderList[
+                                                                          widget
+                                                                              .productIndex]
+                                                                      .orderStatus = 4;
+                                                                  homeController.OrderUpdateApiCall(
+                                                                      "4",
+                                                                      homeController
+                                                                          .assignOrderList[widget
+                                                                              .productIndex]
+                                                                          .detailId
+                                                                          .toString(),
+                                                                      homeController
+                                                                          .reasonController
+                                                                          .text);
+                                                                  setState(
+                                                                      () {});
+                                                                  Navigator.pop(
+                                                                      context,
+                                                                      false);
+                                                                }
+                                                              },
+                                                              style: ElevatedButton.styleFrom(
+                                                                  backgroundColor:
+                                                                      ConstColour
+                                                                          .primaryColor,
+                                                                  elevation: 0),
+                                                              child: const Text(
+                                                                "Submit",
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 20,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontFamily:
+                                                                      ConstFont
+                                                                          .popinsRegular,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                      title: Text(
+                                                          "Enter Your Reason Why Product Not Delivered",
+                                                          style: TextStyle(
+                                                              fontFamily: ConstFont
+                                                                  .popinsRegular)),
+                                                      content: Form(
+                                                        key: formkey,
+                                                        child: TextFormField(
+                                                          controller: homeController
+                                                              .reasonController,
+                                                          decoration:
+                                                              InputDecoration(
+                                                            fillColor:
+                                                                const Color(
+                                                                    0xFF0926C),
+                                                            filled: true,
+                                                            focusedBorder: OutlineInputBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            5),
+                                                                borderSide: const BorderSide(
+                                                                    color: Colors
+                                                                        .black)),
+                                                            border:
+                                                                OutlineInputBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10),
+                                                            ),
+                                                            enabledBorder:
+                                                                OutlineInputBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10),
+                                                            ),
+                                                            hintStyle:
+                                                                const TextStyle(
+                                                                    fontFamily:
+                                                                        ConstFont
+                                                                            .popinsRegular,
+                                                                    fontSize:
+                                                                        15),
+                                                            hintText:
+                                                                "Reason for Not Deliver",
+                                                          ),
+                                                          validator: (value) {
+                                                            if (value!
+                                                                .isEmpty) {
+                                                              return "Enter Your Reason Why Product Not Delivered";
+                                                            }
+                                                            return null;
+                                                          },
+                                                        ),
+                                                      ));
+                                                });
+                                          },
+                                          child: const Text(
+                                            "Not Delivered",
+                                            style: TextStyle(
+                                              fontFamily:
+                                                  ConstFont.popinsMedium,
+                                              color: Colors.red,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Center(
+                                  child: Text(
+                                    (homeController
+                                                .assignOrderList[
+                                                    widget.productIndex]
+                                                .orderStatus ==
+                                            3)
+                                        ? "Delivered"
+                                        : "Not Delivered",
+                                    style: TextStyle(
+                                      color: (homeController.assignOrderList[widget.productIndex].orderStatus == 2 ||
+                                              homeController.assignOrderList[widget.productIndex].orderStatus == 4)
+                                          ? Colors.red
+                                          : Colors.green,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                  ],
+                );
+              },
+            )
           ],
         ),
       ),
