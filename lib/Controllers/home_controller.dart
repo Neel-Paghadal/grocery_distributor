@@ -18,6 +18,7 @@ import '../ConstFile/constApi.dart';
 import '../ConstFile/constColor.dart';
 import '../ConstFile/constFonts.dart';
 import '../ConstFile/constPreferences.dart';
+import '../Model/get_notification_model.dart';
 
 MyProfileController myProfileController = Get.put(MyProfileController());
 
@@ -30,9 +31,11 @@ class HomeController extends GetxController {
   TextEditingController reasonController = TextEditingController();
   RxList<LiveOrders> liveOrderList = <LiveOrders>[].obs;
   RxList<OrderList> assignOrderList = <OrderList>[].obs;
+  // RxList<GetNotificationData> productList = <GetNotificationData>[].obs;
   RxBool isChange = false.obs;
   RxBool isFilterApplyed = false.obs;
   RxBool isListEmplty = false.obs;
+
 
   String? distributorEmail;
   String? distributorName;
@@ -104,8 +107,7 @@ class HomeController extends GetxController {
   }
 
   AssignOrderApiCall(String type, String distributorId) async {
-    String? distributorId =
-        await ConstPreferences().getDistributorId("DistributorId");
+    String? distributorId = await ConstPreferences().getDistributorId("DistributorId");
     final response = await http.post(Uri.parse(ConstApi.assignOrder), body: {
       "LiveOrderType": type,
       "DistriButerId": distributorId,
@@ -203,17 +205,20 @@ class HomeController extends GetxController {
     } else {}
   }
 
-
   final AudioPlayer audioPlayer = AudioPlayer();
   Future<void> playAlarmTone() async {
     await audioPlayer.play(AssetSource('sounds/ringtone.mp3'));
     // audioPlayer = await audioCache.play('sounds/ringtone.mp3');
   }
+
   final _random = Random();
 
   Future<void> showAlarmDialog(
-      /*String title, String body, *//*int index*/
-      {required String imageUrl, required String title, required String body, required int index}) async {
+      /*String title, String body, int index*/
+      {required String imageUrl,
+      required String title,
+      required String body,
+      required int index}) async {
     await playAlarmTone();
     Timer(Duration(seconds: 30), () {
       audioPlayer.stop();
@@ -226,124 +231,164 @@ class HomeController extends GetxController {
     // AudioPlayer player = AudioPlayer();
     // await audioPlayer.play(AssetSource('assets/sounds/ringtone.mp3'));
     Get.dialog(
-      useSafeArea: true,
-      barrierDismissible: false,
-        Dialog(
+        useSafeArea: true,
+        barrierDismissible: false,
+        WillPopScope(
+          onWillPop: () async {
+            return false;
+          },
+          child: Dialog(
             elevation: 5.0,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(11),
-                side: BorderSide(color: ConstColour.primaryColor,width: 3)
-            ),
+                side: BorderSide(color: ConstColour.primaryColor, width: 3)),
             backgroundColor: Colors.white,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Padding(
-                  padding: EdgeInsets.only(top: deviceHeight * 0.02),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: StickyColors.colors[_random.nextInt(15)],
-                    ),
-                    height: deviceHeight * 0.15,
-                    width: deviceWidth * 0.4,
-                    child: CachedNetworkImage(
-                      width: deviceWidth * 0.1,
-                      imageUrl: /*imageUrl,*/homeController.assignOrderList[index].imageName.toString(),
-                      placeholder: (context, url) => const Icon(Icons.image, size: 45),
-                      errorWidget: (context, url, error) => const Icon(Icons.error, size: 45),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: deviceHeight * 0.03),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: deviceWidth * 0.02),
-                        child: Text(/*title,*/
-                          homeController.assignOrderList[index].productName,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: ConstFont.popinsRegular,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: deviceWidth * 0.02,),
-                        child: Row(
-                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Image.asset(
-                                "assets/Icons/pin.png",
-                                width: deviceWidth * 0.04),
-                            Expanded(
-                              child: Text(
-                                " " + homeController.assignOrderList[index].address.toString(),
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 2,
-                                style: const TextStyle(
-                                    letterSpacing: 1.0,
-                                    fontSize: 10,
-                                    fontFamily: ConstFont.popinsRegular,
-                                    color: Colors.black),
-                              ),
+                Expanded(
+                  child: ListView.builder(
+                    controller: ScrollController(),
+                    scrollDirection: Axis.vertical,
+                    itemCount: homeController.assignOrderList.length > 10
+                        ? 10
+                        : homeController.assignOrderList.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Card(
+                          // color: ConstColour.cardBgColor,
+                          color: Colors.white,
+                          elevation: 5.0,
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                left: deviceWidth * 0.01,
+                                bottom: deviceHeight * 0.01,
+                                right: deviceWidth * 0.01,
+                                top: deviceHeight * 0.01),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  //mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: StickyColors
+                                            .colors[_random.nextInt(15)],
+                                      ),
+                                      height: 60,
+                                      width: 72,
+                                      child: CachedNetworkImage(
+                                        width: deviceWidth * 0.1,
+                                        imageUrl: homeController
+                                            .assignOrderList[index].imageName
+                                            .toString(),
+                                        placeholder: (context, url) =>
+                                            const Icon(Icons.image, size: 45),
+                                        errorWidget: (context, url, error) =>
+                                            const Icon(Icons.error, size: 45),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                left: deviceWidth * 0.02),
+                                            child: Container(
+                                              width: deviceWidth * 0.45,
+                                              child: Text(
+                                                homeController
+                                                    .assignOrderList[index]
+                                                    .productName,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontFamily:
+                                                        ConstFont.popinsRegular,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                left: deviceHeight * 0.01,
+                                                right: deviceHeight * 0.01),
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  "Quantity : ",
+                                                  style: const TextStyle(
+                                                    fontSize: 12,
+                                                    //fontWeight: FontWeight.bold,
+                                                    fontFamily:
+                                                        ConstFont.popinsRegular,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  homeController
+                                                      .assignOrderList[index]
+                                                      .quantity
+                                                      .toString(),
+                                                  style: const TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily:
+                                                        ConstFont.popinsMedium,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                left: deviceWidth * 0.01),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsets.only(
+                                                      bottom:
+                                                          deviceHeight * 0.005),
+                                                  child: Text(
+                                                    " " +
+                                                        homeController
+                                                            .removeDecimalValue(
+                                                                homeController
+                                                                    .assignOrderList[
+                                                                        index]
+                                                                    .unitType
+                                                                    .toString()),
+                                                    style: const TextStyle(
+                                                        fontSize: 12,
+                                                        fontFamily: ConstFont
+                                                            .popinsRegular,
+                                                        color: Colors.black),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                )
+                              ],
                             ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: deviceWidth * 0.02,top: deviceHeight * 0.01),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Quantity : ",
-                              style: const TextStyle(
-                                fontSize: 14,
-                                //fontWeight: FontWeight.bold,
-                                fontFamily: ConstFont.popinsRegular,
-                                color: Colors.black,
-                              ),
-                            ),
-                            Text(homeController.assignOrderList[index].quantity.toString(),
-                              style: const TextStyle(
-                                fontSize: 14,
-                                // fontWeight: FontWeight.bold,
-                                fontFamily: ConstFont.popinsMedium,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: deviceWidth * 0.02),
-                        child: Text(
-                          " " + homeController.removeDecimalValue(homeController.assignOrderList[index].unitType.toString()),
-                          style: const TextStyle(
-                              fontSize: 12,
-                              fontFamily: ConstFont.popinsRegular,
-                              color: Colors.black),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: deviceWidth * 0.02),
-                        child: Text(
-                          "₹ " +
-                              homeController.formatPrice(homeController.assignOrderList[index].totalAmount),
-                          style: const TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              fontFamily: ConstFont.popinsRegular,
-                              color: Colors.black),
-                        ),
-                      ),
-                    ],
+                          ));
+                    },
                   ),
                 ),
                 Padding(
@@ -371,7 +416,8 @@ class HomeController extends GetxController {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: deviceWidth * 0.02),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: deviceWidth * 0.02),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xffF86C6B)),
@@ -389,11 +435,11 @@ class HomeController extends GetxController {
                       ),
                     ],
                   ),
-                )
+                ),
               ],
-            )
-        )
-    );
+            ),
+          ),
+        ));
   }
 
   @override
@@ -402,52 +448,4 @@ class HomeController extends GetxController {
     super.dispose();
     audioPlayer.dispose();
   }
-
-    /*showDialog(
-      context: context,
-      useSafeArea: true,
-      barrierDismissible: true,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(title ?? ""),
-          content: Text(body ?? ""),
-          actions: [
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xff6AB04C)),
-              onPressed: () {
-                *//*assignOrderList[index].orderStatus = 1;
-                OrderUpdateApiCall("1", assignOrderList[index].detailId.toString(), "");*//*
-                Navigator.pop(context);
-                // player.stop();
-              },
-              child: const Text(
-                "Accept",
-                style: TextStyle(color: ConstColour.bgColor),
-              ),
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xffF86C6B)),
-              onPressed: () {
-                Navigator.pop(context);
-                // player.stop();
-              },
-              child: const Text(
-                "Reject",
-                style: TextStyle(color: ConstColour.bgColor),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-    Future.delayed(Duration(seconds: 30), () {
-      // player.stop();
-      // if (Navigator.canPop(context)) {
-      //   audioPlayer.stop(); // Stop the ringtone
-      //   Navigator.pop(context); // Dismiss the dialog
-      // }
-    });
-  }*/
 }

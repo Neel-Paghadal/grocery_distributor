@@ -126,6 +126,18 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(5)),
                               borderSide: BorderSide(color: Colors.black)),
+                          errorBorder: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(5)),
+                              borderSide: BorderSide(color: Colors.red)),
+                          disabledBorder: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(5)),
+                              borderSide: BorderSide(color: Colors.black)),
+                          focusedErrorBorder: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(5)),
+                              borderSide: BorderSide(color: Colors.red)),
                           isDense: true,
                           hintStyle: TextStyle(
                               fontFamily: ConstFont.popinsRegular,
@@ -154,6 +166,15 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderRadius: BorderRadius.circular(5),
                           ),
                           focusedBorder: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                          ),
+                          errorBorder: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                          ),
+                          disabledBorder: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                          ),
+                          focusedErrorBorder: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(5)),
                           ),
                           isDense: true,

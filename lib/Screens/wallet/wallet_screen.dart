@@ -79,8 +79,9 @@ class _WalletScreenState extends State<WalletScreen> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                "₹ " +
-                                    "${homeController.formatPrice(walletController.totalWalletAmount.value == 0.0 ? 0.0 : walletController.totalWalletAmount.value)}",
+                                "₹ ${homeController.formatPrice(walletController.totalWalletAmount.value == 0.0
+                                    ? 0.0
+                                    : walletController.totalWalletAmount.value)}",
                                 style: const TextStyle(
                                     fontFamily: ConstFont.popinsMedium,
                                     fontSize: 20,
@@ -103,8 +104,10 @@ class _WalletScreenState extends State<WalletScreen> {
                 Padding(
                   padding: EdgeInsets.only(top: deviceHeight * 0.01),
                   child: ListTile(
-                    onTap: () {
-                      showDialogs();
+                    onTap: walletController.totalWalletAmount.value > 0
+                        ? () {showDialogs();}
+                        : () {
+                      Utils().snackBar("Cannot withdraw when total balance is 0", "");
                     },
                     shape: OutlineInputBorder(
                       borderSide: BorderSide(color: ConstColour.btnHowerColor),

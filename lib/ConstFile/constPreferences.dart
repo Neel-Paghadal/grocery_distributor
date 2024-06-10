@@ -1,7 +1,9 @@
 
 import 'dart:convert';
 
+import 'package:get/get.dart';
 import 'package:grocery_distributor/Model/distributordeatil_model.dart';
+import 'package:grocery_distributor/Model/get_notification_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ConstPreferences {
@@ -17,6 +19,7 @@ class ConstPreferences {
   var INDEX = "INDEX";
   var PINCODE = "PINCODE";
   var DISCOUNT = "DISCOUNT";
+  var DIALOG = "DIALOG";
 
   Future<void> setFcmToken(String value) async {
     final prefs = await SharedPreferences.getInstance();
@@ -27,6 +30,17 @@ class ConstPreferences {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('FCMTOKEN');
   }
+
+
+  // Future<void> setDialogData(String value) async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString(DIALOG, value);
+  // }
+  //
+  // Future<String?> getDialogData() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   return prefs.getString(DIALOG);
+  // }
 
   Future<void> saveDistributorId(String key, String value) async {
     final prefs = await SharedPreferences.getInstance();
@@ -103,9 +117,30 @@ class ConstPreferences {
     }
   }
 
+  Future<void> saveProductList(RxList<GetNotificationData> productList) async {
+    final prefs = await SharedPreferences.getInstance();
+    String productListJson = getNotificationDataToJson(productList);
+    await prefs.setString('productList', productListJson);
+  }
+
+  Future<RxList<GetNotificationData>> getProductList() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? productListJson = prefs.getString('productList');
+    if (productListJson != null) {
+      List<GetNotificationData> productList = getNotificationDataFromJson(productListJson);
+      return RxList<GetNotificationData>.from(productList);
+    }
+    return <GetNotificationData>[].obs;
+  }
+
 
   void clearPreferences() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.clear();
+  }
+
+  Future<void> removePreference(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(key);
   }
 }

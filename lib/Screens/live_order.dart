@@ -927,11 +927,7 @@ class _LiveorderPageState extends State<LiveorderPage> {
 
                                                               // change
 
-                                                              homeController
-                                                                          .assignOrderList[
-                                                                              index]
-                                                                          .orderStatus ==
-                                                                      0
+                                                              homeController.assignOrderList[index].orderStatus == 0
                                                                   ? Padding(
                                                                       padding:
                                                                           EdgeInsets
@@ -1058,10 +1054,15 @@ class _LiveorderPageState extends State<LiveorderPage> {
                                                                         ],
                                                                       ),
                                                                     )
-                                                                  : (homeController.assignOrderList[index].orderStatus !=
-                                                                              3 &&
-                                                                          homeController.assignOrderList[index].orderStatus !=
-                                                                              4)
+                                                                  : homeController.assignOrderList[index].orderStatus == 2
+                                                                  ? Text("Rejected",
+                                                                style: TextStyle(
+                                                                  color: Colors.red,
+                                                                  fontSize: 12,
+                                                                ),
+                                                              )
+                                                                  : (homeController.assignOrderList[index].orderStatus != 3 &&
+                                                                          homeController.assignOrderList[index].orderStatus != 4)
                                                                       ? Padding(
                                                                           padding:
                                                                               EdgeInsets.only(

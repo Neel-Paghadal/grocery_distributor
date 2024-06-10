@@ -37,7 +37,7 @@ class MyProfileController extends GetxController {
 
   void getPrefData() async {
     DistibutorData? distibutorData = await ConstPreferences().getUserData();
-    userProfileImage!.value = distibutorData!.profileImage.toString();
+    userProfileImage?.value = distibutorData!.profileImage.toString();
     // number.value = (await ConstPreferences().ge("mobilenumber"))!;
     name.value =
         (await ConstPreferences().getDistributorName('DistributorName'))!;
