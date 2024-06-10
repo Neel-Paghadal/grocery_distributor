@@ -7,34 +7,32 @@ import '../ConstFile/constPreferences.dart';
 class PushNotificationService {
 
 
-  Future<void> _firebaseMessagingBackgroundHandler(
-      RemoteMessage message) async {
-    await Firebase.initializeApp();
-    debugPrint('Title:  ${message.notification!.title}');
-    debugPrint('Body:  ${message.notification!.body}');
-    debugPrint('payload:  ${message.data}');
-    String userID =
-    message.data.toString().split(':')[1].trim().replaceAll('}', '');
-    debugPrint("$userID userID");
-  }
+  // Future<void> _firebaseMessagingBackgroundHandler(
+  //     RemoteMessage message) async {
+  //   await Firebase.initializeApp();
+  //   debugPrint('Title:  ${message.notification!.title}');
+  //   debugPrint('Body:  ${message.notification!.body}');
+  //   debugPrint('payload:  ${message.data}');
+  //   String userID =
+  //   message.data.toString().split(':')[1].trim().replaceAll('}', '');
+  //   debugPrint("$userID userID");
+  // }
 
-  void handleNotification() async {
-    FirebaseMessaging.instance
-        .getInitialMessage()
-        .then((RemoteMessage? message) {
-      if (message != null) {
-        _handleMessage(message);
-      }
-    });
-  }
+  // void handleNotification() async {
+  //   FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? message) {
+  //     if (message != null) {
+  //       _handleMessage(message);
+  //     }
+  //   });
+  // }
 
-  void _handleMessage(RemoteMessage message) {
-    debugPrint('Handling message: $message');
-    // Extract user ID from the message data
-    String userID = message.data.toString().split(':')[1].trim().replaceAll('}', '');
-    debugPrint("$userID userID");
-
-  }
+  // void _handleMessage(RemoteMessage message) {
+  //   debugPrint('Handling message: $message');
+  //   // Extract user ID from the message data
+  //   String userID = message.data.toString().split(':')[1].trim().replaceAll('}', '');
+  //   debugPrint("$userID userID");
+  //
+  // }
 
   Future initialize() async {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
