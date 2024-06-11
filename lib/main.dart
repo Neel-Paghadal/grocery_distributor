@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:audioplayers/audioplayers.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -11,19 +9,16 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:grocery_distributor/api_services/all_services.dart';
 import 'package:grocery_distributor/service/pushNotification_service.dart';
 import 'package:system_alert_window/system_alert_window.dart';
 
 import 'Screens/splash.dart';
 
-
-
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
-  'high_importance_channel', // id
+  "0", // id
   'High Importance Notifications', // title
   // 'This channel is used for important notifications.', // description
   description: 'This channel is used for important notifications',
@@ -41,7 +36,6 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     debugPrint("Background message: $message");
     // String userID = message.data.toString().split(':')[1].trim().replaceAll('}', '');
     // debugPrint(userID + " userID");
-
   });
 }
 
@@ -52,13 +46,13 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  var initializationSettingsAndroid = AndroidInitializationSettings('app_icon');
 
-  // await PushNotificationService().initNotifications();
   await PushNotificationService().initialize();
-  PushNotificationService().handleNotification();
 
-  await flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.createNotificationChannel(channel);
+  await flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin>()
+      ?.createNotificationChannel(channel);
   await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
     alert: true,
     badge: true,
@@ -75,7 +69,7 @@ void main() async {
     sound: true,
   );
 
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
   runApp(const MyApp());
 }
@@ -83,108 +77,15 @@ void main() async {
 @pragma("vm:entry-point")
 void overlayMain() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(GetMaterialApp(
+  runApp(
+    GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: CustomOverlay(),
     ),
   );
 }
 
-// final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-//
-//
-// const AndroidNotificationChannel channel = AndroidNotificationChannel(
-//   'high_importance_channel', // id
-//   'High Importance Notifications', // title
-//   // 'This channel is used for important notifications.', // description
-//   description: 'This channel is used for important notifications',
-//   showBadge: true,
-//   importance: Importance.high,
-//   playSound: true,
-// );
-//
-// int _overlayIndex = 0;
-// String _overlayTitle = "";
-// String _overlayBody = "";
-// String _overlayImageUrl = "";
-// String _overlayAddress = "";
-// String _overlayUnit = "";
-// String _overlayQuantity = "";
-// String _overlayPrice = "";
-//
-// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-//   await Firebase.initializeApp();
-//   print('Title:  ${message.notification!.title}');
-//   print('Body:  ${message.notification!.body}');
-//   print('Imageurl: ${message.notification!.android!.imageUrl.toString()}');
-//   print('payload:  ${message.data}');
-//
-//   /*_overlayIndex = 0;
-//   _overlayTitle = message.notification!.title.toString();
-//   _overlayBody = message.notification!.body.toString();
-//   _overlayImageUrl = message.notification!.android!.imageUrl.toString();*/
-//
-//   // Launch the overlay
-//   overlayMain();
-// }
-//
-//
-// void main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   await Firebase.initializeApp();
-//   SystemChrome.setPreferredOrientations([
-//     DeviceOrientation.portraitUp,
-//     DeviceOrientation.portraitDown,
-//   ]);
-//   var initializationSettingsAndroid = AndroidInitializationSettings('app_icon');
-//
-//   // await PushNotificationService().initNotifications();
-//   await PushNotificationService().initialize();
-//   PushNotificationService().handleNotification();
-//
-//   await flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.createNotificationChannel(channel);
-//   await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-//     alert: true,
-//     badge: true,
-//     sound: true,
-//   );
-//
-//   await FirebaseMessaging.instance.requestPermission(
-//     alert: true,
-//     announcement: false,
-//     badge: true,
-//     carPlay: false,
-//     criticalAlert: false,
-//     provisional: false,
-//     sound: true,
-//   );
-//
-//   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-//
-//   runApp(const MyApp());
-//   // runApp(DevicePreview(
-//   //   builder: (context) => const MyApp(),
-//   //   enabled: true,
-//   // ));
-// }
-//
-// @pragma("vm:entry-point")
-// void overlayMain() {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   runApp(GetMaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       home: CustomOverlay(
-//         title: _overlayTitle,
-//         body: _overlayBody,
-//         imageUrl: _overlayImageUrl,
-//         address: _overlayAddress,
-//         unit: _overlayUnit,
-//         quantity: _overlayQuantity,
-//         price: _overlayPrice,
-//       ),
-//     ),
-//   );
-// }
+
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -194,35 +95,25 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
-  // String? _deviceToken;
-
   @override
   void initState() {
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       FirebaseMessaging.instance.requestPermission();
       getNotification();
       SystemAlertWindow.checkPermissions();
+
     });
     super.initState();
   }
 
   Future<void> getNotification() async {
-
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       RemoteNotification? notification = message.notification;
 
       var imageBytes = await getImageBytes(notification!.android!.imageUrl.toString());
 
-      var largeIconBitmap =  ByteArrayAndroidBitmap(imageBytes);
-      /*Get.snackbar("My app notification ", notification!.body.toString(),
-          reverseAnimationCurve: Curves.bounceIn,
-          forwardAnimationCurve: Curves.bounceInOut,
-          snackPosition: SnackPosition.TOP,
-          duration: const Duration(seconds: 2),
-          colorText: Colors.white,
-          backgroundColor: ConstColor.primaryColor);*/
+      // Convert image bytes to an AndroidBitmap
+      var largeIconBitmap = ByteArrayAndroidBitmap(imageBytes);
 
       print("Notification received");
       var bigPictureStyleInformation = BigPictureStyleInformation(
@@ -235,17 +126,19 @@ class _MyAppState extends State<MyApp> {
         htmlFormatSummaryText: true,
       );
 
-      AudioManager.instance.showOverlayWindow();
-
+      // AudioManager.instance.showOverlayWindow();
+      showOverlayWindow();
+      // CustomOverlay();
       flutterLocalNotificationsPlugin.show(
           notification.hashCode,
-          notification!.title,
+          notification.title,
           notification.body,
           NotificationDetails(
-            android: AndroidNotificationDetails("0", channel.name,
+            android: AndroidNotificationDetails("0",
+                channel.name,
                 channelDescription: channel.description,
                 importance: Importance.high,
-                largeIcon:largeIconBitmap,
+                largeIcon: largeIconBitmap,
                 channelShowBadge: true,
                 color: Colors.white,
                 playSound: true,
@@ -269,165 +162,7 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  /*bool _isShowingWindow = false;
-  bool _isUpdatedWindow = false;
-  SystemWindowPrefMode prefMode = SystemWindowPrefMode.OVERLAY;
 
-  void _showOverlayWindow() async {
-    AudioManager.instance.playAlarmTone();
-    Timer(Duration(seconds: 30), () {
-      AudioManager.instance.stop();
-    });
-    if (!_isShowingWindow) {
-      await SystemAlertWindow.sendMessageToOverlay('show system window');
-      SystemAlertWindow.showSystemWindow(
-        height: 400,
-        width: MediaQuery.of(context).size.width.floor(),
-        gravity: SystemWindowGravity.CENTER,
-        prefMode: prefMode,
-      );
-      setState(() {
-        _isShowingWindow = true;
-      });
-    } else if (!_isUpdatedWindow) {
-      await SystemAlertWindow.sendMessageToOverlay('update system window');
-      SystemAlertWindow.updateSystemWindow(
-          height: 400,
-          width: MediaQuery.of(context).size.width.floor(),
-          gravity: SystemWindowGravity.CENTER,
-          prefMode: prefMode,
-          isDisableClicks: true);
-      setState(() {
-        _isUpdatedWindow = true;
-        SystemAlertWindow.sendMessageToOverlay(_isUpdatedWindow);
-      });
-    } else {
-      setState(() {
-        _isShowingWindow = false;
-        _isUpdatedWindow = false;
-        SystemAlertWindow.sendMessageToOverlay(_isUpdatedWindow);
-      });
-      SystemAlertWindow.closeSystemWindow(prefMode: prefMode);
-    }
-  }*/
-
-      if (notification != null && android != null) {
-        var imageUrl = notification.android!.imageUrl;
-        if (imageUrl != null) {
-          // var bigPictureStyleInformation = BigPictureStyleInformation(
-          //   DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
-          //   largeIcon: DrawableResourceAndroidBitmap(imageUrl),
-          //   contentTitle: notification.title,
-          //   htmlFormatContentTitle: true,
-          //   summaryText: notification.body,
-          //   htmlFormatSummaryText: true,
-          // );
-          // Define notification details
-          // Fetch the image bytes from the URL
-          var imageBytes = await getImageBytes(imageUrl);
-
-          // Convert image bytes to an AndroidBitmap
-          var largeIconBitmap =  ByteArrayAndroidBitmap(imageBytes);
-
-          var bigPictureStyleInformation = BigPictureStyleInformation(
-            largeIconBitmap,
-            //   DrawableResourceAndroidBitmap(imageUrl),
-            largeIcon: largeIconBitmap,
-            contentTitle: notification.title,
-            htmlFormatContentTitle: true,
-            summaryText: notification.body,
-            htmlFormatSummaryText: true,
-          );
-
-          var android = new AndroidNotificationDetails(
-            channel.id,
-            channel.name,
-            channelDescription: channel.description,
-            importance: Importance.max,
-            largeIcon: largeIconBitmap,
-            channelShowBadge: true,
-            // color: Colors.blue,
-            playSound: true,
-            enableVibration: true,
-            ongoing: true,
-            priority: Priority.high,
-            styleInformation: bigPictureStyleInformation,
-            icon: '@drawable/wallpaper',
-            // icon: '@mipmap/ic_launcher',
-            // icon: '@drawable/wallpaper_icon',
-            /*"0",
-            channel.name,
-            channelDescription: channel.description,
-            importance: Importance.max,
-            priority: Priority.high,
-            styleInformation: bigPictureStyleInformation,
-            icon: '@mipmap/ic_launcher',
-            // icon: '@drawable/wallpaper',*/
-          );
-
-          var platformChannelSpecifics = NotificationDetails(android: android);
-          await flutterLocalNotificationsPlugin.show(
-            0,
-            notification.title,
-            notification.body,
-            platformChannelSpecifics,
-            // payload: 'Custom_Sound'
-          );
-
-          /*int index = 0;
-
-          homeController.showAlarmDialog(context, message.notification!.title, message.notification!.body, index);*/
-
-          //  var iOS = new IOSNotificationDetails();
-          //   var platform = new NotificationDetails(android: android);
-          /*   await flutterLocalNotificationsPlugin.show(
-              0, 'New Notification', 'Flutter Local Notif', platform,payload: 'test notification');*/
-
-          /*    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-           "0",
-            channel.name,
-            channelDescription: channel.description,
-            importance: Importance.max,
-            priority: Priority.high,
-            styleInformation: bigPictureStyleInformation,
-              icon: '@mipmap/ic_launcher'
-          );*/
-          /*        var platformChannelSpecifics = NotificationDetails(
-            android: androidPlatformChannelSpecifics,
-          );*/
-          /*await flutterLocalNotificationsPlugin.show(
-            0,
-          //  notification.hashCode,
-            notification.title,
-            notification.body,
-            platformChannelSpecifics,
-          );*/
-        } else {
-          // Handle notification without image
-        }
-      }
-    });
-  }
-
-  Future<void> _showNotification(String? title, String? body) async {
-    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-      'your_channel_id',
-      'your_channel_name',
-      channelDescription: 'your_channel_description',
-      importance: Importance.max,
-      priority: Priority.high,
-      icon: '@drawable/wallpaper'
-    );
-    var platformChannelSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics,);
-
-    await flutterLocalNotificationsPlugin.show(
-      0,
-      title,
-      body,
-      platformChannelSpecifics,
-      payload: 'Default_Sound',
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -435,20 +170,10 @@ class _MyAppState extends State<MyApp> {
       title: 'Flutter Demo',
       theme: ThemeData(
         useMaterial3: false,
-        // new intail
-        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        // useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),
       // home: MyAppss(),
-      // home:   LoginScreen(),
-      // home:   SplashScreen(),
-      //  home:   HomeScreen(),
-      // home: LiveorderPage(),
-      // home: DashbordPage(),
-      // home: lowstockPage(),
-      // home: GodownPage(),
     );
   }
 }
