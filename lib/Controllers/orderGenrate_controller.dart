@@ -13,7 +13,7 @@ import 'package:grocery_distributor/api_services/all_services.dart';
 import 'package:http/http.dart' as http;
 
 import '../ConstFile/constColor.dart';
-import '../Model/procutPrice_model.dart';
+import '../Model/productPrice_model.dart';
 
 class OrderGenrateController extends GetxController {
   TextEditingController allSearchController = TextEditingController();
@@ -33,7 +33,20 @@ class OrderGenrateController extends GetxController {
   }
 
   String calculateTotalAmount(int quantity, double price) {
-    return (quantity * price).toStringAsFixed(0);
+    final total = quantity * price;
+    if (total % 1 == 0) {
+      return total.toStringAsFixed(0);
+    } else {
+      return total.toStringAsFixed(2);
+    }
+  }
+
+  String removeValue(String input) {
+    if (input.contains('.')) {
+      return input.split('.')[0];
+    } else {
+      return input;
+    }
   }
 
   void showDialogs(
@@ -45,7 +58,7 @@ class OrderGenrateController extends GetxController {
     var deviceHeight = MediaQuery.of(context).size.height;
     var deviceWidth = MediaQuery.of(context).size.width;
     quntityController.clear();
-    totalAmount.value = '0';
+    totalAmount.value = '0.0';
     showDialog(
       useSafeArea: true,
       barrierDismissible: true,
@@ -70,9 +83,9 @@ class OrderGenrateController extends GetxController {
                     child: TextFormField(
                       onChanged: (value) {
                         final quantity = int.tryParse(value.trim()) ?? 0;
-                        final price = orderPriceList.isNotEmpty ? orderPriceList[index].price.toDouble() : 0;
-                        final totalAmount = calculateTotalAmount(quantity, price.toDouble());
-                        updateValues(value, totalAmount);
+                        final price = orderPriceList.isNotEmpty ? orderPriceList[index].offerPrice.toDouble() : 0;
+                        final total = calculateTotalAmount(quantity, price.toDouble());
+                        updateValues(value, total);
                       },
                       controller: quntityController,
                       keyboardType: TextInputType.number,
@@ -136,7 +149,59 @@ class OrderGenrateController extends GetxController {
                               overflow: TextOverflow.ellipsis),
                         ),
                         Text(
-                          "₹ ${homeController.formatPrice(orderPriceList[index].price)}",
+                            "₹ ${homeController.formatPrice(orderPriceList[index].price)}",
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.black,
+                                decoration: TextDecoration.lineThrough,
+                                fontFamily: ConstFont.popinsRegular,
+                                fontWeight: FontWeight.w300,
+                                overflow: TextOverflow.ellipsis),),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: deviceWidth * 0.05),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Commission :",
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                              fontFamily: ConstFont.popinsRegular,
+                              fontWeight: FontWeight.w500,
+                              overflow: TextOverflow.ellipsis),
+                        ),
+                        Text(
+                          "${removeValue(orderPriceList[index].commission.toString())} %",
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                              fontFamily: ConstFont.popinsRegular,
+                              fontWeight: FontWeight.w500,
+                              overflow: TextOverflow.ellipsis),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: deviceWidth * 0.05),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Offer Price :",
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                              fontFamily: ConstFont.popinsRegular,
+                              fontWeight: FontWeight.w500,
+                              overflow: TextOverflow.ellipsis),
+                        ),
+                        Text(
+                          "₹ ${homeController.formatPrice(orderPriceList[index].offerPrice)}",
                           style: TextStyle(
                               fontSize: 15,
                               color: Colors.black,
@@ -237,9 +302,15 @@ class OrderGenrateController extends GetxController {
 
   Future<void> productPriceCall(int id) async {
     orderPriceList.clear();
+    String? distributorId = await ConstPreferences().getDistributorId('DistributorId');
+    debugPrint("Distributor_Id  $distributorId");
+    debugPrint("ProductId  $id");
 
     final response = await http.post(Uri.parse(ConstApi.productWisePriceList),
-        body: {"ProductId": id.toString()});
+        body: {
+      "DistributorId": distributorId,
+      "ProductId": id.toString()
+    });
     var data = response.body;
     debugPrint("Product Price List : " + data);
 
@@ -259,8 +330,7 @@ class OrderGenrateController extends GetxController {
     } else {}
   }
 
-  Future<void> stockRequestToAdmin(
-      String productId, String priceId, String quantity) async {
+  Future<void> stockRequestToAdmin(String productId, String priceId, String quantity) async {
     String? distributorId =
         await ConstPreferences().getDistributorId("DistributorId");
 
@@ -291,10 +361,7 @@ class OrderGenrateController extends GetxController {
     } else {}
   }
 
-  orderGenrateApiCall(
-    int pageIndex,
-    int pageSize,
-  ) async {
+  orderGenrateApiCall(int pageIndex, int pageSize,) async {
     final response = await http.post(Uri.parse(ConstApi.orderGenrate), body: {
       "PageIndex": pageIndex.toString(),
       "PageSize": pageSize.toString(),
@@ -312,12 +379,12 @@ class OrderGenrateController extends GetxController {
       if (messageCode == 200) {
         // ordergenrateList.clear();
         ordergenrateList.addAll(responseData.data);
-        debugPrint("order genrate Successfully ");
+        debugPrint("order generate Successfully ");
         // ordergenrateList =  responseData.data;
         //  return ordergenrateList;
-        debugPrint("order genrate Successfully");
+        // debugPrint("order generate Successfully");
       } else {
-        debugPrint("Error order genrate");
+        debugPrint("Error order generate");
       }
     } else {}
   }

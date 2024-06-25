@@ -1,8 +1,5 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
-import 'package:audioplayers/audioplayers.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -11,17 +8,16 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:grocery_distributor/api_services/all_services.dart';
 import 'package:grocery_distributor/service/pushNotification_service.dart';
 import 'package:system_alert_window/system_alert_window.dart';
 
+import 'Model/get_notification_model.dart';
 import 'Screens/splash.dart';
 
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
-
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
-const   AndroidNotificationChannel channel = AndroidNotificationChannel(
+const AndroidNotificationChannel channel = AndroidNotificationChannel(
   "0", // id
   'High Importance Notifications', // title
   // 'This channel is used for important notifications.', // description
@@ -35,13 +31,16 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
   debugPrint('Title:  ${message.notification!.title}');
   debugPrint('Body:  ${message.notification!.body}');
+  debugPrint('Image: ${message.notification!.android!.imageUrl}');
   debugPrint('payload:  ${message.data}');
-  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-    debugPrint("Background message: $message");
-    // String userID = message.data.toString().split(':')[1].trim().replaceAll('}', '');
-    // debugPrint(userID + " userID");
-
-  });
+  // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+  //   debugPrint("Background message: $message");
+  //   String userID = message.data.toString().split(':')[1].trim().replaceAll('}', '');
+  //   debugPrint(userID + " userID");
+  if (message.notification != null) {
+    AudioManager.instance.showOverlayWindow();
+  }
+  // });
 }
 
 void main() async {
@@ -54,7 +53,10 @@ void main() async {
 
   await PushNotificationService().initialize();
 
-  await flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.createNotificationChannel(channel);
+  await flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin>()
+      ?.createNotificationChannel(channel);
   await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
     alert: true,
     badge: true,
@@ -79,7 +81,8 @@ void main() async {
 @pragma("vm:entry-point")
 void overlayMain() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(GetMaterialApp(
+  runApp(
+    GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: CustomOverlay(),
     ),
@@ -190,11 +193,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
+  int count = 0;
 
   @override
   void initState() {
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       FirebaseMessaging.instance.requestPermission();
       getNotification();
@@ -204,46 +206,56 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> getNotification() async {
-
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       RemoteNotification? notification = message.notification;
 
-      var imageBytes = await getImageBytes(notification!.android!.imageUrl.toString());
+      var responseData =
+          getNotificationDataFromJson(message.data['details'].toString());
+      productList.clear();
+      productList.addAll(responseData);
+      debugPrint('Product List Notification: ${productList}');
 
-      // Convert image bytes to an AndroidBitmap
-      var largeIconBitmap =  ByteArrayAndroidBitmap(imageBytes);
 
-      print("Notification received");
-      var bigPictureStyleInformation = BigPictureStyleInformation(
-        largeIconBitmap,
-        //   DrawableResourceAndroidBitmap(imageUrl),
-        largeIcon: largeIconBitmap,
-        contentTitle: notification.title,
-        htmlFormatContentTitle: true,
-        summaryText: notification.body,
-        htmlFormatSummaryText: true,
-      );
+        var imageBytes = await getImageBytes(productList[count].imageName);
+        print("Notification Icon " + productList[count].imageName);
+        // var imageBytes = await getImageBytes(notification!.android!.imageUrl.toString());
+        print("gdxd  " + notification!.android!.imageUrl.toString());
 
-      AudioManager.instance.showOverlayWindow();
+        // Convert image bytes to an AndroidBitmap
+        var largeIconBitmap = ByteArrayAndroidBitmap(imageBytes);
 
-      flutterLocalNotificationsPlugin.show(
-          notification.hashCode,
-          notification.title,
-          notification.body,
-          NotificationDetails(
-            android: AndroidNotificationDetails("0", channel.name,
-                channelDescription: channel.description,
-                importance: Importance.high,
-                largeIcon:largeIconBitmap,
-                channelShowBadge: true,
-                color: Colors.white,
-                playSound: true,
-                enableVibration: true,
-                ongoing: true,
-                styleInformation: bigPictureStyleInformation,
-                // icon: '@drawable/notification_logo'),
-                icon: '@mipmap/launcher_icon'),
-          ));
+        print("Notification received");
+        var bigPictureStyleInformation = BigPictureStyleInformation(
+          largeIconBitmap,
+          //   DrawableResourceAndroidBitmap(imageUrl),
+          largeIcon: largeIconBitmap,
+          contentTitle: notification.title,
+          htmlFormatContentTitle: true,
+          summaryText: notification.body,
+          htmlFormatSummaryText: true,
+        );
+
+        AudioManager.instance.showOverlayWindow();
+
+        flutterLocalNotificationsPlugin.show(
+            notification.hashCode,
+            notification.title,
+            notification.body,
+            NotificationDetails(
+              android: AndroidNotificationDetails("0", channel.name,
+                  channelDescription: channel.description,
+                  importance: Importance.high,
+                  largeIcon: largeIconBitmap,
+                  channelShowBadge: true,
+                  color: Colors.white,
+                  playSound: true,
+                  enableVibration: true,
+                  ongoing: true,
+                  styleInformation: bigPictureStyleInformation,
+                  // icon: '@drawable/notification_logo'),
+                  icon: '@mipmap/launcher_icon'),
+            ));
+
     });
   }
 

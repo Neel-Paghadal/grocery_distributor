@@ -69,43 +69,43 @@ class _GodownScreenState extends State<GodownScreen> {
           backgroundColor: ConstColour.primaryColor,
           springAnimationDurationInMilliseconds: 1,
           child: godownStockController.godownStockList.isEmpty
-              ? Loaders(
-                  items: 8,
-                  direction: LoaderDirection.ltr,
-                  builder: Padding(
-                    padding: EdgeInsets.only(right: deviceWidth * 0.01),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ListTile(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6)),
-                            title: Container(
-                                width: deviceWidth * 0.2,
-                                height: deviceHeight * 0.005,
-                                color: Colors.grey),
-                            subtitle: Container(
-                                width: deviceWidth * 0.2,
-                                height: deviceHeight * 0.005,
-                                color: Colors.grey),
-                            tileColor: Colors.grey.shade100,
-                            leading: const Icon(
-                              Icons.image,
-                              size: 50,
-                              color: Colors.white,
-                            ),
-                          ),
-                        )
-                      ],
+              ? godownStockController.isNoDataInGodown.value == false
+              ? Center(child: Text("No Data Found"))
+              : Loaders(
+            items: 8,
+            direction: LoaderDirection.ltr,
+            builder: Padding(
+              padding: EdgeInsets.only(right: deviceWidth * 0.01),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListTile(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6)),
+                      title: Container(
+                          width: deviceWidth * 0.2,
+                          height: deviceHeight * 0.005,
+                          color: Colors.grey),
+                      subtitle: Container(
+                          width: deviceWidth * 0.2,
+                          height: deviceHeight * 0.005,
+                          color: Colors.grey),
+                      tileColor: Colors.grey.shade100,
+                      leading: const Icon(
+                        Icons.image,
+                        size: 50,
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
-                )
-              : godownStockController.isNoDataInGodown.value == false
-                  ? Center(child: Text("No Data Found"))
-                  : ListView.builder(
+                  )
+                ],
+              ),
+            ),
+          )
+              : ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
                       itemCount: godownStockController.godownStockList.length,

@@ -1,19 +1,9 @@
-import 'dart:convert';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
-import 'package:grocery_distributor/ConstFile/constApi.dart';
 import 'package:grocery_distributor/ConstFile/constPreferences.dart';
-import 'package:grocery_distributor/Controllers/home_controller.dart';
-import 'package:grocery_distributor/Model/liveorder_model.dart';
-import 'package:grocery_distributor/api_services/all_services.dart';
 import 'package:system_alert_window/system_alert_window.dart';
-import 'package:http/http.dart' as http;
 
 import '../Model/get_notification_model.dart';
 import 'dart:async';
@@ -23,62 +13,16 @@ import 'dart:ui';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:grocery_distributor/Controllers/home_controller.dart';
-import 'package:system_alert_window/system_alert_window.dart';
 
 import '../ConstFile/constColor.dart';
 import '../ConstFile/constFonts.dart';
-import '../Model/get_notification_model.dart';
 import '../Screens/home_screen.dart';
 
 RxList<GetNotificationData> productList = <GetNotificationData>[].obs;
-
 var responseData;
 
-
 class PushNotificationService {
-  int index = 0;
 
-  Future initialize() async {
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      debugPrint('Got a message whilst in the foreground!');
-      debugPrint('Message Title: ${message.notification?.title}');
-      debugPrint('Message Body: ${message.notification?.body}');
-      debugPrint('Message data: ${message.data}');
-      responseData = getNotificationDataFromJson(message.data['details'].toString());
-      productList.clear();
-      productList.addAll(responseData);
-      if(productList.isNotEmpty){
-        // ConstPreferences().setDialogData(responseData);
-        ConstPreferences().removePreference('productList');
-        ConstPreferences().saveProductList(productList);
-      }
-      debugPrint(productList[0].address.toString());
-      if (message.notification != null) {
-        debugPrint('Message also contained a notification: ${message.notification}');
-
-        // CustomOverlay();
-        AudioManager.instance.showOverlayWindow();
-      }
-    });
-
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      debugPrint("Background message: $message");
-      RemoteNotification? notification = message.notification;
-
-      if (notification != null) {
-        // CustomOverlay(responseDatas: responseData,);
-
-        AudioManager.instance.showOverlayWindow();
-
-      }
-    });
-  }
-
-  //
-  //
   // Future<void> initialize() async {
   //
   //   FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
@@ -124,6 +68,72 @@ class PushNotificationService {
   //     print(userID+" userID");
   //   });
   // }
+
+  Future initialize() async {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      debugPrint('Got a message whilst in the foreground!');
+      debugPrint('Message Title: ${message.notification?.title}');
+      debugPrint('Message Body: ${message.notification?.body}');
+      debugPrint('Message Image: ${message.notification!.android!.imageUrl}');
+      debugPrint('Message data: ${message.data}');
+
+      if (message.data.containsKey('details') && message.data['details'] != null) {
+        try {
+          responseData = getNotificationDataFromJson(message.data['details'].toString());
+          productList.clear();
+          productList.addAll(responseData);
+          if (productList.isNotEmpty) {
+            ConstPreferences().removePreference('productList');
+            await ConstPreferences().saveProductList(productList);
+            getPreferences();
+          }
+          debugPrint(productList[0].address.toString());
+          // _CustomOverlayState().getPrefrences();
+          // getPreferences();
+        } catch (e) {
+          debugPrint('Error parsing details JSON: $e');
+        }
+      } else {
+        debugPrint('Details not found in message data or is null');
+      }
+
+      if (message.notification != null) {
+        debugPrint('Message also contained a notification: ${message.notification}');
+
+        // CustomOverlay();
+        AudioManager.instance.showOverlayWindow();
+      }
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      debugPrint("Background message: $message");
+      RemoteNotification? notification = message.notification;
+
+      if (notification != null) {
+        // CustomOverlay(responseDatas: responseData,);
+        AudioManager.instance.showOverlayWindow();
+      }
+    });
+  }
+}
+
+RxList<GetNotificationData> retrievedProductList = <GetNotificationData>[].obs;
+int count = 0;
+
+
+void getPreferences() async {
+  count++;
+  // String? distributorId = await ConstPreferences().getDistributorId("DistributorId");
+  List<GetNotificationData> newProductList = await ConstPreferences().getProductList();
+  retrievedProductList.clear();
+  // retrievedProductList = await ConstPreferences().getProductList();
+  print(newProductList.length);
+  retrievedProductList.value = newProductList;
+  // retrievedProductList.addAll(newProductList);
+  // debugPrint("Distributor Id : -------------- $distributorId");
+  debugPrint("Data : -------------- ${retrievedProductList.length}");
+  debugPrint("Data : ${retrievedProductList.value}");
+  // debugPrint("count : -------------- $count");
 }
 
 
@@ -140,13 +150,33 @@ class _CustomOverlayState extends State<CustomOverlay> {
   bool update = false;
   final Random _random = Random();
   SystemWindowPrefMode prefMode = SystemWindowPrefMode.OVERLAY;
-  int count = 0;
-  RxList<GetNotificationData> retrievedProductList = <GetNotificationData>[].obs;
+  // final _receivePort = ReceivePort();
+  // SendPort? homePort;
+
+  @override
+  void initState() {
+    super.initState();
+    _requestPermissions();
+    getPreferences();
+    // if (homePort != null) return;
+    // final res = IsolateNameServer.registerPortWithName(
+    //   _receivePort.sendPort,
+    //   _mainAppPort,
+    // );
+    // log("$res: OVERLAY");
+    // _receivePort.listen((message) {
+    //   log("message from OVERLAY: $message");
+    // });
+  }
 
   @override
   void dispose() {
     AudioManager.instance.stop();
     super.dispose();
+  }
+
+  Future<void> _requestPermissions() async {
+    await SystemAlertWindow.requestPermissions(prefMode: prefMode);
   }
 
   void callBackFunction(String tag) {
@@ -156,35 +186,26 @@ class _CustomOverlayState extends State<CustomOverlay> {
     mainAppPort?.send(tag);
   }
 
-  void  getPrefrences() async {
-    count++;
-    String? distributorId = await ConstPreferences().getDistributorId("DistributorId");
-    retrievedProductList.clear();
-    retrievedProductList = await ConstPreferences().getProductList();
-    debugPrint("Distributor Id : -------------- $distributorId");
-    debugPrint("Data : -------------- ${retrievedProductList.toString()}");
-    debugPrint("count : -------------- $count");
-  }
-
   @override
   Widget build(BuildContext context) {
     var deviceHeight = MediaQuery.of(context).size.height;
     var deviceWidth = MediaQuery.of(context).size.width;
-    if(count == 0) {
-      getPrefrences();
-    }
+    print("getpreference");
+
+    // if (count == 0) {
+    //   getPreferences();
+    // }
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SizedBox(
-        // height: deviceHeight,
-        child: ListView.builder(
+      body: Obx(() {
+        return ListView.builder(
           controller: ScrollController(),
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
           itemCount: retrievedProductList.length,
           itemBuilder: (context, index) {
-
+            print(retrievedProductList.length.toString() + " edc");
             AudioManager.instance.playAlarmTone();
             Timer(Duration(seconds: 30), () {
               AudioManager.instance.stop();
@@ -197,7 +218,7 @@ class _CustomOverlayState extends State<CustomOverlay> {
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: deviceWidth * 0.01,
-                      vertical: deviceHeight * 0.01,),
+                      vertical: deviceHeight * 0.01),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -228,8 +249,7 @@ class _CustomOverlayState extends State<CustomOverlay> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsets.only(
-                                          left: deviceWidth * 0.01),
+                                      padding: EdgeInsets.only(left: deviceWidth * 0.01),
                                       child: Container(
                                         width: deviceWidth * 0.45,
                                         child: Text(retrievedProductList[index].product,
@@ -297,16 +317,16 @@ class _CustomOverlayState extends State<CustomOverlay> {
                                   ),
                                 ),
                                 /*Padding(
-                                padding: EdgeInsets.only(
-                                    left: deviceWidth * 0.01),
-                                child: Text(
-                                  unit*//* + homeController.removeDecimalValue(homeController.assignOrderList[index].unitType.toString())*//*,
-                                  style: const TextStyle(
-                                      fontSize: 12,
-                                      fontFamily: ConstFont.popinsRegular,
-                                      color: Colors.black),
-                                ),
-                              ),*/
+                              padding: EdgeInsets.only(
+                                  left: deviceWidth * 0.01),
+                              child: Text(
+                                unit*//* + homeController.removeDecimalValue(homeController.assignOrderList[index].unitType.toString())*//*,
+                                style: const TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: ConstFont.popinsRegular,
+                                    color: Colors.black),
+                              ),
+                            ),*/
                                 Padding(
                                   padding: EdgeInsets.only(
                                       left: deviceWidth * 0.01, bottom: deviceHeight * 0.01),
@@ -329,8 +349,8 @@ class _CustomOverlayState extends State<CustomOverlay> {
                 )
             );
           },
-        ),
-      ),
+        );
+      }),
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -383,6 +403,8 @@ class _CustomOverlayState extends State<CustomOverlay> {
   }
 }
 
+
+
 class AudioManager {
   AudioManager._privateConstructor();
   static final AudioManager _instance = AudioManager._privateConstructor();
@@ -407,6 +429,7 @@ class AudioManager {
 
   Future<void> stop() async {
     await audioPlayer.stop();
+    print('Audio played stop');
   }
 
   bool _isShowingWindow = false;
@@ -452,7 +475,7 @@ class AudioManager {
         width: 400,
         gravity: SystemWindowGravity.CENTER,
         prefMode: prefMode,
-      );
+        isDisableClicks: false);
       _isShowingWindow = true;
     } else {
       _isShowingWindow = false;

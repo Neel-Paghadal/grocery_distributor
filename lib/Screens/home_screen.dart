@@ -484,20 +484,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemBuilder: (context, index) {
                                 return InkWell(
                                   onTap: () {
-                                    /*homeController.showAlarmDialog(index: index,
-                                        title: homeController.assignOrderList[index].productName.toString(),
-                                        body: homeController.assignOrderList[index].quantity.toString(),
-                                        imageUrl: homeController.assignOrderList[index].imageName.toString());*/
-                                    /* homeController.showAlarmDialog(index: index,
-                                        title: homeController.assignOrderList[index].productName.toString(),
-                                        body: homeController.assignOrderList[index].quantity.toString(),
-                                        imageUrl: homeController.assignOrderList[index].imageName.toString(),
-                                         totalAmount: homeController.assignOrderList[index].totalAmount.toString());*/
-                                    /*Get.to(() => CustomOverlay(
-                                        index: index,
-                                        title: homeController.assignOrderList[index].productName.toString(),
-                                        body: homeController.assignOrderList[index].quantity.toString(),
-                                        imageUrl: homeController.assignOrderList[index].imageName.toString()));*/
                                     Get.to(() => ProductDetailPage(
                                           productIndex: index,
                                         ));

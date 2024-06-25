@@ -389,48 +389,79 @@ class _OrderGenrateState extends State<OrderGenrate> {
                                       errorWidget: (context, url, error) =>
                                           const Icon(Icons.error, size: 45),
                                     ),
-                                    title: Column(
+                                    title: Text(homeController.removeDecimalValue(orderGenrate.orderPriceList[index].unit.toString()),
+                                        style: const TextStyle(
+                                          color: Colors.black,
+                                          fontFamily: ConstFont.popinsMedium,
+                                          fontSize: 15,
+                                        ),
+                                        overflow: TextOverflow.ellipsis),
+                                    subtitle: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text("₹ ${homeController.formatPrice(orderGenrate.orderPriceList[index].price)}",
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                              fontFamily: ConstFont.popinsMedium,
-                                              fontSize: 16,
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "₹ ${homeController.formatPrice(orderGenrate.orderPriceList[index].price)}",
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors.black,
+                                                  decoration: TextDecoration.lineThrough,
+                                                  fontFamily: ConstFont.popinsRegular,
+                                                  fontWeight: FontWeight.w300,
+                                                  overflow: TextOverflow.ellipsis),),
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: deviceWidth * 0.02),
+                                              child: Text("₹ ${homeController.formatPrice(orderGenrate.orderPriceList[index].offerPrice)}",
+                                                  style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontFamily: ConstFont.popinsMedium,
+                                                    fontSize: 15,
+                                                  ),
+                                                  overflow: TextOverflow.ellipsis,),
                                             ),
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 2),
-                                        Text(homeController.removeDecimalValue(orderGenrate.orderPriceList[index].unit.toString()),
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                              fontFamily: ConstFont.popinsMedium,
-                                              fontSize: 16,
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: deviceWidth * 0.01),
+                                              child: Card(
+                                                  color: ConstColour.primaryColor,
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.all(3.0),
+                                                    child: Text(
+                                                      "${orderGenrate.removeValue(orderGenrate.orderPriceList[index].commission)} %Off ",
+                                                      style: const TextStyle(
+                                                          fontSize: 10,
+                                                          fontFamily: ConstFont.popinsMedium,
+                                                          color: Colors.black),
+                                                      overflow: TextOverflow.ellipsis,
+                                                    ),
+                                                  )),
                                             ),
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 2),
-                                      ],
-                                    ),
-                                    subtitle: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          "Stock Quantity : ",
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontFamily: ConstFont.popinsMedium,
-                                            fontSize: 15,
-                                          ),
+                                          ],
                                         ),
-                                        Text(
-                                          homeController.formatPrice(orderGenrate.orderPriceList[index].quantity),
-                                          style: const TextStyle(
-                                            color: Colors.black,
-                                            fontFamily: ConstFont.popinsRegular,
-                                            fontSize: 15,
-                                          ),
-                                          overflow: TextOverflow.ellipsis,
+                                        Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            const Text(
+                                              "Stock Quantity : ",
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontFamily: ConstFont.popinsMedium,
+                                                fontSize: 15,
+                                              ),
+                                            ),
+                                            Text(
+                                              homeController.formatPrice(orderGenrate.orderPriceList[index].quantity),
+                                              style: const TextStyle(
+                                                color: Colors.black,
+                                                fontFamily: ConstFont.popinsRegular,
+                                                fontSize: 15,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),

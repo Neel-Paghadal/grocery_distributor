@@ -209,7 +209,8 @@ class _GodownSearchScreenState extends State<GodownSearchScreen> {
                 SizedBox(
                   height: deviceHeight * 0.38,
                   child: Obx(
-                        () => orderGenrate.orderPriceList.isEmpty ? Loaders(
+                        () => orderGenrate.orderPriceList.isEmpty
+                            ? Loaders(
                       items: 5,
                       direction: LoaderDirection.ltr,
                       builder: Padding(
@@ -247,7 +248,8 @@ class _GodownSearchScreenState extends State<GodownSearchScreen> {
                           ],
                         ),
                       ),
-                    ) :  ListView.builder(
+                    )
+                            :  ListView.builder(
                       controller: ScrollController(),
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,

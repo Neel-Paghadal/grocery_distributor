@@ -119,7 +119,8 @@ class ConstPreferences {
 
   Future<void> saveProductList(RxList<GetNotificationData> productList) async {
     final prefs = await SharedPreferences.getInstance();
-    String productListJson = getNotificationDataToJson(productList);
+    // String productListJson = getNotificationDataToJson(productList);
+    String productListJson = json.encode(productList.map((x) => x.toJson()).toList());
     await prefs.setString('productList', productListJson);
   }
 
@@ -130,9 +131,9 @@ class ConstPreferences {
       List<GetNotificationData> productList = getNotificationDataFromJson(productListJson);
       return RxList<GetNotificationData>.from(productList);
     }
-    return <GetNotificationData>[].obs;
+    // return <GetNotificationData>[].obs;
+    return RxList<GetNotificationData>();
   }
-
 
   void clearPreferences() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();

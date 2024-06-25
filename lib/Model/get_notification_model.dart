@@ -6,6 +6,24 @@ import 'dart:convert';
 
 List<GetNotificationData> getNotificationDataFromJson(String str) => List<GetNotificationData>.from(json.decode(str).map((x) => GetNotificationData.fromJson(x)));
 
+// List<GetNotificationData> getNotificationDataFromJson(String str) {
+//   if (str == null || str.isEmpty) {
+//     return [];
+//   }
+//
+//   try {
+//     final jsonData = json.decode(str);
+//     if (jsonData is List) {
+//       return List<GetNotificationData>.from(jsonData.map((x) => GetNotificationData.fromJson(x)));
+//     } else {
+//       throw FormatException("Expected a list");
+//     }
+//   } catch (e) {
+//     print("Error decoding JSON: $e");
+//     return [];
+//   }
+// }
+
 String getNotificationDataToJson(List<GetNotificationData> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class GetNotificationData {

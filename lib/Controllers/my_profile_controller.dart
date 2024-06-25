@@ -64,9 +64,14 @@ class MyProfileController extends GetxController {
       debugPrint(messageCode.toString());
       if (messageCode == 200) {
         userList.clear();
-        userList.addAll(responseData.data);
-        ConstPreferences().setUserData(responseData.data[0]);
-        debugPrint("user data Get Successfully");
+        if (responseData.data.isNotEmpty) {
+          userList.addAll(responseData.data);
+          ConstPreferences().setUserData(responseData.data[0]);
+          debugPrint("user data Get Successfully");
+        }
+        // userList.addAll(responseData.data);
+        // ConstPreferences().setUserData(responseData.data[0]);
+        // debugPrint("user data Get Successfully");
       } else {
         debugPrint("Error");
       }
@@ -92,10 +97,16 @@ class MyProfileController extends GetxController {
       messageCode = responseData.messageCode;
       debugPrint(messageCode.toString());
       if (messageCode == 200) {
-        lowStockCount.value = responseData.data[0].lowStockCount.toString();
-        totalStockCount.value = responseData.data[0].totalStockCount.toString();
-        print("totalStockCount${totalStockCount.value}");
-        debugPrint("user data Get Successfully");
+        if (responseData.data.isNotEmpty) {
+          lowStockCount.value = responseData.data[0].lowStockCount.toString();
+          totalStockCount.value = responseData.data[0].totalStockCount.toString();
+          print("totalStockCount${totalStockCount.value}");
+          debugPrint("user data Get Successfully");
+        }
+        // lowStockCount.value = responseData.data[0].lowStockCount.toString();
+        // totalStockCount.value = responseData.data[0].totalStockCount.toString();
+        // print("totalStockCount${totalStockCount.value}");
+        // debugPrint("user data Get Successfully");
       } else {
         debugPrint("Error");
       }

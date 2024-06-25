@@ -73,8 +73,8 @@ class _StockRequestScreenState extends State<StockRequestScreen> {
           springAnimationDurationInMilliseconds: 1,
           child: stockRequestController.stockRequestList.isEmpty
               ? stockRequestController.isNoRequest.value == false
-              ? Center(child: Text("No Data Found")) :
-          Loaders(
+              ? Center(child: Text("No Data Found"))
+              : Loaders(
                   items: 8,
                   direction: LoaderDirection.ltr,
                   builder: Padding(
@@ -108,8 +108,7 @@ class _StockRequestScreenState extends State<StockRequestScreen> {
                     ),
                   ),
                 )
-
-                  : ListView.builder(
+              : ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
                       itemCount: stockRequestController.stockRequestList.length,
