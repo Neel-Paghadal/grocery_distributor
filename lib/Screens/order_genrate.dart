@@ -181,10 +181,13 @@ class _OrderGenrateState extends State<OrderGenrate> {
             return _loading
                 ? Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Center(
-                      child: const CircularProgressIndicator(
-                          color: ConstColour.primaryColor),
-                      widthFactor: deviceWidth * 0.1,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Center(
+                        child: const CircularProgressIndicator(
+                            color: ConstColour.primaryColor),
+                        widthFactor: deviceWidth * 0.1,
+                      ),
                     ),
                   )
                 : Container();

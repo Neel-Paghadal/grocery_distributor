@@ -228,8 +228,8 @@ class _HomeDrawerState extends State<HomeDrawer> {
             splashColor: ConstColour.btnHowerColor,
             leading: SvgPicture.asset("assets/Icons/lowstock.svg"),
             onTap: () {
-              Get.back();
-              Get.to(const LowStockScreen());
+              // Get.back();
+              Get.to(() => LowStockScreen());
             },
             title: const Text(
               "Low Stock",
@@ -240,7 +240,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
               ),
             ),
           ),
-          ListTile(
+          /*ListTile(
             splashColor: ConstColour.btnHowerColor,
             leading: SvgPicture.asset("assets/Icons/ads.svg"),
             onTap: () {
@@ -254,7 +254,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                 color: Colors.black,
               ),
             ),
-          ),
+          ),*/
           ListTile(
             splashColor: ConstColour.btnHowerColor,
             leading: const Icon(

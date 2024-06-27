@@ -26,7 +26,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   // CartController cartController = Get.put(CartController());
   UserListController userListController = Get.put(UserListController());
 
-  final screens = [
+  final List<Widget> screens = [
     HomeScreen(),
     LiveorderPage(),
     WalletScreen(),
@@ -41,6 +41,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
         currentIndex: homeController.currentIndex,
         unselectedItemColor: Colors.black,
         selectedItemColor: Colors.black,
+        type: BottomNavigationBarType.fixed,
         selectedLabelStyle: TextStyle(
           fontFamily: ConstFont.popinsMedium,
           color: Colors.black,
@@ -88,20 +89,25 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
             homeController.currentIndex = value;
           });
 
-          if (value == 1) {
-            homeController.orderType = 1;
-          }
-
           if (value == 0) {
             homeController.LiveOrderApiCall();
             // homeController.AssignOrderApiCall(homeController.orderType.toString(), homeController.distributorId.toString());
           }
+
+          if (value == 1) {
+            homeController.orderType = 1;
+          }
+
           if (value == 3) {
             // userListController.UserListApiCall();
           }
         },
       ),
-      body: WillPopScope(
+      body: IndexedStack(
+        index: homeController.currentIndex,
+        children: screens,
+      ),
+      /*WillPopScope(
         onWillPop: () async {
           SystemNavigator.pop();
           return false;
@@ -110,7 +116,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
           index: homeController.currentIndex,
           children: screens,
         ),
-      ),
+      ),*/
     );
   }
 }
