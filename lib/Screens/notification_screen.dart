@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:grocery_distributor/Controllers/notification_controller.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+import '../ConstFile/constColor.dart';
 import '../ConstFile/constFonts.dart';
 import 'loader.dart';
 
@@ -14,14 +16,21 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
-  NotificationController notificationController =
-      Get.put(NotificationController());
+  NotificationController notificationController = Get.put(NotificationController());
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     notificationController.getNotification();
   }
+
+  Future<void> _handleRefresh() async {
+    debugPrint("ScreenRefresh");
+    notificationController.getNotification();
+    return await Future.delayed(const Duration(seconds: 1));
+  }
+
   @override
   Widget build(BuildContext context) {
     var deviceHeight = MediaQuery.of(context).size.height;
@@ -45,78 +54,86 @@ class _NotificationScreenState extends State<NotificationScreen> {
           style: TextStyle(color: Colors.black),
         ),
       ),
-      body: Obx(() => notificationController.notificationList.isEmpty
-          ? Loaders(
-              items: 8,
-              direction: LoaderDirection.ltr,
-              builder: Padding(
-                padding: EdgeInsets.only(right: deviceWidth * 0.01),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ListTile(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6)),
-                        title: Container(
-                            width: deviceWidth * 0.2,
-                            height: deviceHeight * 0.005,
-                            color: Colors.grey),
-                        subtitle: Container(
-                            width: deviceWidth * 0.2,
-                            height: deviceHeight * 0.005,
-                            color: Colors.grey),
-                        tileColor: Colors.grey.shade100,
-                        leading: const Icon(
-                          Icons.image,
-                          size: 50,
-                          color: Colors.white,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            )
-          : notificationController.isNoNewNotification.value == false
-              ? Center(child: Text("No Data Found"))
-              : ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  itemCount: notificationController.notificationList.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: deviceHeight * 0.005,
-                          horizontal: deviceWidth * 0.02),
-                      child: Card(
-                        elevation: 4.0,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6)),
-                        child: ListTile(
-                          dense: false,
-                          tileColor: Colors.grey.shade50,
+      body: Obx(() => LiquidPullToRefresh(
+        color: ConstColour.shimmerBaseColor,
+        height: deviceHeight * 0.1,
+        onRefresh: _handleRefresh,
+        showChildOpacityTransition: false,
+        backgroundColor: ConstColour.primaryColor,
+        springAnimationDurationInMilliseconds: 1,
+        child: notificationController.notificationList.isEmpty
+            ? notificationController.isNoNewNotification.value == false
+            ? Center(child: Text("No Data Found"))
+            : Loaders(
+          items: 8,
+          direction: LoaderDirection.ltr,
+          builder: Padding(
+            padding: EdgeInsets.only(right: deviceWidth * 0.01),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6)),
+                    title: Container(
+                        width: deviceWidth * 0.2,
+                        height: deviceHeight * 0.005,
+                        color: Colors.grey),
+                    subtitle: Container(
+                        width: deviceWidth * 0.2,
+                        height: deviceHeight * 0.005,
+                        color: Colors.grey),
+                    tileColor: Colors.grey.shade100,
+                    leading: const Icon(
+                      Icons.image,
+                      size: 50,
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        )
+            : ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemCount: notificationController.notificationList.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: deviceHeight * 0.005,
+                            horizontal: deviceWidth * 0.02),
+                        child: Card(
+                          elevation: 4.0,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(6)),
-                          leading: Icon(Icons.calendar_month_outlined),
-                          title: Text(
-                              notificationController
-                                  .notificationList[index].message
-                                  .toString(),
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontFamily: ConstFont.popinsMedium,
-                                fontSize: 16,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 2),
+                          child: ListTile(
+                            dense: false,
+                            tileColor: Colors.grey.shade50,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(6)),
+                            leading: Icon(Icons.calendar_month_outlined),
+                            title: Text(
+                                notificationController
+                                    .notificationList[index].message
+                                    .toString(),
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: ConstFont.popinsMedium,
+                                  fontSize: 16,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2),
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                )),
+                      );
+                    },
+                  ),
+      )),
     );
   }
 }

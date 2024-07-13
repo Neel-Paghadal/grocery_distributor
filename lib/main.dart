@@ -209,16 +209,16 @@ class _MyAppState extends State<MyApp> {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       RemoteNotification? notification = message.notification;
 
-      var responseData =
+     /* var responseData =
           getNotificationDataFromJson(message.data['details'].toString());
       productList.clear();
       productList.addAll(responseData);
-      debugPrint('Product List Notification: ${productList}');
+      debugPrint('Product List Notification: ${productList}');*/
 
 
-        var imageBytes = await getImageBytes(productList[count].imageName);
-        print("Notification Icon " + productList[count].imageName);
-        // var imageBytes = await getImageBytes(notification!.android!.imageUrl.toString());
+        // var imageBytes = await getImageBytes(productList[count].imageName);
+        // print("Notification Icon " + productList[count].imageName);
+        var imageBytes = await getImageBytes(notification!.android!.imageUrl.toString());
         print("gdxd  " + notification!.android!.imageUrl.toString());
 
         // Convert image bytes to an AndroidBitmap

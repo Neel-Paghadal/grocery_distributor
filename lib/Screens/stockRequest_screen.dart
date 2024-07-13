@@ -60,7 +60,7 @@ class _StockRequestScreenState extends State<StockRequestScreen> {
           backgroundColor: Colors.white,
           centerTitle: true,
           title: const Text(
-            "Requested Stock",
+            "Stock Requested List",
             style: TextStyle(color: Colors.black),
           ),
         ),

@@ -57,7 +57,7 @@ class _GodownScreenState extends State<GodownScreen> {
           backgroundColor: Colors.white,
           centerTitle: true,
           title: const Text(
-            "Godown Stock",
+            "Stock List",
             style: TextStyle(color: Colors.black),
           ),
         ),

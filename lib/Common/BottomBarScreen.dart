@@ -7,11 +7,13 @@ import 'package:grocery_distributor/ConstFile/constColor.dart';
 import 'package:grocery_distributor/ConstFile/constFonts.dart';
 import 'package:grocery_distributor/Controllers/home_controller.dart';
 import 'package:grocery_distributor/Controllers/user_list_controller.dart';
+import 'package:grocery_distributor/Controllers/wallet_controller.dart';
 import 'package:grocery_distributor/Screens/home_screen.dart';
 import 'package:grocery_distributor/Screens/live_order.dart';
 import 'package:grocery_distributor/Screens/order_details.dart';
 import 'package:grocery_distributor/Screens/user_list.dart';
 
+import '../ConstFile/constPreferences.dart';
 import '../Screens/wallet/wallet_screen.dart';
 
 class BottomBarScreen extends StatefulWidget {
@@ -25,6 +27,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   HomeController homeController = Get.put(HomeController());
   // CartController cartController = Get.put(CartController());
   UserListController userListController = Get.put(UserListController());
+  WalletController walletController = Get.put(WalletController());
 
   final List<Widget> screens = [
     HomeScreen(),
@@ -84,7 +87,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
                       ? ConstColour.primaryColor
                       : Colors.black)),
         ],
-        onTap: (value) {
+        onTap: (value) async {
           setState(() {
             homeController.currentIndex = value;
           });
@@ -96,6 +99,13 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
 
           if (value == 1) {
             homeController.orderType = 1;
+          }
+
+          if (value == 2) {
+            double? amount = await ConstPreferences().getDistributorWalletAmount();
+            walletController.totalWalletAmount.value = amount ?? 0.0;
+            debugPrint(walletController.totalWalletAmount.value.toString());
+            walletController.getPrefData();
           }
 
           if (value == 3) {

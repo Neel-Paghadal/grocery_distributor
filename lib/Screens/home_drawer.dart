@@ -177,13 +177,31 @@ class _HomeDrawerState extends State<HomeDrawer> {
           ),
           ListTile(
             splashColor: ConstColour.btnHowerColor,
+            leading: const Icon(Icons.shopping_cart_outlined,
+                color: ConstColour.primaryColor),
+            onTap: () {
+              Get.back();
+
+              Get.to(() => const OrderGenrate());
+            },
+            title: const Text(
+              "Stock In",
+              style: TextStyle(
+                fontSize: 15,
+                fontFamily: ConstFont.popinsRegular,
+                color: Colors.black,
+              ),
+            ),
+          ),
+          ListTile(
+            splashColor: ConstColour.btnHowerColor,
             leading: SvgPicture.asset("assets/Icons/stock.svg"),
             onTap: () {
               Get.back();
               Get.to(() => const GodownScreen());
             },
             title: const Text(
-              "Godown Stock",
+              "Stock List",
               style: TextStyle(
                 fontSize: 15,
                 fontFamily: ConstFont.popinsRegular,
@@ -198,25 +216,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
               Get.to(() => const StockRequestScreen());
             },
             title: const Text(
-              "Requested Stock",
-              style: TextStyle(
-                fontSize: 15,
-                fontFamily: ConstFont.popinsRegular,
-                color: Colors.black,
-              ),
-            ),
-          ),
-          ListTile(
-            splashColor: ConstColour.btnHowerColor,
-            leading: const Icon(Icons.shopping_cart_outlined,
-                color: ConstColour.primaryColor),
-            onTap: () {
-              Get.back();
-
-              Get.to(() => const OrderGenrate());
-            },
-            title: const Text(
-              "Genrate Order",
+              "Stock Requested List",
               style: TextStyle(
                 fontSize: 15,
                 fontFamily: ConstFont.popinsRegular,

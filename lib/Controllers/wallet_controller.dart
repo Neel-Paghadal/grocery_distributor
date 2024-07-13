@@ -2,6 +2,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:grocery_distributor/Controllers/my_profile_controller.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Common/utils.dart';
@@ -10,8 +11,9 @@ import '../ConstFile/constPreferences.dart';
 
 
 class WalletController extends GetxController{
+  MyProfileController myProfileController = Get.put(MyProfileController());
 
-  RxDouble? walletAmount = 0.0.obs;
+  RxDouble walletAmount = 0.0.obs;
   TextEditingController cardNumberController = TextEditingController();
   TextEditingController expiryController = TextEditingController();
   TextEditingController cvvController = TextEditingController();
@@ -20,11 +22,25 @@ class WalletController extends GetxController{
   RxDouble totalWalletAmount = 0.0.obs;
   RxBool isShowWallet = false.obs;
 
-  void getPrefData() async {
-    final SharedPreferences pref = await SharedPreferences.getInstance();
-    // Users? userData =  await ConstPreferences().getUserData();
-    // totalWalletAmount.value = userData!.amount;
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    getPrefData();
   }
+
+
+  void getPrefData() async {
+    walletAmount.value = (await ConstPreferences().getDistributorWalletAmount())!;
+    totalWalletAmount.value = walletAmount.value;
+    print("amount"+ totalWalletAmount.value.toString());
+  }
+
+  // void getPrefData() async {
+  //   final SharedPreferences pref = await SharedPreferences.getInstance();
+  //   // Users? userData =  await ConstPreferences().getUserData();
+  //   // totalWalletAmount.value = userData!.amount;
+  // }
 
   Future<void> addWallet(String amount,String paymentStatus)async {
     // String? User_Id = await ConstPreferences().getUserId('UserId');

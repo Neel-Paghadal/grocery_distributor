@@ -62,7 +62,9 @@ class Services{
         Get.to(() => BottomBarScreen(),arguments: {homeController.currentIndex = 0});
 
         // Get.to(()=> BottomAppBar(),arguments: 1);
-      }else{
+      } else if(message == 202) {
+        Utils().toastMessage("Company Distributor role is not yet supported");
+      } else{
         Utils().toastMessage("Invalid Email & Password");
       }
     } else {

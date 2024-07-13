@@ -100,6 +100,9 @@ class MyProfileController extends GetxController {
         if (responseData.data.isNotEmpty) {
           lowStockCount.value = responseData.data[0].lowStockCount.toString();
           totalStockCount.value = responseData.data[0].totalStockCount.toString();
+          var amount = responseData.data[0].totalAmount.toDouble();
+          ConstPreferences().setDistributorWalletAmount(amount);
+          print("Amount1234${amount}");
           print("totalStockCount${totalStockCount.value}");
           debugPrint("user data Get Successfully");
         }

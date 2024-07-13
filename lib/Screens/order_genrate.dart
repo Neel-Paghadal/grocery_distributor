@@ -85,77 +85,83 @@ class _OrderGenrateState extends State<OrderGenrate> {
     var deviceHeight = MediaQuery.of(context).size.height;
     var deviceWidth = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      backgroundColor: ConstColour.bgColor,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const Text(
-          "Order Genrate",
-          style: TextStyle(color: Colors.black),
-        ),
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black,
+    return WillPopScope(
+      onWillPop: () async {
+        Get.back();
+        return false;
+      },
+      child: Scaffold(
+        backgroundColor: ConstColour.bgColor,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          title: const Text(
+            "Stock In",
+            style: TextStyle(color: Colors.black),
+          ),
+          leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
+            ),
+          ),
+          centerTitle: true,
+          elevation: 0,
+          iconTheme: const IconThemeData(
+            color: Colors.black, // Change this color to your desired color
           ),
         ),
-        centerTitle: true,
-        elevation: 0,
-        iconTheme: const IconThemeData(
-          color: Colors.black, // Change this color to your desired color
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(
-                top: deviceHeight * 0.0,
-                left: deviceWidth * 0.02,
-                right: deviceWidth * 0.02),
-            child: Card(
-              color: Colors.white,
-              elevation: 5.0,
-              child: TextFormField(
-                onTap: () {
-                  Get.to(() => const SearchScreen());
-                },
-                showCursor: false,
-                autofocus: false,
-                readOnly: false,
-                keyboardType: TextInputType.none,
-                decoration: InputDecoration(
-                  labelStyle: const TextStyle(color: Colors.black),
-                  fillColor: Colors.white,
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide.none),
-                  focusedBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.transparent),
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                  ),
-                  border: InputBorder.none,
-                  filled: true,
-                  isDense: true,
-                  hintText: "Search For Products...",
-                  hintStyle: const TextStyle(
-                      color: Colors.black,
-                      fontFamily: ConstFont.popinsRegular,
-                      fontSize: 16,
-                      overflow: TextOverflow.ellipsis),
-                  suffixIcon: const Icon(
-                    CupertinoIcons.search,
-                    size: 24,
-                    color: ConstColour.primaryColor,
+        body: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                  top: deviceHeight * 0.0,
+                  left: deviceWidth * 0.02,
+                  right: deviceWidth * 0.02),
+              child: Card(
+                color: Colors.white,
+                elevation: 5.0,
+                child: TextFormField(
+                  onTap: () {
+                    Get.to(() => const SearchScreen());
+                  },
+                  showCursor: false,
+                  autofocus: false,
+                  readOnly: false,
+                  keyboardType: TextInputType.none,
+                  decoration: InputDecoration(
+                    labelStyle: const TextStyle(color: Colors.black),
+                    fillColor: Colors.white,
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide.none),
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.transparent),
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                    ),
+                    border: InputBorder.none,
+                    filled: true,
+                    isDense: true,
+                    hintText: "Search For Products...",
+                    hintStyle: const TextStyle(
+                        color: Colors.black,
+                        fontFamily: ConstFont.popinsRegular,
+                        fontSize: 16,
+                        overflow: TextOverflow.ellipsis),
+                    suffixIcon: const Icon(
+                      CupertinoIcons.search,
+                      size: 24,
+                      color: ConstColour.primaryColor,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          Flexible(child: Obx(() => _buildProductList())),
-        ],
+            Flexible(child: Obx(() => _buildProductList())),
+          ],
+        ),
       ),
     );
   }

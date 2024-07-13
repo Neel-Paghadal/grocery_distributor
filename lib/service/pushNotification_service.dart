@@ -77,13 +77,13 @@ class PushNotificationService {
       debugPrint('Message Image: ${message.notification!.android!.imageUrl}');
       debugPrint('Message data: ${message.data}');
 
-      if (message.data.containsKey('details') && message.data['details'] != null) {
+      if (message.data.containsKey('details') && message.data['details'] != null && message.data['details'].toString().isNotEmpty) {
         try {
           responseData = getNotificationDataFromJson(message.data['details'].toString());
           productList.clear();
           productList.addAll(responseData);
           if (productList.isNotEmpty) {
-            ConstPreferences().removePreference('productList');
+            await ConstPreferences().removePreference('productList');
             await ConstPreferences().saveProductList(productList);
             getPreferences();
           }
